@@ -32,12 +32,36 @@ app.get("/api/v1/deceaseds", (req, res) => {
     res.send(deceaseds);
 });
 
+//GET /api/v1/YYYYYY/loadInitialData
+
+app.get("/api/v1/deceaseds/loadInitialData", (req, res) => {
+
+    
+    var newDeceased = {
+    province: "Badajoz",
+    number: "10",
+    year: "2015"
+    };
+    var newDeceased2 = {
+    province: "Huelva",
+    number: "10",
+    year: "2015"
+    };
+    
+    deceaseds.push(newDeceased);
+    deceaseds.push(newDeceased2);
+    
+
+    res.sendStatus(201);
+});
+
+
 //POST /deceaseds/
 app.post("/api/v1/deceaseds", (req, res) => {
 
     var newDeceased = req.body;
-
-    deceaseds.push(newDeceased)
+    
+    deceaseds.push(newDeceased);
 
     res.sendStatus(201);
 });
@@ -168,6 +192,30 @@ app.get("/api/v1/elements", (req,res)=>{
     res.send(elements);
 });
 
+//GET /api/v1/YYYYYY/loadInitialData
+
+app.get("/api/v1/elements/loadInitialData", (req, res) => {
+
+    
+    var newDeceased = {
+    province: "Badajoz",
+    year: "2015",
+    victims: "10"
+    };
+    var newDeceased2 = {
+    province: "Huelva",
+    year: "2015",
+     victims: "10"
+    };
+    
+    deceaseds.push(newDeceased);
+    deceaseds.push(newDeceased2);
+    
+
+    res.sendStatus(201);
+});
+
+
 
 // POST /elements/
 
@@ -294,6 +342,27 @@ var injuredHospitalized = [{
 
 app.get("/api/v1/injuredHospitalized", (req,res)=>{
     res.send(injuredHospitalized);
+});
+
+app.get("/api/v1/injuredHospitalized/loadInitialData", (req, res) => {
+
+    
+    var newDeceased = {
+    province: "Badajoz",
+    year: "2015",
+    accidents: "10"
+    };
+    var newDeceased2 = {
+    province: "Huelva",
+    year: "2015",
+    accidents: "10"
+    };
+    
+    deceaseds.push(newDeceased);
+    deceaseds.push(newDeceased2);
+    
+
+    res.sendStatus(201);
 });
 
 
