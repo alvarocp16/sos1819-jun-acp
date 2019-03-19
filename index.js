@@ -5,14 +5,16 @@ var bodyParser = require("body-parser");
 
 var path = require("path");
 
-var bodyParser = require("body-parser");
 
 var app = express();
 
 app.use("/", express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080
+app.use("/", express.static(path.join(__dirname, "/api/v1/YYYYYY")));
+
+
+var port = process.env.PORT || 8080;
 
 //============ Antonio Perez ============
 
@@ -27,12 +29,12 @@ var deceaseds = [{
 }];
 
 //GET /deceaseds/
-app.get("/deceaseds", (req, res) => {
+app.get("/api/v1/deceaseds", (req, res) => {
     res.send(deceaseds);
 });
 
 //POST /deceaseds/
-app.post("/deceaseds", (req, res) => {
+app.post("/api/v1/deceaseds", (req, res) => {
 
     var newDeceased = req.body;
 
@@ -42,7 +44,7 @@ app.post("/deceaseds", (req, res) => {
 });
 
 //POST /deceaseds/Alava
-app.post("/deceaseds/:province", (req, res) => {
+app.post("/api/v1/deceaseds/:province", (req, res) => {
 
     res.sendStatus(405);
 });
@@ -50,7 +52,7 @@ app.post("/deceaseds/:province", (req, res) => {
 
 //DELETE /deceaseds/
 
-app.delete("/deceaseds", (req, res) => {
+app.delete("/api/v1/deceaseds", (req, res) => {
 
     deceaseds = [];
 
@@ -59,7 +61,7 @@ app.delete("/deceaseds", (req, res) => {
 
 //GET /deceaseds/albacete
 
-app.get("/deceaseds/:province", (req, res) => {
+app.get("/api/v1/deceaseds/:province", (req, res) => {
 
     var province = req.params.province;
 
@@ -78,7 +80,7 @@ app.get("/deceaseds/:province", (req, res) => {
 
 //PUT /deceaseds/petr
 
-app.put("/deceaseds/:province", (req, res) => {
+app.put("/api/v1/deceaseds/:province", (req, res) => {
 
     var province = req.params.province;
     var updatedContact = req.body;
@@ -103,7 +105,7 @@ app.put("/deceaseds/:province", (req, res) => {
 
 });
 
-app.put("/deceaseds/", (req, res) => {
+app.put("/api/v1/deceaseds/", (req, res) => {
 
     res.sendStatus(405);
 });
@@ -111,7 +113,7 @@ app.put("/deceaseds/", (req, res) => {
 
 //DELETE /deceaseds/petr
 
-app.delete("/deceaseds/:province", (req, res) => {
+app.delete("/api/v1/deceaseds/:province", (req, res) => {
 
     var province = req.params.province;
     var found = false;
@@ -163,14 +165,14 @@ var elements = [{
 
 // GET /elements/
 
-app.get("/elements", (req,res)=>{
+app.get("/api/v1/elements", (req,res)=>{
     res.send(elements);
 });
 
 
 // POST /elements/
 
-app.post("/elements", (req,res)=>{
+app.post("/api/v1/elements", (req,res)=>{
     
     var newElement = req.body;
     
@@ -181,7 +183,7 @@ app.post("/elements", (req,res)=>{
 
 // POST /elements/:province
 
-app.post("/elements/:province", (req,res)=>{
+app.post("/api/v1/elements/:province", (req,res)=>{
     
     res.sendStatus(405);
 });
@@ -189,7 +191,7 @@ app.post("/elements/:province", (req,res)=>{
 
 // DELETE /elements/
 
-app.delete("/elements", (req,res)=>{
+app.delete("/api/v1/elements", (req,res)=>{
     
     elements =  [];
 
@@ -199,7 +201,7 @@ app.delete("/elements", (req,res)=>{
 
 // GET /elements/sevilla
 
-app.get("/elements/:province", (req,res)=>{
+app.get("/api/v1/elements/:province", (req,res)=>{
 
     var province = req.params.province;
 
@@ -218,7 +220,7 @@ app.get("/elements/:province", (req,res)=>{
 
 // PUT /elements/sevilla
 
-app.put("/elements/:province", (req,res)=>{
+app.put("/api/v1/elements/:province", (req,res)=>{
 
     var province = req.params.province;
     var updatedElement = req.body;
@@ -246,7 +248,7 @@ app.put("/elements/:province", (req,res)=>{
 
 
 // PUT /elements/
-app.put("/elements", (req,res)=>{
+app.put("/api/v1/elements", (req,res)=>{
     
     res.sendStatus(405);
 });
@@ -254,7 +256,7 @@ app.put("/elements", (req,res)=>{
 
 // DELETE /elements/seville
 
-app.delete("/elements/:province", (req,res)=>{
+app.delete("/api/v1/elements/:province", (req,res)=>{
 
     var province = req.params.province;
     var found = false;
@@ -291,14 +293,14 @@ var injuredHospitalized = [{
 
 // GET /province/
 
-app.get("/injuredHospitalized", (req,res)=>{
+app.get("/api/v1/injuredHospitalized", (req,res)=>{
     res.send(injuredHospitalized);
 });
 
 
 // POST /injuredHospitalized/
 
-app.post("/injuredHospitalized", (req,res)=>{
+app.post("/api/v1/injuredHospitalized", (req,res)=>{
     
     var newInjuredHospitalized = req.body;
     
@@ -308,7 +310,7 @@ app.post("/injuredHospitalized", (req,res)=>{
 });
 
 // POST /injuredHospitalized/seville
-app.post("/injuredHospitalized/:province", (req,res)=>{
+app.post("/api/v1/injuredHospitalized/:province", (req,res)=>{
     
     res.sendStatus(405);
 });
@@ -316,7 +318,7 @@ app.post("/injuredHospitalized/:province", (req,res)=>{
 
 // DELETE /province/
 
-app.delete("/injuredHospitalized", (req,res)=>{
+app.delete("/api/v1/injuredHospitalized", (req,res)=>{
     
     injuredHospitalized =  [];
 
@@ -326,7 +328,7 @@ app.delete("/injuredHospitalized", (req,res)=>{
 
 // GET /contacts/peter
 
-app.get("/injuredHospitalized/:province", (req,res)=>{
+app.get("/api/v1/injuredHospitalized/:province", (req,res)=>{
 
     var province = req.params.province;
 
@@ -345,7 +347,7 @@ app.get("/injuredHospitalized/:province", (req,res)=>{
 
 // PUT /contacts/sevilla
 
-app.put("/injuredHospitalized/:province", (req,res)=>{
+app.put("/api/v1/injuredHospitalized/:province", (req,res)=>{
 
     var province = req.params.province;
     var updatedInjuredHospitalized = req.body;
@@ -372,7 +374,7 @@ app.put("/injuredHospitalized/:province", (req,res)=>{
 });
 
 // PUT /injuredHospitalized/
-app.put("/injuredHospitalized/", (req,res)=>{
+app.put("/api/v1/injuredHospitalized/", (req,res)=>{
     
     res.sendStatus(405);
 });
@@ -380,7 +382,7 @@ app.put("/injuredHospitalized/", (req,res)=>{
 
 // DELETE /contacts/peter
 
-app.delete("/injuredHospitalized/:province", (req,res)=>{
+app.delete("/api/v1/injuredHospitalized/:province", (req,res)=>{
 
     var province = req.params.province;
     var found = false;
