@@ -1,11 +1,14 @@
+
 var express = require("express");
+
 var bodyParser = require("body-parser");
 
 var app = express();
 
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8080
+
 
 var deceaseds = [{
     province: "Alava",
@@ -32,11 +35,12 @@ app.post("/deceaseds", (req, res) => {
     res.sendStatus(201);
 });
 
-//POST /deceaseds/:province
-app.post("/deceaseds", (req, res) => {
+//POST /deceaseds/Alava
+app.post("/deceaseds/:province", (req, res) => {
 
     res.sendStatus(405);
 });
+
 
 //DELETE /deceaseds/
 
@@ -93,11 +97,11 @@ app.put("/deceaseds/:province", (req, res) => {
 
 });
 
-//PUT /deceaseds/
-
 app.put("/deceaseds/", (req, res) => {
-    return res.sendStatus(405);
+
+    res.sendStatus(405);
 });
+
 
 //DELETE /deceaseds/petr
 
