@@ -6,12 +6,13 @@
   "author": "Mostafa Eweda <mo.eweda@gmail.com>",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^3.2.6",
-    "path": "^0.12.7"
+    "express": "^4.16.4",
+    "path": "^0.12.7",
+    "socket.io": "~0.9.14"
   },
   "scripts": {
     "start": "node index.js",
-    "test":"echo \"Error: no test specified\"&& exit 1"
+    "test": "echo \"Error: no test specified\"&& exit 1"
   },
   "devDependencies": {},
   "license": "ISC"
