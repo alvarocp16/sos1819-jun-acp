@@ -32,6 +32,12 @@ app.post("/deceaseds", (req, res) => {
     res.sendStatus(201);
 });
 
+//POST /deceaseds/:province
+app.post("/deceaseds", (req, res) => {
+
+    res.sendStatus(405);
+});
+
 //DELETE /deceaseds/
 
 app.delete("/deceaseds", (req, res) => {
@@ -72,8 +78,7 @@ app.put("/deceaseds/:province", (req, res) => {
         if (c.province == province) {
             found = true;
             return updatedContact;
-        }
-        else {
+        }else{
             return c;
         }
     });
@@ -86,6 +91,12 @@ app.put("/deceaseds/:province", (req, res) => {
         return res.sendStatus(200);
     }
 
+});
+
+//PUT /deceaseds/
+
+app.put("/deceaseds/", (req, res) => {
+    return res.sendStatus(405);
 });
 
 //DELETE /deceaseds/petr
@@ -116,3 +127,5 @@ app.listen(port, () => {
     console.log("I'm ready on port " + port);
 
 });
+
+
