@@ -196,16 +196,15 @@ app.get("/api/v1/elements", (req,res)=>{
 
 app.get("/api/v1/elements/loadInitialData", (req, res) => {
 
-    
     var newDeceased = {
-    province: "Badajoz",
+    province: "sevilla",
     year: "2015",
-    victims: "10"
+    victims: "4.200"
     };
     var newDeceased2 = {
-    province: "Huelva",
-    year: "2015",
-     victims: "10"
+    province: "sevilla",
+    year: "2014",
+    victims: "3.023"
     };
     
     deceaseds.push(newDeceased);
