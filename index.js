@@ -394,7 +394,7 @@ app.delete("/api/v1/injuredHospitalized", (req,res)=>{
 });
 
 
-// GET /contacts/peter
+// GET /contacts/province
 
 app.get("/api/v1/injuredHospitalized/:province", (req,res)=>{
 
