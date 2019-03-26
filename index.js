@@ -1,26 +1,23 @@
 var express = require("express");
-
 var bodyParser = require("body-parser");
-
-var path = require("path");
+//var path = require("path");
 
 const MongoClient = require("mongodb").MongoClient;
-const uri = "mongodb+srv://test:test@sos-sb5wi.mongodb.net/sos?retryWrites=true";
+const uri = "mongodb+srv://test:test@sos-wje4l.mongodb.net/sos1819?retryWrites=true";
 const client = new MongoClient(uri, { useNewUrlParser: true });
 
-var deceaseds; 
-
+var elements;
 client.connect(err => {
-   deceaseds = client.db("sos1819").collection("deceaseds");
+  elements = client.db("sos1819").collection("elements");
   console.log("Connected!");
 });
 
 var app = express();
 
-app.use("/", express.static(path.join(__dirname, "public")));
+//app.use("/", express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 
-app.use("/", express.static(path.join(__dirname, "/api/v1/YYYYYY")));
+//app.use("/", express.static(path.join(__dirname, "/api/v1/YYYYYY")));
 
 
 var port = process.env.PORT || 8080;
@@ -176,8 +173,8 @@ app.delete("/api/v1/deceaseds/:province", (req, res) => {
 });
 
 //============ Chamorro ========
-
-var elements = [{
+//F03
+/*var elements = [{
     province: "sevilla",
     year: "2016",
     victims: "3.863"
@@ -201,17 +198,25 @@ var elements = [{
     province: "asturias",
     year: "2014",
     victims: "1.295"
-}];
+}];*/
 
 // GET /elements/
-
-app.get("/api/v1/elements", (req,res)=>{
+//F03
+/*app.get("/api/v1/elements", (req,res)=>{
     res.send(elements);
+});*/
+//F04
+app.get("/api/v1/elements/", (req,res)=>{
+    elements.find({}).toArray((err,elementsArray)=>{
+        if(err)
+            console.log("Error: "+err);
+        res.send(elementsArray);        
+    });
 });
 
 //GET /api/v1/YYYYYY/loadInitialData
 
-app.get("/api/v1/elements/loadInitialData", (req, res) => {
+/*app.get("/api/v1/elements/loadInitialData", (req, res) => {
 
     var newDeceased = {
     province: "sevilla",
@@ -229,97 +234,132 @@ app.get("/api/v1/elements/loadInitialData", (req, res) => {
     
 
     res.sendStatus(201);
-});
+});*/
 
 
 
 // POST /elements/
-
-app.post("/api/v1/elements", (req,res)=>{
-    
+//F03
+/*app.post("/api/v1/elements", (req,res)=>{
     var newElement = req.body;
-    
     elements.push(newElement);
-    
     res.sendStatus(201);
+});*/
+//F04
+app.post("/api/v1/elements", (req,res)=>{
+    var newElement = req.body;
+    var province = req.body.province;
+    var year = req.body.year;
+    elements.find({ province: province, year: year}).toArray((err, elementsArray) => {
+        if (err){
+            console.log(err);
+        }
+        if (elementsArray != 0) {
+            res.sendStatus(409);
+        }else {
+            elements.insertOne(newElement);
+            res.sendStatus(201);
+        }
+    });
 });
-
 // POST /elements/:province
-
+//F03 y F04(es igual)
 app.post("/api/v1/elements/:province", (req,res)=>{
-    
     res.sendStatus(405);
 });
-
-
 // DELETE /elements/
-
-app.delete("/api/v1/elements", (req,res)=>{
+//F03
+/*app.delete("/api/v1/elements", (req,res)=>{
     
     elements =  [];
 
+    res.sendStatus(200);
+});*/
+//F04
+app.delete("/api/v1/elements", (req,res)=>{
+    elements.remove({});
     res.sendStatus(200);
 });
 
 
 // GET /elements/sevilla
-
-app.get("/api/v1/elements/:province", (req,res)=>{
+//F03
+/*app.get("/api/v1/elements/:province", (req,res)=>{
 
     var province = req.params.province;
 
     var filteredElements = elements.filter((c) =>{
        return c.province == province; 
-    })
+    });
     
     if (filteredElements.length >= 1){
         res.send(filteredElements[0]);
     }else{
         res.sendStatus(404);
     }
-
+});*/
+//F04
+app.get("/api/v1/elements/:province", (req,res)=>{
+    var province = req.params.province;
+    elements.find({"province":province}).toArray((err,filtered) =>{
+        if(err){
+            console.log("Error:"+err);
+        }
+        if(filtered.length >=1){
+            res.send(filtered[0]);
+        }else{
+            res.sendStatus(404);
+        }
+    });
 });
 
-
 // PUT /elements/sevilla
-
-app.put("/api/v1/elements/:province", (req,res)=>{
-
+//F03
+/*app.put("/api/v1/elements/:province", (req,res)=>{
     var province = req.params.province;
     var updatedElement = req.body;
     var found = false;
-
     var updatedElements = elements.map((c) =>{
-    
         if(c.province == province){
             found = true;
             return updatedElement;
         }else{
             return c;            
         }
- 
     });
-    
     if (found == false){
         res.sendStatus(404);
     }else{
         elements = updatedElements;
         res.sendStatus(200);
     }
-
+});*/
+//F04
+app.put("/api/v1/elements/:province", (req,res)=>{
+    var province = req.params.province;
+    var updatedElement = req.body;
+    var found = false;
+    elements.find({"province":province}).toArray((err, elementsArray)=>{
+        if(err)
+            console.log(err);
+        if (elementsArray==0){
+            res.sendStatus(404);
+        }else if(req.body.hasOwnProperty("province")==false || req.body.hasOwnProperty("year")==false || req.body.hasOwnProperty("number")==false || req.body.province != province){
+            res.sendStatus(400);
+        }else{
+            elements.updateOne({"province":province}, {$set:updatedElement});
+            res.sendStatus(200);
+        }
+    });
 });
-
-
 // PUT /elements/
+//F03 y F04, es igual
 app.put("/api/v1/elements", (req,res)=>{
-    
     res.sendStatus(405);
 });
-
-
 // DELETE /elements/seville
-
-app.delete("/api/v1/elements/:province", (req,res)=>{
+//F03
+/*app.delete("/api/v1/elements/:province", (req,res)=>{
 
     var province = req.params.province;
     var found = false;
@@ -339,8 +379,23 @@ app.delete("/api/v1/elements/:province", (req,res)=>{
         res.sendStatus(200);
     }
 
-});
+});*/
+//F04
+app.delete("/api/v1/elements/:province", (req,res)=>{
+    var province = req.params.province;
+    elements.find({ "province": province}).toArray((err, arrayElements) => {
+        if(err){
+             console.log("Error: " + err);
+        }
+        if(arrayElements.length == 0){
+            res.send(404);
+        }else{
+            elements.deleteOne({ "province": province});
+            res.send(200);
+        }
+    });
 
+});
 
 // ============= PETI ============
 
