@@ -4,6 +4,16 @@ var bodyParser = require("body-parser");
 
 var path = require("path");
 
+const MongoClient = require("mongodb").MongoClient;
+const uri = "mongodb+srv://test:test@sos-sb5wi.mongodb.net/sos?retryWrites=true";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+
+var deceaseds; 
+
+client.connect(err => {
+   deceaseds = client.db("sos1819").collection("deceaseds");
+  console.log("Connected!");
+});
 
 var app = express();
 
@@ -16,7 +26,7 @@ app.use("/", express.static(path.join(__dirname, "/api/v1/YYYYYY")));
 var port = process.env.PORT || 8080;
 
 //============ Antonio Perez ============
-
+/*
 var deceaseds = [{
     province: "Alava",
     number: "10",
@@ -26,10 +36,17 @@ var deceaseds = [{
     number: "22",
     year: "2015"
 }];
-
+*/
 //GET /deceaseds/
 app.get("/api/v1/deceaseds", (req, res) => {
-    res.send(deceaseds);
+    
+    deceaseds.find({}).toArray((err, deceasedsArray) =>{
+        if(err){
+            console.log("Error" +err);
+        }
+        res.send(deceasedsArray);
+    });
+
 });
 
 //GET /api/v1/YYYYYY/loadInitialData
@@ -61,7 +78,7 @@ app.post("/api/v1/deceaseds", (req, res) => {
 
     var newDeceased = req.body;
     
-    deceaseds.push(newDeceased);
+    deceaseds.insert(newDeceased);
 
     res.sendStatus(201);
 });
