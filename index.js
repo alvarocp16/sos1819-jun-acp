@@ -205,14 +205,15 @@ app.put("/api/v1/deceaseds/", (req, res) => {
 app.delete("/api/v1/deceaseds/:province", (req, res) => {
 
     var province = req.params.province;
-    deceaseds.find({ "province": province}).toArray((err, deceasedsArray) => {
-        if(err){
-             console.log("Error: " + err);
+    deceaseds.find({ "province": province }).toArray((err, deceasedsArray) => {
+        if (err) {
+            console.log("Error: " + err);
         }
-        if(deceasedsArray.length == 0){
+        if (deceasedsArray.length == 0) {
             res.send(404);
-        }else{
-            deceaseds.deleteOne({ "province": province});
+        }
+        else {
+            deceaseds.deleteOne({ "province": province });
             res.send(200);
         }
     });
@@ -222,7 +223,7 @@ app.delete("/api/v1/deceaseds/:province", (req, res) => {
 
 //DELETE /deceaseds/
 
-app.delete("/api/v1/deceaseds", (req,res)=>{
+app.delete("/api/v1/deceaseds", (req, res) => {
     deceaseds.remove({});
     res.sendStatus(200);
 });
@@ -254,14 +255,14 @@ app.delete("/api/v1/deceaseds", (req,res)=>{
     year: "2014",
     victims: "1.295"
 }];*/
-const MongoClient = require("mongodb").MongoClient;
-const uri = "mongodb+srv://test:test@sos-wje4l.mongodb.net/sos1819?retryWrites=true";
-const client = new MongoClient(uri, { useNewUrlParser: true });
+
+const uriacp = "mongodb+srv://test:test@sos-wje4l.mongodb.net/sos1819?retryWrites=true";
+const clientacp = new MongoClient(uriacp, { useNewUrlParser: true });
 
 var elements;
-client.connect(err => {
-  elements = client.db("sos1819").collection("elements");
-  console.log("Connected!");
+clientacp.connect(err => {
+    elements = clientacp.db("sos1819").collection("elements");
+    console.log("Connected!");
 });
 // GET /elements/
 //F03
@@ -269,11 +270,11 @@ client.connect(err => {
     res.send(elements);
 });*/
 //F04
-app.get("/api/v1/elements/", (req,res)=>{
-    elements.find({}).toArray((err,elementsArray)=>{
-        if(err)
-            console.log("Error: "+err);
-        res.send(elementsArray);        
+app.get("/api/v1/elements/", (req, res) => {
+    elements.find({}).toArray((err, elementsArray) => {
+        if (err)
+            console.log("Error: " + err);
+        res.send(elementsArray);
     });
 });
 
@@ -309,17 +310,18 @@ app.get("/api/v1/elements/", (req,res)=>{
     res.sendStatus(201);
 });*/
 //F04
-app.post("/api/v1/elements", (req,res)=>{
+app.post("/api/v1/elements", (req, res) => {
     var newElement = req.body;
     var province = req.body.province;
     var year = req.body.year;
-    elements.find({ province: province, year: year}).toArray((err, elementsArray) => {
-        if (err){
+    elements.find({ province: province, year: year }).toArray((err, elementsArray) => {
+        if (err) {
             console.log(err);
         }
         if (elementsArray != 0) {
             res.sendStatus(409);
-        }else {
+        }
+        else {
             elements.insertOne(newElement);
             res.sendStatus(201);
         }
@@ -327,7 +329,7 @@ app.post("/api/v1/elements", (req,res)=>{
 });
 // POST /elements/:province
 //F03 y F04(es igual)
-app.post("/api/v1/elements/:province", (req,res)=>{
+app.post("/api/v1/elements/:province", (req, res) => {
     res.sendStatus(405);
 });
 // DELETE /elements/
@@ -339,7 +341,7 @@ app.post("/api/v1/elements/:province", (req,res)=>{
     res.sendStatus(200);
 });*/
 //F04
-app.delete("/api/v1/elements", (req,res)=>{
+app.delete("/api/v1/elements", (req, res) => {
     elements.remove({});
     res.sendStatus(200);
 });
@@ -362,15 +364,16 @@ app.delete("/api/v1/elements", (req,res)=>{
     }
 });*/
 //F04
-app.get("/api/v1/elements/:province", (req,res)=>{
+app.get("/api/v1/elements/:province", (req, res) => {
     var province = req.params.province;
-    elements.find({"province":province}).toArray((err,filtered) =>{
-        if(err){
-            console.log("Error:"+err);
+    elements.find({ "province": province }).toArray((err, filtered) => {
+        if (err) {
+            console.log("Error:" + err);
         }
-        if(filtered.length >=1){
+        if (filtered.length >= 1) {
             res.send(filtered[0]);
-        }else{
+        }
+        else {
             res.sendStatus(404);
         }
     });
@@ -398,40 +401,43 @@ app.get("/api/v1/elements/:province", (req,res)=>{
     }
 });*/
 //F04
-app.put("/api/v1/elements/:province", (req,res)=>{
+app.put("/api/v1/elements/:province", (req, res) => {
     var province = req.params.province;
     var updatedElement = req.body;
     var found = false;
-    elements.find({"province":province}).toArray((err, elementsArray)=>{
-        if(err)
+    elements.find({ "province": province }).toArray((err, elementsArray) => {
+        if (err)
             console.log(err);
-        if (elementsArray==0){
+        if (elementsArray == 0) {
             res.sendStatus(404);
-        }else if(req.body.hasOwnProperty("province")==false || req.body.hasOwnProperty("year")==false || req.body.hasOwnProperty("number")==false || req.body.province != province){
+        }
+        else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false || req.body.province != province) {
             res.sendStatus(400);
-        }else{
-            elements.updateOne({"province":province}, {$set:updatedElement});
+        }
+        else {
+            elements.updateOne({ "province": province }, { $set: updatedElement });
             res.sendStatus(200);
         }
     });
 });
 // PUT /elements/
 //F03 y F04, es igual
-app.put("/api/v1/elements", (req,res)=>{
+app.put("/api/v1/elements", (req, res) => {
     res.sendStatus(405);
 });
 
 //F04
-app.delete("/api/v1/elements/:province", (req,res)=>{
+app.delete("/api/v1/elements/:province", (req, res) => {
     var province = req.params.province;
-    elements.find({ "province": province}).toArray((err, arrayElements) => {
-        if(err){
-             console.log("Error: " + err);
+    elements.find({ "province": province }).toArray((err, arrayElements) => {
+        if (err) {
+            console.log("Error: " + err);
         }
-        if(arrayElements.length == 0){
+        if (arrayElements.length == 0) {
             res.send(404);
-        }else{
-            elements.deleteOne({ "province": province});
+        }
+        else {
+            elements.deleteOne({ "province": province });
             res.send(200);
         }
     });
@@ -603,24 +609,36 @@ app.get("/api/v1/injured-hospitalized/:province", (req, res) => {
 app.put("/api/v1/injured-hospitalized/:province", (req, res) => {
 
     var province = req.params.province;
-    var updatedInjuredHospitalized = req.body;
-    var year = req.params.year;
-    var accident = req.params.accident;
+    var newIH = req.body;
+    var found = false;
+    
+    injuredHospitalized.find({ "province": province }).toArray((err, IHArray) => {
+        
+        if (err)
+            console.log(err);
 
-    injuredHospitalized.find({ province: province }).toArray((error, filtered) => {
-        if (error) {
-            console.log("Error:" + error);
+        if (IHArray == 0) {
+
+            res.sendStatus(404);
+
         }
-        if (filtered.length == 0) {
-            res.sendStatus(409);
+        else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("accident") == false ||
+            req.body.province != province) {
+
+            res.sendStatus(400);
+
         }
         else {
-            injuredHospitalized.updateOne({ province: province }, { $set: { year: year, accident: accident } });
+
+            injuredHospitalized.updateOne({ "province": province }, { $set: newIH });
             res.sendStatus(200);
+            console.log(newIH);
+            
+
         }
     });
-
 });
+
 
 // PUT /injuredHospitalized/
 app.put("/api/v1/injured-hospitalized/", (req, res) => {
