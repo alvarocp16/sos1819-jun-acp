@@ -4,16 +4,7 @@ var bodyParser = require("body-parser");
 
 var path = require("path");
 
-const MongoClient = require("mongodb").MongoClient;
-const uri = "mongodb+srv://test:test@sos-sb5wi.mongodb.net/sos?retryWrites=true";
-const client = new MongoClient(uri, { useNewUrlParser: true });
 
-var deceaseds; 
-
-client.connect(err => {
-   deceaseds = client.db("sos1819").collection("deceaseds");
-  console.log("Connected!");
-});
 
 var app = express();
 
@@ -358,55 +349,97 @@ app.delete("/api/v1/elements/:province", (req,res)=>{
 
 
 // ============= PETI ============
-
+/*
 var injuredHospitalized = [{
-    province: "seville",
+    province: "Sevilla",
     year: "2016",
     accidents:"356"
 }, {
-    province: "madrid",
+    province: "Madrid",
     year: "2016",
     accidents: "567"
 }];
+*/
+const MongoClient = require("mongodb").MongoClient;
+const uri = "mongodb+srv://test:test@sos-sb5wi.mongodb.net/sos?retryWrites=true";
+const client = new MongoClient(uri, { useNewUrlParser: true });
 
-// GET /province/
+var injuredHospitalized; 
 
-app.get("/api/v1/injured-hospitalized", (req,res)=>{
-    res.send(injuredHospitalized);
+client.connect(err => {
+   injuredHospitalized = client.db("sos1819").collection("injured-hospitalized");
+  console.log("Connected!");
 });
+
+//loadInitialData
 
 app.get("/api/v1/injured-hospitalized/loadInitialData", (req, res) => {
 
     
-    var newDeceased = {
-    province: "Badajoz",
-    year: "2015",
-    accidents: "10"
-    };
-    var newDeceased2 = {
-    province: "Huelva",
-    year: "2015",
-    accidents: "10"
-    };
+    var injHospitalized = [
+    {province: "Badajoz",
+    number: "3112",
+    year: "2015"},
+    {province: "Huelva",
+    number: "254",
+    year: "2015"},
     
-    deceaseds.push(newDeceased);
-    deceaseds.push(newDeceased2);
+    {province: "Seville",
+    number: "6586",
+    year: "2015"},
     
+    {province: "Madrid",
+    number: "8888",
+    year: "2015"},
+    
+    {province: "Huelva",
+    number: "7655",
+    year: "2015"}
+    
+    
+    ];
+    
+    injuredHospitalized.find({}).toArray((error, injuredHospitalizedArray) => {
+        if (injuredHospitalizedArray.length == 0){
+            injuredHospitalized.insert(injHospitalized);
+            res.send(201)
+        }else{
+            res.send(409);
+        }
+    });
+});
 
-    res.sendStatus(201);
+// GET /province/
+
+app.get("/api/v1/injured-hospitalized", (req, res) => {
+    
+    injuredHospitalized.find({}).toArray((err, injuredHospitalizedArray) =>{
+        if(err){
+            console.log("Error" +err);
+        }
+        res.send(injuredHospitalizedArray);
+    });
+
 });
 
 
 // POST /injured-hospitalized/
 
 app.post("/api/v1/injured-hospitalized", (req,res)=>{
-    
+    var newInjuredHospitalized = req.body;
+    injuredHospitalized.insert(newInjuredHospitalized);
+    res.send(201);
+});
+
+        
+    /*
     var newInjuredHospitalized = req.body;
     
     injuredHospitalized.push(newInjuredHospitalized)
     
     res.sendStatus(201);
-});
+    */
+
 
 // POST /injuredHospitalized/seville
 app.post("/api/v1/injured-hospitalized/:province", (req,res)=>{
