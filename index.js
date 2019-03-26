@@ -107,7 +107,6 @@ app.get("/api/v1/deceaseds/loadInitialData", (req, res) => {
 });
 
 
-
 //POST /deceaseds/
 
 app.post("/api/v1/deceaseds", (req, res) => {
