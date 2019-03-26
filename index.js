@@ -268,6 +268,10 @@ clientacp.connect(err => {
     elements = clientacp.db("sos1819").collection("elements");
     console.log("Connected!");
 });
+
+app.get("/api/v1/elements/docs/", (req,res)=>{
+    res.redirect("https://documenter.getpostman.com/view/1804509/S17tS8Nc");
+});
 // GET /elements/
 //F03
 /*app.get("/api/v1/elements", (req,res)=>{
@@ -472,12 +476,17 @@ client.connect(err => {
     console.log("Connected!");
 });
 
+
+app.get("/api/v1/injured-hospitalized/docs/", (req,res)=>{
+    res.redirect("https://documenter.getpostman.com/view/1804509/S17tS8Nc");
+});
+
 //loadInitialData
 
 app.get("/api/v1/injured-hospitalized/loadInitialData", (req, res) => {
 
 
-    var injHospitalized = [{
+    var injurHospitalized = [{
             province: "Sevilla",
             year: "2016",
             accident: "356"
@@ -509,12 +518,14 @@ app.get("/api/v1/injured-hospitalized/loadInitialData", (req, res) => {
 
     ];
 
-    injuredHospitalized.find({}).toArray((error, injuredHospitalizedArray) => {
-        if (injuredHospitalizedArray.length == 0) {
-            injuredHospitalized.insert(injHospitalized); //Hcer un for each y meter uno a uno
-            res.sendStatus(201)
+    injuredHospitalized.find({}).toArray((err, injHospitalizedArray) => {
+        if(err){
+            console.log("Error: " + err);
         }
-        else {
+        if(injHospitalizedArray).length==0){
+            injHospitalized.insert(injurHospitalized);
+            res.sendStatus(200);
+        }else{
             res.sendStatus(409);
         }
     });
