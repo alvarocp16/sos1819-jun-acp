@@ -11,6 +11,8 @@ app.use(bodyParser.json());
 
 app.use("/", express.static(path.join(__dirname, "/api/v1/YYYYYY")));
 
+app.use("/", express.static(path.join(__dirname, "/api/v1/YYYYYY/docs")));
+
 
 var port = process.env.PORT || 8080;
 
