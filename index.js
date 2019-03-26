@@ -552,8 +552,7 @@ app.post("/api/v1/injured-hospitalized", (req, res) => {
         }
         else {
 
-            injuredHospitalized.insertOne(newInjuredHospitalized);
-
+            injuredHospitalized.insert(newInjuredHospitalized);
             res.sendStatus(201);
         }
     });
