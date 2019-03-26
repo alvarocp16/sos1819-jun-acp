@@ -4,17 +4,6 @@ var bodyParser = require("body-parser");
 
 var path = require("path");
 
-const MongoClient = require("mongodb").MongoClient;
-const uri = "mongodb+srv://test:test@sos-sb5wi.mongodb.net/sos?retryWrites=true";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-
-var deceaseds; 
-
-client.connect(err => {
-   deceaseds = client.db("sos1819").collection("deceaseds");
-  console.log("Connected!");
-});
-
 var app = express();
 
 app.use("/", express.static(path.join(__dirname, "public")));
@@ -26,6 +15,20 @@ app.use("/", express.static(path.join(__dirname, "/api/v1/YYYYYY")));
 var port = process.env.PORT || 8080;
 
 //============ Antonio Perez ============
+
+const MongoClient = require("mongodb").MongoClient;
+const uriaps = "mongodb+srv://antoniops96:ANpeso96@sos1819-14-aps-htbgq.mongodb.net/test?retryWrites=true";
+const clientaps = new MongoClient(uriaps, { useNewUrlParser: true });
+
+var deceaseds;
+
+clientaps.connect(err => {
+    deceaseds = clientaps.db("sos1819-14-aps").collection("deceaseds");
+    // perform actions on the collection object
+    console.log("Connected!");
+});
+
+
 /*
 var deceaseds = [{
     province: "Alava",
@@ -39,10 +42,10 @@ var deceaseds = [{
 */
 //GET /deceaseds/
 app.get("/api/v1/deceaseds", (req, res) => {
-    
-    deceaseds.find({}).toArray((err, deceasedsArray) =>{
-        if(err){
-            console.log("Error" +err);
+
+    deceaseds.find({}).toArray((err, deceasedsArray) => {
+        if (err) {
+            console.log("Error" + err);
         }
         res.send(deceasedsArray);
     });
@@ -51,52 +54,87 @@ app.get("/api/v1/deceaseds", (req, res) => {
 
 //GET /api/v1/YYYYYY/loadInitialData
 
+var newDeceased = [{
+        province: "Badajoz",
+        number: "60",
+        year: "2015"
+    },
+
+    {
+        province: "Malaga",
+        number: "20",
+        year: "2015"
+    },
+
+    {
+        province: "Seville",
+        number: "10",
+        year: "2015"
+    },
+
+    {
+        province: "Madrid",
+        number: "40",
+        year: "2015"
+    },
+
+    {
+        province: "Huelva",
+        number: "10",
+        year: "2015"
+    }
+];
+
 app.get("/api/v1/deceaseds/loadInitialData", (req, res) => {
 
-    
-    var newDeceased = [
-    {province: "Badajoz",
-    number: "60",
-    year: "2015"},
-    
-    {province: "Huelva",
-    number: "20",
-    year: "2015"},
-    
-    {province: "Seville",
-    number: "10",
-    year: "2015"},
-    
-    {province: "Madrid",
-    number: "40",
-    year: "2015"},
-    
-    {province: "Huelva",
-    number: "10",
-    year: "2015"}
-    
-    
-    ];
-    
-    
-    newDeceased.forEach((i) => {
-        deceaseds.push(i);
-    })
-   
+    deceaseds.find({}, { projection: { _id: 0 } }).toArray((err, deceaseds) => {
 
-    res.sendStatus(201);
+        if (deceaseds.length == 0) {
+
+            deceaseds.insert(newDeceased);
+            res.sendStatus(200);
+            //console.log("Base de datos inicializada con: " +deceaseds.length+ "campos");
+
+        }
+        else {
+
+            res.sendStatus(409);
+
+        }
+
+    });
+
 });
+
 
 
 //POST /deceaseds/
+
 app.post("/api/v1/deceaseds", (req, res) => {
 
     var newDeceased = req.body;
-    
-    deceaseds.insert(newDeceased);
+    var province = req.body.province;
+    var year = req.body.year;
 
-    res.sendStatus(201);
+    deceaseds.find({ province: province, year: year }).toArray((err, deceasedsArray) => {
+        if (err) {
+            console.log(err);
+        }
+        if (deceasedsArray != 0) {
+
+            res.sendStatus(409);
+
+        }
+        else {
+
+            deceaseds.insert(newDeceased);
+
+            res.sendStatus(201);
+        }
+    });
 });
+
+
 
 //POST /deceaseds/Alava
 app.post("/api/v1/deceaseds/:province", (req, res) => {
@@ -105,32 +143,22 @@ app.post("/api/v1/deceaseds/:province", (req, res) => {
 });
 
 
-//DELETE /deceaseds/
-
-app.delete("/api/v1/deceaseds", (req, res) => {
-
-    deceaseds = [];
-
-    res.sendStatus(200);
-});
 
 //GET /deceaseds/albacete
 
 app.get("/api/v1/deceaseds/:province", (req, res) => {
-
     var province = req.params.province;
-
-    var filteredDeceaseds = deceaseds.filter((c) => {
-        return c.province == province;
-    })
-
-    if (filteredDeceaseds.length >= 1) {
-        res.send(filteredDeceaseds[0]);
-    }
-    else {
-        res.sendStatus(404);
-    }
-
+    deceaseds.find({ province: province }).toArray((err, filtered) => {
+        if (err) {
+            console.log("Error:" + err);
+        }
+        if (filtered.length >= 1) {
+            res.send(filtered);
+        }
+        else {
+            res.sendStatus(404);
+        }
+    });
 });
 
 //PUT /deceaseds/petr
@@ -138,27 +166,34 @@ app.get("/api/v1/deceaseds/:province", (req, res) => {
 app.put("/api/v1/deceaseds/:province", (req, res) => {
 
     var province = req.params.province;
-    var updatedContact = req.body;
+    var newDeceased = req.body;
     var found = false;
 
-    var updatedDeceaseds = deceaseds.map((c) => {
-        if (c.province == province) {
-            found = true;
-            return updatedContact;
-        }else{
-            return c;
+    deceaseds.find({ "province": province }).toArray((err, deceasedsArray) => {
+        if (err)
+            console.log(err);
+
+        if (deceasedsArray == 0) {
+
+            res.sendStatus(404);
+
+        }
+        else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false ||
+            req.body.province != province) {
+
+            res.sendStatus(400);
+
+        }
+        else {
+
+            deceaseds.updateOne({ "province": province }, { $set: newDeceased });
+            res.sendStatus(200);
+
         }
     });
-
-    if (found == false) {
-        return res.sendStatus(404);
-    }
-    else {
-        deceaseds = updatedDeceaseds;
-        return res.sendStatus(200);
-    }
-
 });
+
+//PUT /deceaseds
 
 app.put("/api/v1/deceaseds/", (req, res) => {
 
@@ -171,28 +206,31 @@ app.put("/api/v1/deceaseds/", (req, res) => {
 app.delete("/api/v1/deceaseds/:province", (req, res) => {
 
     var province = req.params.province;
-    var found = false;
-
-    var updatedDeceaseds = deceaseds.filter((c) => {
-        if (c.province == province) {
-            found = true;
+    deceaseds.find({ "province": province}).toArray((err, deceasedsArray) => {
+        if(err){
+             console.log("Error: " + err);
         }
-        return c.province != province;
+        if(deceasedsArray.length == 0){
+            res.send(404);
+        }else{
+            deceaseds.deleteOne({ "province": province});
+            res.send(200);
+        }
     });
-
-    if (found == false) {
-        return res.sendStatus(404);
-    }
-    else {
-        deceaseds = updatedDeceaseds;
-        return res.sendStatus(200);
-    }
 
 });
 
-//============ Chamorro ========
 
-var elements = [{
+//DELETE /deceaseds/
+
+app.delete("/api/v1/deceaseds", (req,res)=>{
+    deceaseds.remove({});
+    res.sendStatus(200);
+});
+
+//=========================================================================== Chamorro ======================================
+
+/*var elements = [{
     province: "sevilla",
     year: "2016",
     victims: "3.863"
@@ -216,17 +254,33 @@ var elements = [{
     province: "asturias",
     year: "2014",
     victims: "1.295"
-}];
+}];*/
+const MongoClient = require("mongodb").MongoClient;
+const uri = "mongodb+srv://test:test@sos-wje4l.mongodb.net/sos1819?retryWrites=true";
+const client = new MongoClient(uri, { useNewUrlParser: true });
 
+var elements;
+client.connect(err => {
+  elements = client.db("sos1819").collection("elements");
+  console.log("Connected!");
+});
 // GET /elements/
-
-app.get("/api/v1/elements", (req,res)=>{
+//F03
+/*app.get("/api/v1/elements", (req,res)=>{
     res.send(elements);
+});*/
+//F04
+app.get("/api/v1/elements/", (req,res)=>{
+    elements.find({}).toArray((err,elementsArray)=>{
+        if(err)
+            console.log("Error: "+err);
+        res.send(elementsArray);        
+    });
 });
 
 //GET /api/v1/YYYYYY/loadInitialData
 
-app.get("/api/v1/elements/loadInitialData", (req, res) => {
+/*app.get("/api/v1/elements/loadInitialData", (req, res) => {
 
     var newDeceased = {
     province: "sevilla",
@@ -244,182 +298,274 @@ app.get("/api/v1/elements/loadInitialData", (req, res) => {
     
 
     res.sendStatus(201);
-});
+});*/
 
 
 
 // POST /elements/
-
-app.post("/api/v1/elements", (req,res)=>{
-    
+//F03
+/*app.post("/api/v1/elements", (req,res)=>{
     var newElement = req.body;
-    
     elements.push(newElement);
-    
     res.sendStatus(201);
+});*/
+//F04
+app.post("/api/v1/elements", (req,res)=>{
+    var newElement = req.body;
+    var province = req.body.province;
+    var year = req.body.year;
+    elements.find({ province: province, year: year}).toArray((err, elementsArray) => {
+        if (err){
+            console.log(err);
+        }
+        if (elementsArray != 0) {
+            res.sendStatus(409);
+        }else {
+            elements.insertOne(newElement);
+            res.sendStatus(201);
+        }
+    });
 });
-
 // POST /elements/:province
-
+//F03 y F04(es igual)
 app.post("/api/v1/elements/:province", (req,res)=>{
-    
     res.sendStatus(405);
 });
-
-
 // DELETE /elements/
-
-app.delete("/api/v1/elements", (req,res)=>{
+//F03
+/*app.delete("/api/v1/elements", (req,res)=>{
     
     elements =  [];
 
+    res.sendStatus(200);
+});*/
+//F04
+app.delete("/api/v1/elements", (req,res)=>{
+    elements.remove({});
     res.sendStatus(200);
 });
 
 
 // GET /elements/sevilla
-
-app.get("/api/v1/elements/:province", (req,res)=>{
+//F03
+/*app.get("/api/v1/elements/:province", (req,res)=>{
 
     var province = req.params.province;
 
     var filteredElements = elements.filter((c) =>{
        return c.province == province; 
-    })
+    });
     
     if (filteredElements.length >= 1){
         res.send(filteredElements[0]);
     }else{
         res.sendStatus(404);
     }
-
+});*/
+//F04
+app.get("/api/v1/elements/:province", (req,res)=>{
+    var province = req.params.province;
+    elements.find({"province":province}).toArray((err,filtered) =>{
+        if(err){
+            console.log("Error:"+err);
+        }
+        if(filtered.length >=1){
+            res.send(filtered[0]);
+        }else{
+            res.sendStatus(404);
+        }
+    });
 });
 
-
 // PUT /elements/sevilla
-
-app.put("/api/v1/elements/:province", (req,res)=>{
-
+//F03
+/*app.put("/api/v1/elements/:province", (req,res)=>{
     var province = req.params.province;
     var updatedElement = req.body;
     var found = false;
-
     var updatedElements = elements.map((c) =>{
-    
         if(c.province == province){
             found = true;
             return updatedElement;
         }else{
             return c;            
         }
- 
     });
-    
     if (found == false){
         res.sendStatus(404);
     }else{
         elements = updatedElements;
         res.sendStatus(200);
     }
-
+});*/
+//F04
+app.put("/api/v1/elements/:province", (req,res)=>{
+    var province = req.params.province;
+    var updatedElement = req.body;
+    var found = false;
+    elements.find({"province":province}).toArray((err, elementsArray)=>{
+        if(err)
+            console.log(err);
+        if (elementsArray==0){
+            res.sendStatus(404);
+        }else if(req.body.hasOwnProperty("province")==false || req.body.hasOwnProperty("year")==false || req.body.hasOwnProperty("number")==false || req.body.province != province){
+            res.sendStatus(400);
+        }else{
+            elements.updateOne({"province":province}, {$set:updatedElement});
+            res.sendStatus(200);
+        }
+    });
 });
-
-
 // PUT /elements/
+//F03 y F04, es igual
 app.put("/api/v1/elements", (req,res)=>{
-    
     res.sendStatus(405);
 });
 
-
-// DELETE /elements/seville
-
+//F04
 app.delete("/api/v1/elements/:province", (req,res)=>{
-
     var province = req.params.province;
-    var found = false;
-
-    var updatedElements = elements.filter((c) =>{
-        
-            if(c.province == province)  
-                found = true;
-        
-            return c.province != province;
+    elements.find({ "province": province}).toArray((err, arrayElements) => {
+        if(err){
+             console.log("Error: " + err);
+        }
+        if(arrayElements.length == 0){
+            res.send(404);
+        }else{
+            elements.deleteOne({ "province": province});
+            res.send(200);
+        }
     });
-    
-    if (found == false){
-        res.sendStatus(404);
-    }else{
-        elements = updatedElements;
-        res.sendStatus(200);
-    }
 
 });
+// ======================================================== PETI =====================================================================
 
-
-// ============= PETI ============
-
+/*
 var injuredHospitalized = [{
-    province: "seville",
+    province: "Sevilla",
     year: "2016",
     accidents:"356"
 }, {
-    province: "madrid",
+    province: "Madrid",
     year: "2016",
     accidents: "567"
 }];
+*/
 
-// GET /province/
+const uri = "mongodb+srv://test:test@sos-sb5wi.mongodb.net/sos1819?retryWrites=true";
+const client = new MongoClient(uri, { useNewUrlParser: true });
 
-app.get("/api/v1/injured-hospitalized", (req,res)=>{
-    res.send(injuredHospitalized);
+
+var injuredHospitalized;
+
+client.connect(err => {
+    injuredHospitalized = client.db("sos1819").collection("injured-hospitalized");
+    console.log("Connected!");
 });
+
+//loadInitialData
 
 app.get("/api/v1/injured-hospitalized/loadInitialData", (req, res) => {
 
-    
-    var newDeceased = {
-    province: "Badajoz",
-    year: "2015",
-    accidents: "10"
-    };
-    var newDeceased2 = {
-    province: "Huelva",
-    year: "2015",
-    accidents: "10"
-    };
-    
-    deceaseds.push(newDeceased);
-    deceaseds.push(newDeceased2);
-    
 
-    res.sendStatus(201);
+    var injHospitalized = [{
+            province: "Sevilla",
+            year: "2016",
+            accident: "356"
+        },
+
+        {
+            province: "Madrid",
+            year: "2016",
+            accident: "567"
+        },
+
+        {
+            province: "Madrid",
+            year: "2016",
+            accident: "935"
+        },
+
+        {
+            province: "Huelva",
+            year: "2013",
+            accident: "863"
+        },
+
+        {
+            province: "Asturias",
+            year: "2014",
+            accident: "567"
+        }
+
+    ];
+
+    injuredHospitalized.find({}).toArray((error, injuredHospitalizedArray) => {
+        if (injuredHospitalizedArray.length == 0) {
+            injuredHospitalized.insert(injHospitalized); //Hcer un for each y meter uno a uno
+            res.sendStatus(201)
+        }
+        else {
+            res.sendStatus(409);
+        }
+    });
+});
+
+// GET /injured-hospitalized
+
+app.get("/api/v1/injured-hospitalized", (req, res) => {
+
+    injuredHospitalized.find({}).toArray((err, injuredHospitalizedArray) => {
+        if (err) {
+            console.log("Error" + err);
+        }
+        res.send(injuredHospitalizedArray);
+    });
+
 });
 
 
 // POST /injured-hospitalized/
 
-app.post("/api/v1/injured-hospitalized", (req,res)=>{
-    
+app.post("/api/v1/injured-hospitalized", (req, res) => {
+
     var newInjuredHospitalized = req.body;
-    
-    injuredHospitalized.push(newInjuredHospitalized)
-    
-    res.sendStatus(201);
+    var province = req.body.province;
+    var year = req.body.year;
+    console.log(newInjuredHospitalized);
+
+    injuredHospitalized.find({ province: province, year: year }).toArray((err, injuredHospitalizedArray) => {
+        if (err) {
+            console.log(err);
+        }
+        if (injuredHospitalizedArray != 0) {
+
+            res.sendStatus(409);
+
+        }
+        else {
+
+            injuredHospitalized.insertOne(newInjuredHospitalized);
+
+            res.sendStatus(201);
+        }
+    });
 });
 
-// POST /injuredHospitalized/seville
-app.post("/api/v1/injured-hospitalized/:province", (req,res)=>{
-    
+
+// POST /elements/:province
+
+app.post("/api/v1/injured-hospitalized/:province", (req, res) => {
+
     res.sendStatus(405);
 });
 
 
-// DELETE /province/
+// DELETE 
 
-app.delete("/api/v1/injured-hospitalized", (req,res)=>{
-    
-    injuredHospitalized =  [];
+app.delete("/api/v1/injured-hospitalized", (req, res) => {
+
+    injuredHospitalized.remove({});
 
     res.sendStatus(200);
 });
@@ -427,82 +573,88 @@ app.delete("/api/v1/injured-hospitalized", (req,res)=>{
 
 // GET /contacts/province
 
-app.get("/api/v1/injured-hospitalized/:province", (req,res)=>{
+app.get("/api/v1/injured-hospitalized/:province", (req, res) => {
 
     var province = req.params.province;
 
-    var filtered = injuredHospitalized.filter((c) =>{
-       return c.province == province; 
-    })
-    
-    if (filtered.length >= 1){
-        res.send(filtered[0]);
-    }else{
-        res.sendStatus(404);
-    }
+    injuredHospitalized.find({ "province": province }).toArray((error, filtered) => {
+        if (error) {
+            console.log("Error:" + error);
+        }
 
+
+        //   var filtered = injuredHospitalized.filter((c) =>{
+        //      return c.province == province; 
+        //   })
+
+
+        if (filtered.length >= 1) {
+            res.send(filtered[0]);
+        }
+        else {
+            res.sendStatus(404);
+        }
+    });
 });
 
 
 // PUT /contacts/sevilla
 
-app.put("/api/v1/injured-hospitalized/:province", (req,res)=>{
+
+app.put("/api/v1/injured-hospitalized/:province", (req, res) => {
 
     var province = req.params.province;
     var updatedInjuredHospitalized = req.body;
-    var found = false;
+    var year = req.params.year;
+    var accident = req.params.accident;
 
-    var updatedInjuredHospitalized = injuredHospitalized.map((c) =>{
-    
-        if(c.province == province){
-            found = true;
-            return updatedInjuredHospitalized;
-        }else{
-            return c;            
+    injuredHospitalized.find({ province: province }).toArray((error, filtered) => {
+        if (error) {
+            console.log("Error:" + error);
         }
- 
+        if (filtered.length == 0) {
+            res.sendStatus(409);
+        }
+        else {
+            injuredHospitalized.updateOne({ province: province }, { $set: { year: year, accident: accident } });
+            res.sendStatus(200);
+        }
     });
-    
-    if (found == false){
-        res.sendStatus(404);
-    }else{
-        injuredHospitalized = updatedInjuredHospitalized;
-        res.sendStatus(200);
-    }
 
 });
 
 // PUT /injuredHospitalized/
-app.put("/api/v1/injured-hospitalized/", (req,res)=>{
-    
+app.put("/api/v1/injured-hospitalized/", (req, res) => {
+
     res.sendStatus(405);
 });
 
 
-// DELETE /contacts/peter
+// DELETE /injured-hospitalized/:province
 
-app.delete("/api/v1/injured-hospitalized/:province", (req,res)=>{
+app.delete("/api/v1/injured-hospitalized/:province", (req, res) => {
 
     var province = req.params.province;
-    var found = false;
 
-    var updatedInjuredHospitalized = injuredHospitalized.filter((c) =>{
-        
-            if(c.province == province)  
-                found = true;
-        
-            return c.province != province;
+    injuredHospitalized.find({ "province": province }).toArray((err, filtered) => {
+        if (err) {
+            console.log("Error: " + err);
+        }
+        if (filtered.length == 0) {
+            res.sendStatus(404);
+        }
+        else {
+            injuredHospitalized.deleteOne({ "province": province });
+            res.sendStatus(200);
+        }
     });
-    
-    if (found == false){
-        res.sendStatus(404);
-    }else{
-        injuredHospitalized = updatedInjuredHospitalized;
-        res.sendStatus(200);
-    }
+
+
 
 });
 
+
+//====================================NO TOCAR===================================================
 app.listen(port, () => {
     console.log("I'm ready on port " + port);
 
