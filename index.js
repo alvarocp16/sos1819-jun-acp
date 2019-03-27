@@ -142,14 +142,16 @@ app.post("/api/v1/deceaseds/:province", (req, res) => {
 
 //GET /deceaseds/albacete
 
-app.get("/api/v1/deceaseds/:province", (req, res) => {
+app.get("/api/v1/deceaseds/:province/:year", (req, res) => {
     var province = req.params.province;
-    deceaseds.find({ province: province }).toArray((err, filtered) => {
+    var year = req.params.year;
+    
+    deceaseds.find({ province: province, year: year }).toArray((err, filtered) => {
         if (err) {
             console.log("Error:" + err);
         }
         if (filtered.length >= 1) {
-            res.send(filtered);
+            res.send(filtered[0]);
         }
         else {
             res.sendStatus(404);
@@ -183,7 +185,9 @@ app.put("/api/v1/deceaseds/:province", (req, res) => {
         else {
 
             deceaseds.updateOne({ "province": province }, { $set: newDeceased });
+            console.log(newDeceased);
             res.sendStatus(200);
+            
 
         }
     });
@@ -224,6 +228,7 @@ app.delete("/api/v1/deceaseds", (req, res) => {
     deceaseds.remove({});
     res.sendStatus(200);
 });
+
 
 
 //=========================================================================== Chamorro ======================================
@@ -618,8 +623,7 @@ app.post("/api/v1/injured-hospitalized", (req, res) => {
         }
         else {
 
-            injuredHospitalized.insertOne(newInjuredHospitalized);
-
+            injuredHospitalized.insert(newInjuredHospitalized);
             res.sendStatus(201);
         }
     });
