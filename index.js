@@ -31,10 +31,6 @@ clientaps.connect(err => {
 app.get("/api/v1/deceaseds/docs/", (req,res)=>{
     res.redirect("https://documenter.getpostman.com/view/1804509/S17tS8Nc");
 });
-<<<<<<< HEAD
-
-=======
->>>>>>> e1739682e761b19bcd3d3fe616437ddc31f3e21c
 
 /*
 var deceaseds = [{
@@ -535,7 +531,7 @@ client.connect(err => {
 
 
 app.get("/api/v1/injured-hospitalized/docs/", (req,res)=>{
-    res.redirect("https://documenter.getpostman.com/view/1804509/S17tS8Nc");
+    res.redirect("https://documenter.getpostman.com/view/6976657/S17usmD2");
 });
 
 //loadInitialData
@@ -579,8 +575,8 @@ app.get("/api/v1/injured-hospitalized/loadInitialData", (req, res) => {
         if(err){
             console.log("Error: " + err);
         }
-        if(injHospitalizedArray).length==0){
-            injHospitalized.insert(injurHospitalized);
+        if(injHospitalizedArray.length==0){
+            injuredHospitalized.insert(injurHospitalized);
             res.sendStatus(200);
         }else{
             res.sendStatus(409);
