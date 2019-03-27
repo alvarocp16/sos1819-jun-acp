@@ -185,7 +185,9 @@ app.put("/api/v1/deceaseds/:province", (req, res) => {
         else {
 
             deceaseds.updateOne({ "province": province }, { $set: newDeceased });
+            console.log(newDeceased);
             res.sendStatus(200);
+            
 
         }
     });
