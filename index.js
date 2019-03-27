@@ -11,8 +11,6 @@ app.use(bodyParser.json());
 
 app.use("/", express.static(path.join(__dirname, "/api/v1/YYYYYY")));
 
-app.use("/", express.static(path.join(__dirname, "/api/v1/YYYYYY/docs")));
-
 
 var port = process.env.PORT || 8080;
 
@@ -33,6 +31,7 @@ clientaps.connect(err => {
 app.get("/api/v1/deceaseds/docs/", (req,res)=>{
     res.redirect("https://documenter.getpostman.com/view/1804509/S17tS8Nc");
 });
+
 
 /*
 var deceaseds = [{
@@ -59,7 +58,9 @@ app.get("/api/v1/deceaseds", (req, res) => {
 
 //GET /api/v1/YYYYYY/loadInitialData
 
-var newDeceased = [{
+app.get("/api/v1/deceaseds/loadInitialData", (req, res) => {
+    
+    var newDeceased = [{
         province: "Badajoz",
         number: "60",
         year: "2015"
@@ -90,25 +91,17 @@ var newDeceased = [{
     }
 ];
 
-app.get("/api/v1/deceaseds/loadInitialData", (req, res) => {
-
-    deceaseds.find({}, { projection: { _id: 0 } }).toArray((err, deceaseds) => {
-
-        if (deceaseds.length == 0) {
-
+     deceaseds.find({}).toArray((err, deceasedsArray) => {
+        if(err){
+            console.log("Error: " + err);
+        }
+        if(deceasedsArray.length==0){
             deceaseds.insert(newDeceased);
             res.sendStatus(200);
-            //console.log("Base de datos inicializada con: " +deceaseds.length+ "campos");
-
-        }
-        else {
-
+        }else{
             res.sendStatus(409);
-
         }
-
     });
-
 });
 
 
@@ -232,6 +225,7 @@ app.delete("/api/v1/deceaseds", (req, res) => {
     deceaseds.remove({});
     res.sendStatus(200);
 });
+
 
 
 //=========================================================================== Chamorro ======================================
