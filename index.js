@@ -31,7 +31,10 @@ clientaps.connect(err => {
 app.get("/api/v1/deceaseds/docs/", (req,res)=>{
     res.redirect("https://documenter.getpostman.com/view/1804509/S17tS8Nc");
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> e1739682e761b19bcd3d3fe616437ddc31f3e21c
 
 /*
 var deceaseds = [{
@@ -225,6 +228,7 @@ app.delete("/api/v1/deceaseds", (req, res) => {
     deceaseds.remove({});
     res.sendStatus(200);
 });
+
 
 //=========================================================================== Chamorro ======================================
 
