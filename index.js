@@ -226,6 +226,7 @@ app.delete("/api/v1/deceaseds", (req, res) => {
 });
 
 
+
 //=========================================================================== Chamorro ======================================
 
 /*var elements = [{
@@ -607,8 +608,7 @@ app.post("/api/v1/injured-hospitalized", (req, res) => {
         }
         else {
 
-            injuredHospitalized.insertOne(newInjuredHospitalized);
-
+            injuredHospitalized.insert(newInjuredHospitalized);
             res.sendStatus(201);
         }
     });
