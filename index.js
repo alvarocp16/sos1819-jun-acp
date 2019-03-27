@@ -28,6 +28,10 @@ clientaps.connect(err => {
     console.log("Connected!");
 });
 
+app.get("/api/v1/deceaseds/docs/", (req,res)=>{
+    res.redirect("https://documenter.getpostman.com/view/1804509/S17tS8Nc");
+});
+
 
 /*
 var deceaseds = [{
@@ -54,7 +58,9 @@ app.get("/api/v1/deceaseds", (req, res) => {
 
 //GET /api/v1/YYYYYY/loadInitialData
 
-var newDeceased = [{
+app.get("/api/v1/deceaseds/loadInitialData", (req, res) => {
+    
+    var newDeceased = [{
         province: "Badajoz",
         number: "60",
         year: "2015"
@@ -85,25 +91,17 @@ var newDeceased = [{
     }
 ];
 
-app.get("/api/v1/deceaseds/loadInitialData", (req, res) => {
-
-    deceaseds.find({}, { projection: { _id: 0 } }).toArray((err, deceaseds) => {
-
-        if (deceaseds.length == 0) {
-
+     deceaseds.find({}).toArray((err, deceasedsArray) => {
+        if(err){
+            console.log("Error: " + err);
+        }
+        if(deceasedsArray.length==0){
             deceaseds.insert(newDeceased);
             res.sendStatus(200);
-            //console.log("Base de datos inicializada con: " +deceaseds.length+ "campos");
-
-        }
-        else {
-
+        }else{
             res.sendStatus(409);
-
         }
-
     });
-
 });
 
 
@@ -278,8 +276,28 @@ app.get("/api/v1/elements/", (req, res) => {
     });
 });
 
+app.get("/api/v1/elements/:province/:year", (req, res) => {
+    //var newElement = req.body;
+    var year = req.params.year;
+    var province = req.params.province;
+    
+    elements.find({"province": province,"year": year}).toArray((err, elementArray) => {
+        if (err){
+            console.log("Error: " + err);
+        }
+        if (elementArray.length > 0) {
+            res.send(elementArray);
+        } else {
+            res.sendStatus(404);
+        }
+    });
+});
+// GET /api/v1/companies-stats/docs
+app.get("/api/v1/elements/docs", (req, res) => {
+    res.redirect("https://documenter.getpostman.com/view/7064258/S17us6KT");
+});
 //GET /api/v1/YYYYYY/loadInitialData
-
+//F03
 /*app.get("/api/v1/elements/loadInitialData", (req, res) => {
 
     var newDeceased = {
@@ -299,7 +317,46 @@ app.get("/api/v1/elements/", (req, res) => {
 
     res.sendStatus(201);
 });*/
+//F04
+app.get("/api/v1/elements/loadInitialData", (req, res) => {
 
+    var elementsInitials = [{
+    province: "sevilla",
+    year: "2014",
+    victims: "5.014"
+    },{
+    province: "madrid",
+    year: "2015",
+    victims: "3.305"
+    },{
+    province: "albacete",
+    year: "2016",
+    victims: "8.654"
+    },{
+    province: "jaen",
+    year: "2013",
+    victims: "41.367"
+    },{
+    province: "badajoz",
+    year: "2017",
+    victims: "41.641"
+    },{
+    province: "caceres",
+    year: "2018",
+    victims: "6.419"
+    }];
+    elements.find({}).toArray((err, elementsArray) => {
+        if(err){
+            console.log("Error: " + err);
+        }
+        if(elementsArray.length==0){
+            elements.insert(elementsInitials);
+            res.sendStatus(200);
+        }else{
+            res.sendStatus(409);
+        }
+    });
+});
 
 
 // POST /elements/
@@ -411,7 +468,7 @@ app.put("/api/v1/elements/:province", (req, res) => {
         if (elementsArray == 0) {
             res.sendStatus(404);
         }
-        else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false || req.body.province != province) {
+        else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("victims") == false || req.body.province != province) {
             res.sendStatus(400);
         }
         else {
