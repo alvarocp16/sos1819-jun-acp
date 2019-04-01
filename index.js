@@ -382,11 +382,72 @@ app.get("/api/v1/elements/docs/", (req,res)=>{
 });*/
 //F04
 app.get("/api/v1/elements/", (req, res) => {
+<<<<<<< HEAD
     elements.find({}).toArray((err, elementsArray) => {
         if (err)
             console.log("Error: " + err);
         res.send(elementsArray);
     });
+=======
+    //Busqueda por año
+    var inicio = parseInt(req.query.from);
+    var fin = parseInt(req.query.to);
+    //Paginación
+    var limit = parseInt(req.query.limit);
+    var offset = parseInt(req.query.offset);
+    
+    //Paginación y Búsqueda
+    if (Number.isInteger(limit) && Number.isInteger(offset) && Number.isInteger(inicio) && Number.isInteger(fin)) {
+        elements.find({"year":{$gte:inicio,$lte:fin}}).skip(offset).limit(limit).toArray((err,elementArray)=>{
+            if (err) {
+                res.sendStatus(500);
+            }else{
+                res.status(200).send(elementArray.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+
+            }
+        });
+
+        //Paginación
+    }else if(Number.isInteger(limit) && Number.isInteger(offset)){
+        elements.find({}).skip(offset).limit(limit).toArray((err,elementArray)=>{
+            if(err){
+                res.sendStatus(500);
+            }else{
+                res.status(200).send(elementArray.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }
+        });
+        //Búsqueda 
+    }else if(Number.isInteger(inicio) && Number.isInteger(fin)) {
+        elements.find({"year":{$gte: inicio, $lte: fin}}).toArray((err,elementArray)=>{
+            console.log(inicio);
+            if(err){
+                res.sendStatus(500);
+            }else{
+                res.status(200).send(elementArray.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }
+        });
+    }else{
+        elements.find({}).toArray((err,elementArray)=>{
+            if(err){
+                res.sendStatus(500);
+            }else{
+                res.status(200).send(elementArray.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }
+        });
+    }
+>>>>>>> 87f6460d02d287414185f99564e7fcfaa36f26d9
 });
 
 app.get("/api/v1/elements/:province/:year", (req, res) => {
@@ -404,6 +465,7 @@ app.get("/api/v1/elements/:province/:year", (req, res) => {
             res.sendStatus(404);
         }
     });
+    
 });
 // GET /api/v1/companies-stats/docs
 app.get("/api/v1/elements/docs", (req, res) => {
@@ -490,8 +552,9 @@ app.post("/api/v1/elements", (req, res) => {
         }
         if (elementsArray != 0) {
             res.sendStatus(409);
-        }
-        else {
+        }else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("victims") == false || req.body.province != province) {
+            res.sendStatus(400);
+        }else{
             elements.insertOne(newElement);
             res.sendStatus(201);
         }
