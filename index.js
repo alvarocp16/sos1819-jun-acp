@@ -56,7 +56,7 @@ app.get("/api/v1/deceaseds", (req, res) => {
     
     //Paginacion y busqueda
      if (Number.isInteger(limit) && Number.isInteger(offset) && Number.isInteger(begin) && Number.isInteger(end)) {
-        deceaseds.find({ "year": { $gte: begin, $lte: end } }).skip(offset).limit(limit).toArray((err, deceasedsArray) => {
+        deceaseds.find({ "year": { $gte: begin, $lte: end} }).skip(offset).limit(limit).toArray((err, deceasedsArray) => {
 
             if (err) {
 
@@ -109,6 +109,7 @@ app.get("/api/v1/deceaseds", (req, res) => {
             else {
 
                 res.status(200).send(deceasedsArray.map((c) => {
+                 
                     delete c._id;
                     return c;
 
@@ -208,6 +209,12 @@ app.post("/api/v1/deceaseds", (req, res) => {
             res.sendStatus(409);
 
         }
+        else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false ||
+            req.body.province != province) {
+
+            res.sendStatus(400);
+
+        }
         else {
 
             deceaseds.insert(newDeceased);
@@ -251,7 +258,7 @@ app.get("/api/v1/deceaseds/:province", (req, res) => {
     var province = req.params.province;
     
     
-    deceaseds.find({ "province": province }).toArray((err, filtered) => {
+    deceaseds.find({ "province" : province }).toArray((err, filtered) => {
         if (err) {
             console.log("Error:" + err);
         }
