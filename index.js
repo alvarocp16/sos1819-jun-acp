@@ -274,11 +274,65 @@ clientacp.connect(err => {
 });*/
 //F04
 app.get("/api/v1/elements/", (req, res) => {
-    elements.find({}).toArray((err, elementsArray) => {
-        if (err)
-            console.log("Error: " + err);
-        res.send(elementsArray);
-    });
+    //Busqueda por año
+    var inicio = parseInt(req.query.from);
+    var fin = parseInt(req.query.to);
+    //Paginación
+    var limit = parseInt(req.query.limit);
+    var offset = parseInt(req.query.offset);
+    
+    //Paginación y Búsqueda
+    if (Number.isInteger(limit) && Number.isInteger(offset) && Number.isInteger(inicio) && Number.isInteger(fin)) {
+        elements.find({"year":{$gte:inicio,$lte:fin}}).skip(offset).limit(limit).toArray((err,elementArray)=>{
+            if (err) {
+                res.sendStatus(500);
+            }else{
+                res.status(200).send(elementArray.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+
+            }
+        });
+
+        //Paginación
+    }
+    else if (Number.isInteger(limit) && Number.isInteger(offset)){
+        elements.find({}).skip(offset).limit(limit).toArray((err,elementArray)=>{
+            if(err){
+                res.sendStatus(500);
+            }else{
+                res.status(200).send(elementArray.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }
+        });
+        //Búsqueda 
+    }
+    else if (Number.isInteger(inicio) && Number.isInteger(fin)) {
+        elements.find({"year":{$gte: inicio, $lte: fin}}).toArray((err,elementArray)=>{
+            if(err){
+                res.sendStatus(500);
+            }else{
+                res.status(200).send(elementArray.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }
+        });
+    }else{
+        elements.find({}).toArray((err,elementArray)=>{
+            if(err){
+                res.sendStatus(500);
+            }else{
+                res.status(200).send(elementArray.map((c)=>{
+                    delete c._id;
+                    return c;
+                }));
+            }
+        });
+    }
 });
 
 app.get("/api/v1/elements/:province/:year", (req, res) => {
