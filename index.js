@@ -45,15 +45,102 @@ var deceaseds = [{
 */
 //GET /deceaseds/
 app.get("/api/v1/deceaseds", (req, res) => {
+    
+    //Busqueda 
+    var begin = parseInt(req.query.from);
+    var end = parseInt(req.query.to);
+    
+    //Paginacion
+    var limit = parseInt(req.query.limit);
+    var offset = parseInt(req.query.offset);
+    
+    //Paginacion y busqueda
+     if (Number.isInteger(limit) && Number.isInteger(offset) && Number.isInteger(begin) && Number.isInteger(end)) {
+        deceaseds.find({ "year": { $gte: begin, $lte: end } }).skip(offset).limit(limit).toArray((err, deceasedsArray) => {
 
-    deceaseds.find({}).toArray((err, deceasedsArray) => {
-        if (err) {
-            console.log("Error" + err);
-        }
-        res.send(deceasedsArray);
-    });
+            if (err) {
 
+                res.sendStatus(500);
+
+            }
+            else {
+
+                res.status(200).send(deceasedsArray.map((c) => {
+                    delete c._id;
+                    return c;
+
+                }));
+
+            }
+            
+        
+        });
+
+     }//Paginación
+     else if (Number.isInteger(limit) && Number.isInteger(offset)) {
+
+        deceaseds.find({}).skip(offset).limit(limit).toArray((err, deceasedsArray) => {
+
+            if (err) {
+
+                res.sendStatus(500);
+
+            }
+            else {
+
+                res.status(200).send(deceasedsArray.map((c) => {
+                    delete c._id;
+                    return c;
+
+                }));
+
+            }
+        });
+     } //Búsqueda
+     else if (Number.isInteger(begin) && Number.isInteger(end)) {
+
+        deceaseds.find({ "year": { $gte: begin, $lte: end } }).toArray((err, deceasedsArray) => {
+
+            if (err) {
+
+                res.sendStatus(500);
+
+            }
+            else {
+
+                res.status(200).send(deceasedsArray.map((c) => {
+                    delete c._id;
+                    return c;
+
+                }));
+
+            }
+        });
+    }
+    else {
+
+        deceaseds.find({}).toArray((err, deceasedsArray) => {
+
+            if (err) {
+
+                res.sendStatus(500);
+
+            }
+            else {
+
+                res.status(200).send(deceasedsArray.map((c) => {
+                    delete c._id;
+                    return c;
+
+                }));
+
+            }
+        });
+
+    }
+   
 });
+
 
 //GET /api/v1/YYYYYY/loadInitialData
 
@@ -140,13 +227,31 @@ app.post("/api/v1/deceaseds/:province", (req, res) => {
 
 
 
-//GET /deceaseds/albacete
+//GET /deceaseds/albacete/2015
 
 app.get("/api/v1/deceaseds/:province/:year", (req, res) => {
     var province = req.params.province;
     var year = req.params.year;
     
     deceaseds.find({ province: province, year: year }).toArray((err, filtered) => {
+        if (err) {
+            console.log("Error:" + err);
+        }
+        if (filtered.length >= 1) {
+            res.send(filtered[0]);
+        }
+        else {
+            res.sendStatus(404);
+        }
+    });
+});
+
+//GET /deceaseds/albacete
+app.get("/api/v1/deceaseds/:province", (req, res) => {
+    var province = req.params.province;
+    
+    
+    deceaseds.find({ "province": province }).toArray((err, filtered) => {
         if (err) {
             console.log("Error:" + err);
         }
@@ -530,12 +635,17 @@ client.connect(err => {
     console.log("Connected!");
 });
 
+
+app.get("/api/v1/injured-hospitalized/docs/", (req,res)=>{
+    res.redirect("https://documenter.getpostman.com/view/6976657/S17usmD2");
+});
+
 //loadInitialData
 
 app.get("/api/v1/injured-hospitalized/loadInitialData", (req, res) => {
 
 
-    var injHospitalized = [{
+    var injurHospitalized = [{
             province: "Sevilla",
             year: "2016",
             accident: "356"
@@ -567,12 +677,14 @@ app.get("/api/v1/injured-hospitalized/loadInitialData", (req, res) => {
 
     ];
 
-    injuredHospitalized.find({}).toArray((error, injuredHospitalizedArray) => {
-        if (injuredHospitalizedArray.length == 0) {
-            injuredHospitalized.insert(injHospitalized); //Hcer un for each y meter uno a uno
-            res.sendStatus(201)
+    injuredHospitalized.find({}).toArray((err, injHospitalizedArray) => {
+        if(err){
+            console.log("Error: " + err);
         }
-        else {
+        if(injHospitalizedArray.length==0){
+            injuredHospitalized.insert(injurHospitalized);
+            res.sendStatus(200);
+        }else{
             res.sendStatus(409);
         }
     });
@@ -612,7 +724,8 @@ app.post("/api/v1/injured-hospitalized", (req, res) => {
         }
         else {
 
-            injuredHospitalized.insert(newInjuredHospitalized);
+            injuredHospitalized.insertOne(newInjuredHospitalized);
+
             res.sendStatus(201);
         }
     });
@@ -727,10 +840,7 @@ app.delete("/api/v1/injured-hospitalized/:province", (req, res) => {
         }
     });
 
-
-
 });
-
 
 //====================================NO TOCAR===================================================
 app.listen(port, () => {
