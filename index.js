@@ -56,7 +56,7 @@ app.get("/api/v1/deceaseds", (req, res) => {
     
     //Paginacion y busqueda
      if (Number.isInteger(limit) && Number.isInteger(offset) && Number.isInteger(begin) && Number.isInteger(end)) {
-        deceaseds.find({ "year": { $gte: begin, $lte: end} }).skip(offset).limit(limit).toArray((err, deceasedsArray) => {
+        deceaseds.find({ "year": { $gte: begin, $lte: end } }).skip(offset).limit(limit).toArray((err, deceasedsArray) => {
 
             if (err) {
 
@@ -109,7 +109,6 @@ app.get("/api/v1/deceaseds", (req, res) => {
             else {
 
                 res.status(200).send(deceasedsArray.map((c) => {
-                 
                     delete c._id;
                     return c;
 
@@ -209,12 +208,6 @@ app.post("/api/v1/deceaseds", (req, res) => {
             res.sendStatus(409);
 
         }
-        else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false ||
-            req.body.province != province) {
-
-            res.sendStatus(400);
-
-        }
         else {
 
             deceaseds.insert(newDeceased);
@@ -257,8 +250,7 @@ app.get("/api/v1/deceaseds/:province/:year", (req, res) => {
 app.get("/api/v1/deceaseds/:province", (req, res) => {
     var province = req.params.province;
     
-    
-    deceaseds.find({ "province" : province }).toArray((err, filtered) => {
+    deceaseds.find({ province: province }).toArray((err, filtered) => {
         if (err) {
             console.log("Error:" + err);
         }
@@ -390,65 +382,11 @@ app.get("/api/v1/elements/docs/", (req,res)=>{
 });*/
 //F04
 app.get("/api/v1/elements/", (req, res) => {
-    //Busqueda por año
-    var inicio = parseInt(req.query.from);
-    var fin = parseInt(req.query.to);
-    //Paginación
-    var limit = parseInt(req.query.limit);
-    var offset = parseInt(req.query.offset);
-    
-    //Paginación y Búsqueda
-    if (Number.isInteger(limit) && Number.isInteger(offset) && Number.isInteger(inicio) && Number.isInteger(fin)) {
-        elements.find({"year":{$gte:inicio,$lte:fin}}).skip(offset).limit(limit).toArray((err,elementArray)=>{
-            if (err) {
-                res.sendStatus(500);
-            }else{
-                res.status(200).send(elementArray.map((c)=>{
-                    delete c._id;
-                    return c;
-                }));
-
-            }
-        });
-
-        //Paginación
-    }
-    else if (Number.isInteger(limit) && Number.isInteger(offset)){
-        elements.find({}).skip(offset).limit(limit).toArray((err,elementArray)=>{
-            if(err){
-                res.sendStatus(500);
-            }else{
-                res.status(200).send(elementArray.map((c)=>{
-                    delete c._id;
-                    return c;
-                }));
-            }
-        });
-        //Búsqueda 
-    }
-    else if (Number.isInteger(inicio) && Number.isInteger(fin)) {
-        elements.find({"year":{$gte: inicio, $lte: fin}}).toArray((err,elementArray)=>{
-            if(err){
-                res.sendStatus(500);
-            }else{
-                res.status(200).send(elementArray.map((c)=>{
-                    delete c._id;
-                    return c;
-                }));
-            }
-        });
-    }else{
-        elements.find({}).toArray((err,elementArray)=>{
-            if(err){
-                res.sendStatus(500);
-            }else{
-                res.status(200).send(elementArray.map((c)=>{
-                    delete c._id;
-                    return c;
-                }));
-            }
-        });
-    }
+    elements.find({}).toArray((err, elementsArray) => {
+        if (err)
+            console.log("Error: " + err);
+        res.send(elementsArray);
+    });
 });
 
 app.get("/api/v1/elements/:province/:year", (req, res) => {

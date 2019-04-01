@@ -13,6 +13,7 @@
   },
   "scripts": {
     "start": "node index.js",
+    "test-deceaseds": "newman run https://www.getpostman.com/collections/31ca02335b7c99b2415b",
     "test": "echo \"Error: no test specified\"&& exit 1"
   },
   "devDependencies": {},
