@@ -405,8 +405,7 @@ app.get("/api/v1/elements/", (req, res) => {
         });
 
         //Paginación
-    }
-    else if (Number.isInteger(limit) && Number.isInteger(offset)){
+    }else if(Number.isInteger(limit) && Number.isInteger(offset)){
         elements.find({}).skip(offset).limit(limit).toArray((err,elementArray)=>{
             if(err){
                 res.sendStatus(500);
@@ -418,9 +417,9 @@ app.get("/api/v1/elements/", (req, res) => {
             }
         });
         //Búsqueda 
-    }
-    else if (Number.isInteger(inicio) && Number.isInteger(fin)) {
+    }else if(Number.isInteger(inicio) && Number.isInteger(fin)) {
         elements.find({"year":{$gte: inicio, $lte: fin}}).toArray((err,elementArray)=>{
+            console.log(inicio);
             if(err){
                 res.sendStatus(500);
             }else{
@@ -459,6 +458,7 @@ app.get("/api/v1/elements/:province/:year", (req, res) => {
             res.sendStatus(404);
         }
     });
+    
 });
 // GET /api/v1/companies-stats/docs
 app.get("/api/v1/elements/docs", (req, res) => {
@@ -545,8 +545,9 @@ app.post("/api/v1/elements", (req, res) => {
         }
         if (elementsArray != 0) {
             res.sendStatus(409);
-        }
-        else {
+        }else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("elements") == false || req.body.province != province) {
+            res.sendStatus(400);
+        }else{
             elements.insertOne(newElement);
             res.sendStatus(201);
         }
