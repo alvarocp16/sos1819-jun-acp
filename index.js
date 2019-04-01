@@ -208,6 +208,12 @@ app.post("/api/v1/deceaseds", (req, res) => {
             res.sendStatus(409);
 
         }
+        else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false ||
+            req.body.province != province) {
+
+            res.sendStatus(400);
+
+        }
         else {
 
             deceaseds.insert(newDeceased);
@@ -297,6 +303,26 @@ app.put("/api/v1/deceaseds/:province", (req, res) => {
     });
 });
 
+
+//PUT /deceaseds/Seville/2017
+app.put("/api/v1/deceaseds/:province/:year", (req, res) => {
+    var year = req.params.year;
+    var province = req.params.province;
+    var updatedDeceased = req.body;
+    elements.find({"province": province,"year": year}).toArray((err, deceasedArray) => {
+        if (err)
+            console.log(err);
+        if (deceasedArray == 0) {
+            res.sendStatus(404);
+        }else if(req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false || req.body.province != province) {
+            res.sendStatus(400);
+        }else{
+            elements.updateOne({ "province": province,"year": year }, { $set: updatedDeceased });
+            res.sendStatus(200);
+        }
+    });
+});
+
 //PUT /deceaseds
 
 app.put("/api/v1/deceaseds/", (req, res) => {
@@ -305,7 +331,7 @@ app.put("/api/v1/deceaseds/", (req, res) => {
 });
 
 
-//DELETE /deceaseds/petr
+//DELETE /deceaseds/Seville
 
 app.delete("/api/v1/deceaseds/:province", (req, res) => {
 
@@ -323,6 +349,25 @@ app.delete("/api/v1/deceaseds/:province", (req, res) => {
         }
     });
 
+});
+
+
+//DELETE /deceaseds/Seville/2016
+app.delete("/api/v1/deceaseds/:province/:year", (req, res) => {
+    var year = req.params.year;
+    var province = req.params.province;
+    deceaseds.find({"province": province,"year": year}).toArray((err, deceasedArray) => {
+        if (err){
+            console.log("Error: " + err);
+        }
+        if (deceasedArray.length == 0) {
+            res.send(404);
+        } else {
+            deceaseds.deleteOne({ "province": province,"year":year });
+            res.send(200);
+        }
+    });
+    
 });
 
 
