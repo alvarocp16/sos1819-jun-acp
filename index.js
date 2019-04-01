@@ -637,22 +637,37 @@ app.get("/api/v1/elements/:province", (req, res) => {
 app.put("/api/v1/elements/:province", (req, res) => {
     var province = req.params.province;
     var updatedElement = req.body;
-    var found = false;
     elements.find({ "province": province }).toArray((err, elementsArray) => {
         if (err)
             console.log(err);
         if (elementsArray == 0) {
             res.sendStatus(404);
-        }
-        else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("victims") == false || req.body.province != province) {
+        }else if(req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("victims") == false || req.body.province != province) {
             res.sendStatus(400);
-        }
-        else {
+        }else{
             elements.updateOne({ "province": province }, { $set: updatedElement });
             res.sendStatus(200);
         }
     });
 });
+app.put("/api/v1/elements/:province/:year", (req, res) => {
+    var year = req.params.year;
+    var province = req.params.province;
+    var updatedElement = req.body;
+    elements.find({"province": province,"year": year}).toArray((err, elementsArray) => {
+        if (err)
+            console.log(err);
+        if (elementsArray == 0) {
+            res.sendStatus(404);
+        }else if(req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("victims") == false || req.body.province != province) {
+            res.sendStatus(400);
+        }else{
+            elements.updateOne({ "province": province,"year": year }, { $set: updatedElement });
+            res.sendStatus(200);
+        }
+    });
+});
+
 // PUT /elements/
 //F03 y F04, es igual
 app.put("/api/v1/elements", (req, res) => {
@@ -675,6 +690,22 @@ app.delete("/api/v1/elements/:province", (req, res) => {
         }
     });
 
+});
+app.delete("/api/v1/elements/:province/:year", (req, res) => {
+    var year = req.params.year;
+    var province = req.params.province;
+    elements.find({"province": province,"year": year}).toArray((err, elementArray) => {
+        if (err){
+            console.log("Error: " + err);
+        }
+        if (elementArray.length == 0) {
+            res.send(404);
+        } else {
+            elements.deleteOne({ "province": province,"year":year });
+            res.send(200);
+        }
+    });
+    
 });
 // ======================================================== PETI =====================================================================
 
