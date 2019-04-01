@@ -372,6 +372,10 @@ clientacp.connect(err => {
     elements = clientacp.db("sos1819").collection("elements");
     console.log("Connected!");
 });
+
+app.get("/api/v1/elements/docs/", (req,res)=>{
+    res.redirect("https://documenter.getpostman.com/view/1804509/S17tS8Nc");
+});
 // GET /elements/
 //F03
 /*app.get("/api/v1/elements", (req,res)=>{
