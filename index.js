@@ -382,13 +382,13 @@ app.get("/api/v1/elements/docs/", (req,res)=>{
 });*/
 //F04
 app.get("/api/v1/elements/", (req, res) => {
-<<<<<<< HEAD
+
     elements.find({}).toArray((err, elementsArray) => {
         if (err)
             console.log("Error: " + err);
         res.send(elementsArray);
     });
-=======
+
     //Busqueda por año
     var inicio = parseInt(req.query.from);
     var fin = parseInt(req.query.to);
@@ -447,7 +447,7 @@ app.get("/api/v1/elements/", (req, res) => {
             }
         });
     }
->>>>>>> 87f6460d02d287414185f99564e7fcfaa36f26d9
+
 });
 
 app.get("/api/v1/elements/:province/:year", (req, res) => {
