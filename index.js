@@ -552,7 +552,7 @@ app.post("/api/v1/elements", (req, res) => {
         }
         if (elementsArray != 0) {
             res.sendStatus(409);
-        }else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("elements") == false || req.body.province != province) {
+        }else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("victims") == false || req.body.province != province) {
             res.sendStatus(400);
         }else{
             elements.insertOne(newElement);
