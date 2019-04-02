@@ -149,31 +149,31 @@ app.get("/api/v1/deceaseds/loadInitialData", (req, res) => {
     var newDeceased = [{
         province: "Badajoz",
         number: "60",
-        year: "2015"
+        year: 2015
     },
 
     {
         province: "Malaga",
         number: "20",
-        year: "2015"
+        year: 2015
     },
 
     {
         province: "Seville",
         number: "10",
-        year: "2015"
+        year: 2015
     },
 
     {
         province: "Madrid",
         number: "40",
-        year: "2015"
+        year: 2015
     },
 
     {
         province: "Huelva",
         number: "10",
-        year: "2015"
+        year: 2015
     }
 ];
 
