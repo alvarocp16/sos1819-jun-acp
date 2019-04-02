@@ -644,12 +644,12 @@ app.delete("/api/v1/elements", (req, res) => {
 //F04
 app.get("/api/v1/elements/:province", (req, res) => {
     var province = req.params.province;
-    elements.find({ "province": province }).toArray((err, filtered) => {
+    elements.find({ "province": province }).toArray((err, elementArray) => {
         if (err) {
             console.log("Error:" + err);
         }
-        if (filtered.length >= 1) {
-            res.send(filtered[0]);
+        if (elementArray.length >= 1) {
+            res.send(elementArray);
         }
         else {
             res.sendStatus(404);
