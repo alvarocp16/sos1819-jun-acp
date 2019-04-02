@@ -384,31 +384,7 @@ app.delete("/api/v1/deceaseds", (req, res) => {
 
 //=========================================================================== Chamorro ======================================
 
-/*var elements = [{
-    province: "sevilla",
-    year: "2016",
-    victims: "3.863"
-}, {
-    province: "sevilla",
-    year: "2015",
-    victims: "4.200"
-}, {
-    province: "sevilla",
-    year: "2014",
-    victims: "3.023"
-}, {
-    province: "asturias",
-    year: "2016",
-    victims: "1.327"
-}, {
-    province: "asturias",
-    year: "2015",
-    victims: "1.413"
-}, {
-    province: "asturias",
-    year: "2014",
-    victims: "1.295"
-}];*/
+
 
 const uriacp = "mongodb+srv://test:test@sos-wje4l.mongodb.net/sos1819?retryWrites=true";
 const clientacp = new MongoClient(uriacp, { useNewUrlParser: true });
@@ -422,12 +398,8 @@ clientacp.connect(err => {
 app.get("/api/v1/elements/docs/", (req,res)=>{
     res.redirect("https://documenter.getpostman.com/view/1804509/S17tS8Nc");
 });
-// GET /elements/
-//F03
-/*app.get("/api/v1/elements", (req,res)=>{
-    res.send(elements);
-});*/
-//F04
+
+
 app.get("/api/v1/elements/", (req, res) => {
 
     elements.find({}).toArray((err, elementsArray) => {
@@ -518,53 +490,34 @@ app.get("/api/v1/elements/:province/:year", (req, res) => {
 app.get("/api/v1/elements/docs", (req, res) => {
     res.redirect("https://documenter.getpostman.com/view/7064258/S17us6KT");
 });
-//GET /api/v1/YYYYYY/loadInitialData
-//F03
-/*app.get("/api/v1/elements/loadInitialData", (req, res) => {
 
-    var newDeceased = {
-    province: "sevilla",
-    year: "2015",
-    victims: "4.200"
-    };
-    var newDeceased2 = {
-    province: "sevilla",
-    year: "2014",
-    victims: "3.023"
-    };
-    
-    deceaseds.push(newDeceased);
-    deceaseds.push(newDeceased2);
-    
 
-    res.sendStatus(201);
-});*/
-//F04
+
 app.get("/api/v1/elements/loadInitialData", (req, res) => {
 
     var elementsInitials = [{
     province: "sevilla",
-    year: "2014",
+    year: 2014,
     victims: "5.014"
     },{
     province: "madrid",
-    year: "2015",
+    year: 2015,
     victims: "3.305"
     },{
     province: "albacete",
-    year: "2016",
+    year: 2016,
     victims: "8.654"
     },{
     province: "jaen",
-    year: "2013",
+    year: 2013,
     victims: "41.367"
     },{
     province: "badajoz",
-    year: "2017",
+    year: 2017,
     victims: "41.641"
     },{
     province: "caceres",
-    year: "2018",
+    year: 2018,
     victims: "6.419"
     }];
     elements.find({}).toArray((err, elementsArray) => {
