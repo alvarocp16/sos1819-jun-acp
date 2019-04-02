@@ -237,7 +237,7 @@ app.post("/api/v1/deceaseds/:province", (req, res) => {
 
 app.get("/api/v1/deceaseds/:province/:year", (req, res) => {
     var province = req.params.province;
-    var year = req.params.year;
+    var year = parseInt(req.params.year);
     
     deceaseds.find({ province: province, year: year }).toArray((err, filtered) => {
         if (err) {
