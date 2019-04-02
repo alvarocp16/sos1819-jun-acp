@@ -244,7 +244,10 @@ app.get("/api/v1/deceaseds/:province/:year", (req, res) => {
             console.log("Error:" + err);
         }
         if (filtered.length >= 1) {
-            res.send(filtered[0]);
+            res.send(filtered.map((c)=>{
+                    delete c._id;
+                    return c;
+        }));
         }
         else {
             res.sendStatus(404);
