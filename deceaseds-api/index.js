@@ -218,7 +218,7 @@ apiRest.register = (app, deceaseds) => {
 
     app.get(BASE_PATH+"/:province/:year", (req, res) => {
         var province = req.params.province;
-        var year = parseInt(req.params.year);
+        var year = Number(req.params.year);
 
         deceaseds.find({ province: province, year: year }).toArray((err, filtered) => {
             if (err) {
@@ -304,7 +304,7 @@ apiRest.register = (app, deceaseds) => {
             if (deceasedArray == 0) {
                 res.sendStatus(404);
             }
-            else if (updatedDeceased.province != req.params.province || updatedDeceased.year != params[year] 
+            else if (updatedDeceased.province != req.params.province || updatedDeceased.year != params["year"] 
             || isNaN(updatedDeceased.province) || isNaN(updatedDeceased.year) || isNaN(updatedDeceased.number) 
             || !updatedDeceased.hasOwnProperty("province") || !updatedDeceased.hasOwnProperty("number") || !updatedDeceased.hasOwnProperty("year")){
                 res.sendStatus(400);
@@ -377,4 +377,4 @@ apiRest.register = (app, deceaseds) => {
         deceaseds.remove({});
         res.sendStatus(200);
     });
-}
+};
