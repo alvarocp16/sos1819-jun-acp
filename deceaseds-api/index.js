@@ -293,7 +293,7 @@ apiRest.register = (app, deceaseds) => {
 
     //PUT /deceaseds/Seville/2017
     app.put(BASE_PATH+"/:province/:year", (req, res) => {
-        var year = req.params.year;
+        var year = parseInt(req.params.year);
         var province = req.params.province;
         var updatedDeceased = req.body;
         deceaseds.find({ "province": province, "year": year }).toArray((err, deceasedArray) => {
@@ -302,7 +302,8 @@ apiRest.register = (app, deceaseds) => {
             if (deceasedArray == 0) {
                 res.sendStatus(404);
             }
-            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false || req.body.province != province) {
+            else if (req.body.hasOwnProperty("province") == false ||req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false || req.body.province != province
+            || req.body.year != year){
                 res.sendStatus(400);
             }
             else {
