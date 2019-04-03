@@ -83,7 +83,10 @@ apiRest.register = (app, elements) => {
                 console.log("Error:" + err);
             }
             if (elementArray.length >= 1) {
-                res.send(elementArray);
+                res.send(elementArray.map((c) => {
+                    delete c._id;
+                    return c;
+                }));
             }
             else {
                 res.sendStatus(404);
@@ -99,7 +102,10 @@ apiRest.register = (app, elements) => {
                 console.log("Error: " + err);
             }
             if (elementArray.length > 0) {
-                res.send(elementArray);
+                res.send(elementArray.map((c) => {
+                    delete c._id;
+                    return c;
+                }));
             }
             else {
                 res.sendStatus(404);
