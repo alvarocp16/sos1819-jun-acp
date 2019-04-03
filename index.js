@@ -1,8 +1,9 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var elementsApi = require("./elements-api");
-var deceasedsApi = require("./deceaseds-api");
 var injuredHospitalizedApi = require("./injured-hospitalized-api");
+var deceasedsApi = require("./deceaseds-api");
+
 var path = require("path");
 
 var app = express();
@@ -28,8 +29,6 @@ clientaps.connect(err => {
 
 
 
-
-
 //=========================================================================== Chamorro ======================================
 const uriacp = "mongodb+srv://test:test@sos-wje4l.mongodb.net/sos1819?retryWrites=true";
 const clientacp = new MongoClient(uriacp, { useNewUrlParser: true });
@@ -46,7 +45,6 @@ clientacp.connect(err => {
 // ======================================================== PETI =====================================================================
 const uri = "mongodb+srv://test:test@sos-sb5wi.mongodb.net/sos1819?retryWrites=true";
 const client = new MongoClient(uri, { useNewUrlParser: true });
-
 
 
 var injuredHospitalized;
