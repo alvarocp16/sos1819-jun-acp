@@ -256,7 +256,7 @@ apiRest.register = (app, deceaseds) => {
         });
     });
 
-    //PUT /deceaseds/petr
+   /* //PUT /deceaseds/petr
 
     app.put(BASE_PATH+"/:province", (req, res) => {
 
@@ -288,7 +288,7 @@ apiRest.register = (app, deceaseds) => {
 
             }
         });
-    });
+    });*/
 
 
     //PUT /deceaseds/Seville/2017
