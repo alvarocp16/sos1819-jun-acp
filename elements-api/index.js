@@ -180,7 +180,7 @@ apiRest.register = (app, elements) => {
     });
     //PUT a dos recursos (debe modificarlos mediante el body) /api/v1/elements/:province/:year 
     app.put(BASE_PATH+"/:province/:year", (req, res) => {
-        var year = req.params.year;
+        var year = Number(req.params.year);
         var province = req.params.province;
         var updatedElement = req.body;
         elements.find({ "province": province, "year": year }).toArray((err, elementsArray) => {
@@ -189,7 +189,8 @@ apiRest.register = (app, elements) => {
             if (elementsArray == 0) {
                 res.sendStatus(404);
             }
-            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("victims") == false || req.body.province != province) {
+            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false
+            || req.body.hasOwnProperty("victims") == false || req.body.province != province || req.body.year != year) {
                 res.sendStatus(400);
             }
             else {
@@ -199,7 +200,7 @@ apiRest.register = (app, elements) => {
         });
     });
     //PUT a un recurso (debe modificarlo mediante el body) /api/v1/elements/:province  
-    app.put(BASE_PATH+"/:province", (req, res) => {
+   /* app.put(BASE_PATH+"/:province", (req, res) => {
         var province = req.params.province;
         var updatedElement = req.body;
         elements.find({ "province": province }).toArray((err, elementsArray) => {
@@ -216,7 +217,7 @@ apiRest.register = (app, elements) => {
                 res.sendStatus(200);
             }
         });
-    });
+    });*/
     //PUT a la ruta base (debe dar fallo 405, metodo no permitido) /api/v1/elements
     app.put(BASE_PATH, (req, res) => {
         res.sendStatus(405);
