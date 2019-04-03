@@ -1,6 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var MongoClient = require("mongodb");
+const MongoClient = require("mongodb").MongoClient;
 
 var path = require("path");
 
@@ -24,6 +24,9 @@ clientaps.connect(err => {
     // perform actions on the collection object
     console.log("Connected!");
 });
+
+
+
 
 
 //=========================================================================== Chamorro ======================================
