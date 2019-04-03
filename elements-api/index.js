@@ -4,7 +4,12 @@ var apiRest = {};
 module.exports = apiRest;
 
 apiRest.register = (app, elements) => {
-
+    
+    // GET a docs /api/v1/elements/docs
+    app.get(BASE_PATH+"/docs", (req, res) => {
+        res.redirect("https://documenter.getpostman.com/view/7064258/S17us6KT");
+    });
+    
     //GET a la ruta base /api/v1/elements/ con búsqueda y paginación
     app.get(BASE_PATH, (req, res) => {
         //Busqueda por año
@@ -70,77 +75,8 @@ apiRest.register = (app, elements) => {
             });
         }
     });
-    //GET a un recurso (provincia) /api/v1/elements/:province
-    app.get(BASE_PATH+"/:province", (req, res) => {
-        var province = req.params.province;
-        elements.find({ "province": province }).toArray((err, elementArray) => {
-            if (err) {
-                console.log("Error:" + err);
-            }
-            if (elementArray.length >= 1) {
-                res.send(elementArray.map((c) => {
-                    delete c._id;
-                    return c;
-                }));
-            }
-            else {
-                res.sendStatus(404);
-            }
-        });
-    });
-    //GET a dos recursos (provincia y año) /api/v1/elements/:province/:year
-    app.get(BASE_PATH+"/:province/:year", (req, res) => {
-        var year = req.params.year;
-        var province = req.params.province;
-        elements.find({ "province": province, "year": year }).toArray((err, elementArray) => {
-            if (err) {
-                console.log("Error: " + err);
-            }
-            if (elementArray.length > 0) {
-                res.send(elementArray.map((c) => {
-                    delete c._id;
-                    return c;
-                }));
-            }
-            else {
-                res.sendStatus(404);
-            }
-        });
-    });
-    /*
-    //GET a un recurso (year) /api/v1/elements/:year
-    app.get(BASE_PATH+"/:year", (req, res) => {
-        var year = req.params.year;
-        elements.find({ "year": year }).toArray((err, elementArray) => {
-            if (err) {
-                console.log("Error:" + err);
-            }
-            if (elementArray.length >= 1) {
-                res.send(elementArray);
-            }
-            else {
-                res.sendStatus(404);
-            }
-        });
-    });
-    //GET a dos recursos (año y provincia) /api/v1/elements/:year/:province
-    app.get(BASE_PATH+"/:province/:year", (req, res) => {
-        var year = req.params.year;
-        var province = req.params.province;
-        elements.find({ "province": province, "year": year }).toArray((err, elementArray) => {
-            if (err) {
-                console.log("Error: " + err);
-            }
-            if (elementArray.length > 0) {
-                res.send(elementArray);
-            }
-            else {
-                res.sendStatus(404);
-            }
-        });
-    });
-    */
-    //GET al loadInitialData (mete los iniciales en la base de datos) /api/v1/elements/loadInitialData
+    
+//GET al loadInitialData (mete los iniciales en la base de datos) /api/v1/elements/loadInitialData
     app.get(BASE_PATH+"/loadInitialData", (req, res) => {
         var elementsInitials = [{
             province: "sevilla",
@@ -180,11 +116,6 @@ apiRest.register = (app, elements) => {
             }
         });
     });
-    // GET a docs /api/v1/elements/docs
-    app.get(BASE_PATH+"/docs", (req, res) => {
-        res.redirect("https://documenter.getpostman.com/view/7064258/S17us6KT");
-    });
-
     //POST a la ruta base (introduce un recurso) /api/v1/elements
     app.post(BASE_PATH, (req, res) => {
         var newElement = req.body;
@@ -206,13 +137,70 @@ apiRest.register = (app, elements) => {
             }
         });
     });
-    //POST a un recurso (debe dar fallo 405, metodo no permitido) /api/v1/elements/:province
+     //POST a un recurso (debe dar fallo 405, metodo no permitido) /api/v1/elements/:province
     app.post(BASE_PATH+"/:province", (req, res) => {
         res.sendStatus(405);
     });
-
+    //GET a dos recursos (provincia y año) /api/v1/elements/:province/:year
+    app.get(BASE_PATH+"/:province/:year", (req, res) => {
+        var year = req.params.year;
+        var province = req.params.province;
+        elements.find({ "province": province, "year": year }).toArray((err, elementArray) => {
+            if (err) {
+                console.log("Error: " + err);
+            }
+            if (elementArray.length > 0) {
+                res.send(elementArray.map((c) => {
+                    delete c._id;
+                    return c;
+                }));
+            }
+            else {
+                res.sendStatus(404);
+            }
+        });
+    });
+    //GET a un recurso (provincia) /api/v1/elements/:province
+    app.get(BASE_PATH+"/:province", (req, res) => {
+        var province = req.params.province;
+        elements.find({ "province": province }).toArray((err, elementArray) => {
+            if (err) {
+                console.log("Error:" + err);
+            }
+            if (elementArray.length >= 1) {
+                res.send(elementArray.map((c) => {
+                    delete c._id;
+                    return c;
+                }));
+            }
+            else {
+                res.sendStatus(404);
+            }
+        });
+    });
+    //PUT a dos recursos (debe modificarlos mediante el body) /api/v1/elements/:province/:year 
+    app.put(BASE_PATH+"/:province/:year", (req, res) => {
+        var year = Number(req.params.year);
+        var province = req.params.province;
+        var updatedElement = req.body;
+        elements.find({ "province": province, "year": year }).toArray((err, elementsArray) => {
+            if (err)
+                console.log(err);
+            if (elementsArray == 0) {
+                res.sendStatus(404);
+            }
+            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false
+            || req.body.hasOwnProperty("victims") == false || req.body.province != province || req.body.year != year) {
+                res.sendStatus(400);
+            }
+            else {
+                elements.updateOne({ "province": province, "year": year }, { $set: updatedElement });
+                res.sendStatus(200);
+            }
+        });
+    });
     //PUT a un recurso (debe modificarlo mediante el body) /api/v1/elements/:province  
-    app.put(BASE_PATH+"/:province", (req, res) => {
+   /* app.put(BASE_PATH+"/:province", (req, res) => {
         var province = req.params.province;
         var updatedElement = req.body;
         elements.find({ "province": province }).toArray((err, elementsArray) => {
@@ -229,36 +217,10 @@ apiRest.register = (app, elements) => {
                 res.sendStatus(200);
             }
         });
-    });
-    //PUT a dos recursos (debe modificarlos mediante el body) /api/v1/elements/:province/:year 
-    app.put(BASE_PATH+"/:province/:year", (req, res) => {
-        var year = req.params.year;
-        var province = req.params.province;
-        var updatedElement = req.body;
-        elements.find({ "province": province, "year": year }).toArray((err, elementsArray) => {
-            if (err)
-                console.log(err);
-            if (elementsArray == 0) {
-                res.sendStatus(404);
-            }
-            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("victims") == false || req.body.province != province) {
-                res.sendStatus(400);
-            }
-            else {
-                elements.updateOne({ "province": province, "year": year }, { $set: updatedElement });
-                res.sendStatus(200);
-            }
-        });
-    });
+    });*/
     //PUT a la ruta base (debe dar fallo 405, metodo no permitido) /api/v1/elements
     app.put(BASE_PATH, (req, res) => {
         res.sendStatus(405);
-    });
-
-    //DELETE a la ruta base (borra todos los recursos) /api/v1/elements
-    app.delete(BASE_PATH, (req, res) => {
-        elements.remove({});
-        res.sendStatus(200);
     });
     //DELETE a un recurso (borra todos los recursos que coinciden) /api/v1/elements/:province
     app.delete(BASE_PATH+"/:province", (req, res) => {
@@ -293,4 +255,42 @@ apiRest.register = (app, elements) => {
             }
         });
     });
+    //DELETE a la ruta base (borra todos los recursos) /api/v1/elements
+    app.delete(BASE_PATH, (req, res) => {
+        elements.remove({});
+        res.sendStatus(200);
+    });
+    /*
+    //GET a un recurso (year) /api/v1/elements/:year
+    app.get(BASE_PATH+"/:year", (req, res) => {
+        var year = req.params.year;
+        elements.find({ "year": year }).toArray((err, elementArray) => {
+            if (err) {
+                console.log("Error:" + err);
+            }
+            if (elementArray.length >= 1) {
+                res.send(elementArray);
+            }
+            else {
+                res.sendStatus(404);
+            }
+        });
+    });
+    //GET a dos recursos (año y provincia) /api/v1/elements/:year/:province
+    app.get(BASE_PATH+"/:province/:year", (req, res) => {
+        var year = req.params.year;
+        var province = req.params.province;
+        elements.find({ "province": province, "year": year }).toArray((err, elementArray) => {
+            if (err) {
+                console.log("Error: " + err);
+            }
+            if (elementArray.length > 0) {
+                res.send(elementArray);
+            }
+            else {
+                res.sendStatus(404);
+            }
+        });
+    });
+    */
 }
