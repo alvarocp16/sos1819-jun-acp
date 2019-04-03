@@ -17,8 +17,19 @@
   "scripts": {
     "start": "node index.js",
     "test-deceaseds": "newman run https://www.getpostman.com/collections/31ca02335b7c99b2415b",
+<<<<<<< HEAD
     "test": "newman run https://www.getpostman.com/collections/31ca02335b7c99b2415b; https//www.getpostman.com/collections/56ad75f4d52b05c2947b; https://www.getpostman.com/collections/5d2633d5e245f234de9f"
+=======
+    "test-elements": "newman run https://www.getpostman.com/collections/5d2633d5e245f234de9f",
+    "test-injuredHospitalized": "newman run https://www.getpostman.com/collections/56ad75f4d52b05c2947b",
+    "test": "newman run https://www.getpostman.com/collections/31ca02335b7c99b2415b; https://www.getpostman.com/collections/56ad75f4d52b05c2947b; https://www.getpostman.com/collections/5d2633d5e245f234de9f"
+>>>>>>> ab0669cd93ee7c24ee43c806c9cf46662335c352
   },
   "devDependencies": {},
   "license": "ISC"
 }
+
+
+
+
+
