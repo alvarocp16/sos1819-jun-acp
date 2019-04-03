@@ -399,8 +399,10 @@ apiRest.register = (app, deceaseds) => {
                     //DELETE /deceaseds/
 
                     app.delete(BASE_PATH, (req, res) => {
-                        deceaseds.remove({});
-                        res.sendStatus(200);
+                                deceaseds.remove({}, function(err, r) {
+                                    res.sendStatus(200);
+                                });
                     });
-        });
-};
+
+})
+}
