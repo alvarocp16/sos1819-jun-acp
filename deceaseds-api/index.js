@@ -220,17 +220,14 @@ apiRest.register = (app, deceaseds) => {
         var province = req.params.province;
         var year = Number(req.params.year);
 
-        deceaseds.findOne({ province: province, year: year }).toArray((err, filtered) => {
+        deceaseds.find({ province: province, year: year }).toArray((err, filtered) => {
             if (err) {
                 console.log("Error:" + err);
             }
             if (filtered.length >= 1) {
                 delete filtered[0]._id;
-                res.json.filtered[0];
-               /* res.send(filtered.map((c) => {
-                    delete c._id;
-                    return c;
-                }));*/
+                res.json(filtered[0]);
+             
             }
             else {
                 res.sendStatus(404);
