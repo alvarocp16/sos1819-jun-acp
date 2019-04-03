@@ -1,9 +1,8 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-
-var api1 = require("./deceaseds-api");
-var api2 = require("./elements-api");
-var api3 = require("./injured-hospitalized-api");
+var elementsApi = require("./elements-api");
+var deceasedsApi = require("./deceaseds-api");
+var injuredHospitalizedApi = require("./injured-hospitalized-api");
 var path = require("path");
 
 var app = express();
@@ -49,7 +48,7 @@ const uri = "mongodb+srv://test:test@sos-sb5wi.mongodb.net/sos1819?retryWrites=t
 const client = new MongoClient(uri, { useNewUrlParser: true });
 
 
-var injuredHospitalizedApi = require("./injured-hospitalized-api");
+
 var injuredHospitalized;
 
 client.connect(err => {
