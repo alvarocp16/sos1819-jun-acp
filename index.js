@@ -17,7 +17,7 @@ const MongoClient = require("mongodb").MongoClient;
 const uriaps = "mongodb+srv://antoniops96:ANpeso96@sos1819-14-aps-htbgq.mongodb.net/test?retryWrites=true";
 const clientaps = new MongoClient(uriaps, { useNewUrlParser: true });
 
-var deceasedsApi = require("./deceaseds-api");
+
 var deceaseds;
 
 clientaps.connect(err => {
@@ -34,7 +34,7 @@ clientaps.connect(err => {
 //=========================================================================== Chamorro ======================================
 const uriacp = "mongodb+srv://test:test@sos-wje4l.mongodb.net/sos1819?retryWrites=true";
 const clientacp = new MongoClient(uriacp, { useNewUrlParser: true });
-var elementsApi = require("./elements-api");
+
 //Conexion a la base de datos
 var elements;
 clientacp.connect(err => {
