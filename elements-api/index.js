@@ -7,11 +7,6 @@ apiRest.register = (app, elements) => {
 
     //GET a la ruta base /api/v1/elements/ con búsqueda y paginación
     app.get(BASE_PATH, (req, res) => {
-        elements.find({}).toArray((err, elementsArray) => {
-            if (err)
-                console.log("Error: " + err);
-            res.send(elementsArray);
-        });
         //Busqueda por año
         var inicio = parseInt(req.query.from);
         var fin = parseInt(req.query.to);
