@@ -1,6 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-const MongoClient = require("mongodb").MongoClient;
+
 
 var path = require("path");
 
@@ -10,7 +10,7 @@ app.use("/", express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080;
-
+const MongoClient = require("mongodb").MongoClient;
 //============ Antonio Perez ============
 const uriaps = "mongodb+srv://antoniops96:ANpeso96@sos1819-14-aps-htbgq.mongodb.net/test?retryWrites=true";
 const clientaps = new MongoClient(uriaps, { useNewUrlParser: true });
