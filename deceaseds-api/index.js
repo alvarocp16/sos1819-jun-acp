@@ -293,22 +293,31 @@ apiRest.register = (app, deceaseds) => {
 
     //PUT /deceaseds/Seville/2017
     app.put(BASE_PATH+"/:province/:year", (req, res) => {
-        var year = parseInt(req.params.year);
-        var province = req.params.province;
+        var params = {
+            year : Number(req.params.year),
+            province : req.params.province
+        };
         var updatedDeceased = req.body;
-        deceaseds.find({ "province": province, "year": year }).toArray((err, deceasedArray) => {
+        deceaseds.find(params).toArray((err, deceasedArray) => {
             if (err)
                 console.log(err);
             if (deceasedArray == 0) {
                 res.sendStatus(404);
             }
-            else if (req.body.hasOwnProperty("province") == false ||req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false || req.body.province != province
-            || req.body.year != year){
+            else if (updatedDeceased.province != req.params.province || updatedDeceased.year != params[year] 
+            || isNaN(updatedDeceased.province) || isNaN(updatedDeceased.year) || isNaN(updatedDeceased.number) 
+            || !updatedDeceased.hasOwnProperty("province") || !updatedDeceased.hasOwnProperty("number") || !updatedDeceased.hasOwnProperty("year")){
                 res.sendStatus(400);
             }
             else {
-                deceaseds.updateOne({ "province": province, "year": year }, { $set: updatedDeceased });
-                res.sendStatus(200);
+                deceaseds.updateOne(params, updatedDeceased, (err, updateAr) =>{
+                    if (err){
+                        res.sendStatus(500);
+                    }
+                    else{
+                        res.sendStatus(200);
+                    }
+                });
             }
         });
     });
