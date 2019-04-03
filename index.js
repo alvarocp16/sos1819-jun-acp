@@ -1,7 +1,9 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 
-
+var api1 = require("./deceaseds-api");
+var api2 = require("./elements-api");
+var api3 = require("./injured-hospitalized-api");
 var path = require("path");
 
 var app = express();
