@@ -240,7 +240,7 @@ apiRest.register = (app, elements) => {
                 res.send(404);
             }
             else {
-                elements.deleteOne({ "province": province });
+                elements.delete({ "province": province });
                 res.send(200);
             }
         });
