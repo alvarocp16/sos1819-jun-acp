@@ -172,10 +172,8 @@ apiRest.register = (app, elements) => {
                 console.log("Error: " + err);
             }
             if (elementArray.length > 0) {
-                res.send(elementArray.map((c) => {
-                    delete c._id;
-                    return c;
-                }));
+                delete elementArray[0]._id;
+                res.json(elementArray[0]);
             }
             else {
                 res.sendStatus(404);
