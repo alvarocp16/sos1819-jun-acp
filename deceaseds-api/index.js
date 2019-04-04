@@ -225,10 +225,9 @@ apiRest.register = (app, deceaseds) => {
                 console.log("Error:" + err);
             }
             if (filtered.length >= 1) {
-                res.send(filtered.map((c) => {
-                    delete c._id;
-                    return c;
-                }));
+                delete filtered[0]._id;
+                res.json(filtered[0]);
+             
             }
             else {
                 res.sendStatus(404);
