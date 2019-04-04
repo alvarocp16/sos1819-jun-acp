@@ -247,7 +247,7 @@ apiRest.register = (app, elements) => {
     });
     //DELETE a un recurso en concreto (borra el recurso que coincide) /api/v1/elements/:province/:year
     app.delete(BASE_PATH+"/:province/:year", (req, res) => {
-        var year = req.params.year;
+        var year = Number(req.params.year);
         var province = req.params.province;
         elements.find({ "province": province, "year": year }).toArray((err, elementArray) => {
             if (err) {
