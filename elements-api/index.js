@@ -240,11 +240,12 @@ apiRest.register = (app, elements) => {
                 res.send(404);
             }
             else {
-                elements.delete({ "province": province });
+                elements.remove({ "province": province });
                 res.send(200);
             }
         });
     });
+    
     //DELETE a un recurso en concreto (borra el recurso que coincide) /api/v1/elements/:province/:year
     app.delete(BASE_PATH+"/:province/:year", (req, res) => {
         var year = Number(req.params.year);
