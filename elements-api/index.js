@@ -145,6 +145,24 @@ apiRest.register = (app, elements) => {
     app.post(BASE_PATH+"/:province", (req, res) => {
         res.sendStatus(405);
     });
+    //GET a un recurso (provincia) /api/v1/elements/:province
+    app.get(BASE_PATH+"/:province", (req, res) => {
+        var province = req.params.province;
+        elements.find({ "province": province }).toArray((err, elementArray) => {
+            if (err) {
+                console.log("Error:" + err);
+            }
+            if (elementArray.length >= 1) {
+                res.send(elementArray.map((c) => {
+                    delete c._id;
+                    return c;
+                }));
+            }
+            else {
+                res.sendStatus(404);
+            }
+        });
+    });
     //GET a dos recursos (provincia y año) /api/v1/elements/:province/:year
     app.get(BASE_PATH+"/:province/:year", (req, res) => {
         var year = req.params.year;
@@ -164,24 +182,7 @@ apiRest.register = (app, elements) => {
             }
         });
     });
-    //GET a un recurso (provincia) /api/v1/elements/:province
-    app.get(BASE_PATH+"/:province", (req, res) => {
-        var province = req.params.province;
-        elements.find({ "province": province }).toArray((err, elementArray) => {
-            if (err) {
-                console.log("Error:" + err);
-            }
-            if (elementArray.length >= 1) {
-                res.send(elementArray.map((c) => {
-                    delete c._id;
-                    return c;
-                }));
-            }
-            else {
-                res.sendStatus(404);
-            }
-        });
-    });
+    
     //PUT a dos recursos (debe modificarlos mediante el body) /api/v1/elements/:province/:year 
     app.put(BASE_PATH+"/:province/:year", (req, res) => {
         var year = Number(req.params.year);
