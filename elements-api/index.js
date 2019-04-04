@@ -141,8 +141,12 @@ apiRest.register = (app, elements) => {
             }
         });
     });
-     //POST a un recurso (debe dar fallo 405, metodo no permitido) /api/v1/elements/:province
+     //POST a una coleccion (debe dar fallo 405, metodo no permitido) /api/v1/elements/:province
     app.post(BASE_PATH+"/:province", (req, res) => {
+        res.sendStatus(405);
+    });
+    //POST a un recurso (debe dar fallo 405, metodo no permitido) /api/v1/elements/:province/:year
+    app.post(BASE_PATH+"/:province/:year", (req, res) => {
         res.sendStatus(405);
     });
     //GET a un recurso (provincia) /api/v1/elements/:province
