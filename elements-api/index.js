@@ -165,7 +165,7 @@ apiRest.register = (app, elements) => {
     });
     //GET a dos recursos (provincia y año) /api/v1/elements/:province/:year
     app.get(BASE_PATH+"/:province/:year", (req, res) => {
-        var year = req.params.year;
+        var year = Number(req.params.year);
         var province = req.params.province;
         elements.find({ "province": province, "year": year }).toArray((err, elementArray) => {
             if (err) {
