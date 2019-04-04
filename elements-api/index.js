@@ -91,6 +91,10 @@ apiRest.register = (app, elements) => {
             year: 2016,
             victims: "8.654"
         }, {
+            province: "sevilla",
+            year: 2015,
+            victims: "1.016"
+        }, {
             province: "jaen",
             year: 2013,
             victims: "41.367"
