@@ -8,13 +8,113 @@ module.exports = apiRest;
 
 
 apiRest.register = (app, injuredHospitalized) => {
-
+    app.get(BASE_PATH+"/docs/", (req, res) =>{
+        res.redirect("https://documenter.getpostman.com/view/6976657/S17usmD2");
+    });
 
 
     app.get(BASE_PATH+"/docs/", (req, res) => {
         res.redirect("https://documenter.getpostman.com/view/6976657/S17usmD2");
     });
+    
+    //Busqueda y paginacion
+    app.get(BASE_PATH, (req, res) => {
+       //Busqueda
+        var begin = parseInt(req.query.from);
+        var end = parseInt(req.query.to);
 
+        //Paginacion
+        var limit = parseInt(req.query.limit);
+        var offset = parseInt(req.query.offset);
+        
+        //Paginacion y busqueda
+        if (Number.isInteger(limit) && Number.isInteger(offset) && Number.isInteger(begin) && Number.isInteger(end)) {
+            injuredHospitalized.find({ "year": { $gte: begin, $lte: end } }).skip(offset).limit(limit).toArray((err, injuredHospitalizedArray) => {
+
+                if (err) {
+
+                    res.sendStatus(500);
+
+                }
+                else {
+
+                    res.status(200).send(injuredHospitalizedArray.map((c) => {
+                        delete c._id;
+                        return c;
+
+                    }));
+
+                }
+
+
+            });
+
+        }
+        //Paginacion
+        else if (Number.isInteger(limit) && Number.isInteger(offset)) {
+
+            injuredHospitalized.find({}).skip(offset).limit(limit).toArray((err, injuredHospitalizedArray) => {
+
+                if (err) {
+
+                    res.sendStatus(500);
+
+                }
+                else {
+
+                    res.status(200).send(injuredHospitalizedArray.map((c) => {
+                        delete c._id;
+                        return c;
+
+                    }));
+
+                }
+            });
+        } //Búsqueda
+        else if (Number.isInteger(begin) && Number.isInteger(end)) {
+
+            injuredHospitalized.find({ "year": { $gte: begin, $lte: end } }).toArray((err, injuredHospitalizedArray) => {
+
+                if (err) {
+
+                    res.sendStatus(500);
+
+                }
+                else {
+
+                    res.status(200).send(injuredHospitalizedArray.map((c) => {
+                        delete c._id;
+                        return c;
+
+                    }));
+
+                }
+            });
+        }
+        else {
+
+            injuredHospitalized.find({}).toArray((err, injuredHospitalizedArray) => {
+
+                if (err) {
+
+                    res.sendStatus(500);
+
+                }
+                else {
+
+                    res.status(200).send(injuredHospitalizedArray.map((c) => {
+                        delete c._id;
+                        return c;
+
+                    }));
+
+                }
+            });
+
+        }
+
+    });
+        
     //loadInitialData
 
     app.get(BASE_PATH+"/loadInitialData", (req, res) => {
