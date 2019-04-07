@@ -54,6 +54,7 @@ client.connect(err => {
     injuredHospitalizedApi.register(app, injuredHospitalized);
     console.log("Connected!");
 });
+
 //====================================NO TOCAR===================================================
 app.listen(port, () => {
     console.log("I'm ready on port " + port);
