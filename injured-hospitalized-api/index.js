@@ -187,7 +187,6 @@ apiRest.register = (app, injuredHospitalized) => {
         var newInjuredHospitalized = req.body;
         var province = req.body.province;
         var year = req.body.year;
-        console.log(newInjuredHospitalized);
 
         injuredHospitalized.find({ province: province, year: year }).toArray((err, injuredHospitalizedArray) => {
             if (err) {
@@ -196,6 +195,12 @@ apiRest.register = (app, injuredHospitalized) => {
             if (injuredHospitalizedArray != 0) {
 
                 res.sendStatus(409);
+
+            }
+            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false ||
+                req.body.province != province) {
+
+                res.sendStatus(400);
 
             }
             else {
@@ -223,6 +228,27 @@ apiRest.register = (app, injuredHospitalized) => {
         injuredHospitalized.remove({});
 
         res.sendStatus(200);
+    });
+    
+    //GET /deceaseds/province/year
+
+    app.get(BASE_PATH+"/:province/:year", (req, res) => {
+        var province = req.params.province;
+        var year = Number(req.params.year);
+
+        injuredHospitalized.find({ province: province, year: year }).toArray((err, filtered) => {
+            if (err) {
+                console.log("Error:" + err);
+            }
+            if (filtered.length >= 1) {
+                delete filtered[0]._id;
+                res.json(filtered[0]);
+             
+            }
+            else {
+                res.sendStatus(404);
+            }
+        });
     });
 
 
@@ -260,9 +286,9 @@ apiRest.register = (app, injuredHospitalized) => {
 
         var province = req.params.province;
         var newIH = req.body;
-        var found = false;
+        var year = Number(req.params.year);
 
-        injuredHospitalized.find({ "province": province }).toArray((err, IHArray) => {
+        injuredHospitalized.find({ "province": province, "year":year }).toArray((err, IHArray) => {
 
             if (err)
                 console.log(err);
@@ -317,4 +343,29 @@ apiRest.register = (app, injuredHospitalized) => {
         });
 
     });
-}
+    
+    //DELETE /deceaseds/Seville/2016
+    app.delete(BASE_PATH+"/:province/:year", (req, res) => {
+        var year = req.params.year;
+        var province = req.params.province;
+        injuredHospitalized.find({ "province": province, "year": year }).toArray((err, deceasedArray) => {
+            if (err) {
+                console.log("Error: " + err);
+            }
+            if (deceasedArray.length == 0) {
+                res.send(404);
+            }
+            else {
+                injuredHospitalized.deleteOne({ "province": province, "year": year });
+                res.send(200);
+            }
+        });
+
+    });
+    //DELETE /deceaseds/
+
+    app.delete(BASE_PATH, (req, res) => {
+        injuredHospitalized.remove({});
+        res.sendStatus(200);
+    });
+};
