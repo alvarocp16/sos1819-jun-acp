@@ -6,19 +6,43 @@
         <script src="/bower_components/angular/angular.min.js"></script>
         
         <script src="minipostman-app-agf.js"></script>
-        <script src="main-ctrl-agf.js"></script>
+        <script src="main-ctrl-injured-hospitalized.js"></script>
 
            
     </head>
     
     <body ng-controller="MainCtrl">
-        <h1>My minipostman</h1>
-        <div>
-            <label>URL:<input class="form-control text-center" ng-model="url"/></label>
-            <button class="btn btn-primary" ng-click="send()">Send</button>
+    <h1>My minipostman</h1>
+    <div>
+        <label>URL:<input class="form-control text-center" ng-model="url"/></label>
+        <button class="btn btn-primary" ng-click="send()">Send</button>
+    </div>
+
+    <div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" ng-click="sendGet()">GET</button>
+            <button type="button" class="btn btn-primary" ng-click="sendPost(province,year,accidents_with_victim,number_of_deceased,injured_hospitalized)">POST</button>
+            <button type="button" class="btn btn-primary" ng-click="sendPut(province,year,accidents_with_victim,number_of_deceased,injured_hospitalized)">PUT</button>
+            <button type="button" class="btn btn-secondary" ng-click="sendDel()">DEL</button>
         </div>
-        <div>
-            <textarea class="form-control" rows="20" ng-model="data"></textarea>
+    </div>
+
+    <div>
+        <div class="col-xs-5" style="width: 50%;float:left;">
+            <label>province:<input class="form-control text-center" ng-model="province"/></label>
+            <label>year:<input class="form-control text-center" ng-model="year"/></label>
+            <label>accidents_with_victim:<input class="form-control text-center" ng-model="accidents_with_victim"/></label>
+            <label>number_of_deceased:<input class="form-control text-center" ng-model="number_of_deceased"/></label>
+            <label>injured_hospitalized:<input class="form-control text-center" ng-model="injured_hospitalized"/></label>
+
         </div>
-    </body>
+        <div class="col-xs-5" style="width: 50%;float:left;">
+            <label class="input-lg" for="dataResponse">Result</label>
+            <textarea class="form-control" rows="20" ng-model="dataResponse"></textarea>
+        </div>
+
+    </div>
+</body>
+
 </html>
+

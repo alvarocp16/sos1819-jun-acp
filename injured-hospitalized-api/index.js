@@ -8,25 +8,25 @@ module.exports = apiRest;
 
 
 apiRest.register = (app, injuredHospitalized) => {
-    app.get(BASE_PATH+"/docs/", (req, res) =>{
+    app.get(BASE_PATH + "/docs/", (req, res) => {
         res.redirect("https://documenter.getpostman.com/view/6976657/S17usmD2");
     });
 
 
-    app.get(BASE_PATH+"/docs/", (req, res) => {
+    app.get(BASE_PATH + "/docs/", (req, res) => {
         res.redirect("https://documenter.getpostman.com/view/6976657/S17usmD2");
     });
-    
+
     //Busqueda y paginacion
     app.get(BASE_PATH, (req, res) => {
-       //Busqueda
+        //Busqueda
         var begin = parseInt(req.query.from);
         var end = parseInt(req.query.to);
 
         //Paginacion
         var limit = parseInt(req.query.limit);
         var offset = parseInt(req.query.offset);
-        
+
         //Paginacion y busqueda
         if (Number.isInteger(limit) && Number.isInteger(offset) && Number.isInteger(begin) && Number.isInteger(end)) {
             injuredHospitalized.find({ "year": { $gte: begin, $lte: end } }).skip(offset).limit(limit).toArray((err, injuredHospitalizedArray) => {
@@ -114,40 +114,50 @@ apiRest.register = (app, injuredHospitalized) => {
         }
 
     });
-        
+
     //loadInitialData
 
-    app.get(BASE_PATH+"/loadInitialData", (req, res) => {
+    app.get(BASE_PATH + "/loadInitialData", (req, res) => {
 
 
         var injurHospitalized = [{
                 province: "Sevilla",
-                year: "2016",
-                accident: "356"
+                year: 2016,
+                accident_with_victim: "597",
+                number_of_deceased: "231",
+                injured_hospitalized: "354"
             },
 
             {
                 province: "Madrid",
-                year: "2016",
-                accident: "567"
+                year: 2016,
+                accident_with_victim: "367",
+                number_of_deceased: "245",
+                injured_hospitalized: "654"
             },
 
             {
-                province: "Madrid",
-                year: "2016",
-                accident: "935"
+                province: "Barcelona",
+                year: 2016,
+                accident_with_victim: "767",
+                number_of_deceased: "295",
+                injured_hospitalized: "554"
             },
 
             {
                 province: "Huelva",
-                year: "2013",
-                accident: "863"
+                year: 2013,
+                accident_with_victim: "567",
+                number_of_deceased: "45",
+                injured_hospitalized: "274"
             },
 
             {
                 province: "Asturias",
-                year: "2014",
-                accident: "567"
+                year: 2014,
+                accident_with_victim: "259",
+                number_of_deceased: "75",
+                injured_hospitalized: "154"
             }
 
         ];
@@ -197,15 +207,15 @@ apiRest.register = (app, injuredHospitalized) => {
                 res.sendStatus(409);
 
             }
-            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false ||
+            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("accident_with_victim") == false || req.body.hasOwnProperty("number_of_deceased") == false || req.body.hasOwnProperty("injured_hospitalized") == false ||
                 req.body.province != province) {
-
+                console.log("caaaaabron");
                 res.sendStatus(400);
 
             }
             else {
 
-                injuredHospitalized.insertOne(newInjuredHospitalized);
+                injuredHospitalized.insert(newInjuredHospitalized);
 
                 res.sendStatus(201);
             }
@@ -215,7 +225,7 @@ apiRest.register = (app, injuredHospitalized) => {
 
     // POST /elements/:province
 
-    app.post(BASE_PATH+"/:province", (req, res) => {
+    app.post(BASE_PATH + "/:province", (req, res) => {
 
         res.sendStatus(405);
     });
@@ -229,10 +239,10 @@ apiRest.register = (app, injuredHospitalized) => {
 
         res.sendStatus(200);
     });
-    
+
     //GET /deceaseds/province/year
 
-    app.get(BASE_PATH+"/:province/:year", (req, res) => {
+    app.get(BASE_PATH + "/:province/:year", (req, res) => {
         var province = req.params.province;
         var year = Number(req.params.year);
 
@@ -243,7 +253,7 @@ apiRest.register = (app, injuredHospitalized) => {
             if (filtered.length >= 1) {
                 delete filtered[0]._id;
                 res.json(filtered[0]);
-             
+
             }
             else {
                 res.sendStatus(404);
@@ -254,7 +264,7 @@ apiRest.register = (app, injuredHospitalized) => {
 
     // GET /contacts/province
 
-    app.get(BASE_PATH+"/:province", (req, res) => {
+    app.get(BASE_PATH + "/:province", (req, res) => {
 
         var province = req.params.province;
 
@@ -270,7 +280,10 @@ apiRest.register = (app, injuredHospitalized) => {
 
 
             if (filtered.length >= 1) {
-                res.send(filtered[0]);
+                res.send(filtered.map((c) => {
+                    delete c._id;
+                    return c;
+                }));
             }
             else {
                 res.sendStatus(404);
@@ -282,13 +295,13 @@ apiRest.register = (app, injuredHospitalized) => {
     // PUT /contacts/sevilla
 
 
-    app.put(BASE_PATH+"/:province", (req, res) => {
+    app.put(BASE_PATH + "/:province/:year", (req, res) => {
 
         var province = req.params.province;
-        var newIH = req.body;
         var year = Number(req.params.year);
+        var newIH = req.body;
 
-        injuredHospitalized.find({ "province": province, "year":year }).toArray((err, IHArray) => {
+        injuredHospitalized.find({ "province": province, "year": year }).toArray((err, IHArray) => {
 
             if (err)
                 console.log(err);
@@ -298,15 +311,15 @@ apiRest.register = (app, injuredHospitalized) => {
                 res.sendStatus(404);
 
             }
-            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("accident") == false ||
-                req.body.province != province) {
+            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("accident_with_victim") == false || req.body.hasOwnProperty("number_of_deceased") == false || req.body.hasOwnProperty("injured_hospitalized") == false ||
+                req.body.province != province || req.body.year != year) {
 
                 res.sendStatus(400);
 
             }
             else {
 
-                injuredHospitalized.updateOne({ "province": province }, { $set: newIH });
+                injuredHospitalized.updateOne({ "province": province, "year": year }, { $set: newIH });
                 res.sendStatus(200);
                 console.log(newIH);
 
@@ -325,7 +338,7 @@ apiRest.register = (app, injuredHospitalized) => {
 
     // DELETE /injured-hospitalized/:province
 
-    app.delete(BASE_PATH+"/:province", (req, res) => {
+    app.delete(BASE_PATH + "/:province", (req, res) => {
 
         var province = req.params.province;
 
@@ -343,10 +356,10 @@ apiRest.register = (app, injuredHospitalized) => {
         });
 
     });
-    
+
     //DELETE /deceaseds/Seville/2016
-    app.delete(BASE_PATH+"/:province/:year", (req, res) => {
-        var year = req.params.year;
+    app.delete(BASE_PATH + "/:province/:year", (req, res) => {
+        var year = Number(req.params.year);
         var province = req.params.province;
         injuredHospitalized.find({ "province": province, "year": year }).toArray((err, deceasedArray) => {
             if (err) {

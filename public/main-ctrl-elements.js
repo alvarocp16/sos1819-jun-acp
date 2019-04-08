@@ -1,4 +1,4 @@
-/*global angular*/
+/global angular/
 
 var app = angular.module("MiniPostmanApp")
 app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
@@ -13,15 +13,12 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.dataResponse=response.status+", "+response.statusText
         });
     };
-    
     $scope.sendPost = function(province, year, victims, injurednothospitalizedinaccidents, accidentswithvictims) {
         if (province != 'undefined' &&
             year != 'undefined' &&
             victims != 'undefined'&&
             injurednothospitalizedinaccidents != 'undefined' &&
             accidentswithvictims != 'undefined') {
-
-
             var data = {
                 province: province,
                 year: parseInt(year),

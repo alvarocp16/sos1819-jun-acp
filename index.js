@@ -10,9 +10,19 @@ var app = express();
 
 app.use("/", express.static(path.join(__dirname, "public")));
 
+
+
+
+
 app.use("/app-aps", express.static(path.join(__dirname, "public/front-end-deceaseds.html")));
+<<<<<<< HEAD
 app.use("/app-agf", express.static(path.join(__dirname, "public/front-end-agf.html")));
 app.use("/app-acp", express.static(path.join(__dirname, "public/front-end-elements.html")));
+=======
+app.use("/app-agf", express.static(path.join(__dirname, "public/front-end-injured-hospitalized.html")));
+app.use("/app-acp", express.static(path.join(__dirname, "public/front-end-elements.html")));
+
+>>>>>>> 532096127734043a44643111b13c497badee13c0
 
 app.use(bodyParser.json());
 
