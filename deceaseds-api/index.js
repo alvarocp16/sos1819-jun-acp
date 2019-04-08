@@ -384,7 +384,7 @@ apiRest.register = (app, deceaseds) => {
 
     //DELETE /deceaseds/Seville/2016
     app.delete(BASE_PATH+"/:province/:year", (req, res) => {
-        var year = req.params.year;
+        var year = Number(req.params.year);
         var province = req.params.province;
         deceaseds.find({ "province": province, "year": year }).toArray((err, deceasedArray) => {
             if (err) {
@@ -398,9 +398,8 @@ apiRest.register = (app, deceaseds) => {
                 res.send(200);
             }
         });
-
     });
-
+    
 
     //DELETE /deceaseds/
 
