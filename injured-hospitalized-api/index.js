@@ -197,7 +197,7 @@ apiRest.register = (app, injuredHospitalized) => {
                 res.sendStatus(409);
 
             }
-            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false ||
+            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("accident") == false ||
                 req.body.province != province) {
 
                 res.sendStatus(400);
