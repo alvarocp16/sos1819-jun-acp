@@ -8,7 +8,7 @@ module.exports = apiRest;
 
 
 apiRest.register = (app, deceaseds) => {
-    app.get(BASE_PATH+"/docs/", (req, res) => {
+    app.get(BASE_PATH + "/docs/", (req, res) => {
         res.redirect("https://documenter.getpostman.com/view/1804509/S17tS8Nc");
     });
 
@@ -124,7 +124,7 @@ apiRest.register = (app, deceaseds) => {
 
     //GET /api/v1/YYYYYY/loadInitialData
 
-    app.get(BASE_PATH+"/loadInitialData", (req, res) => {
+    app.get(BASE_PATH + "/loadInitialData", (req, res) => {
 
         var newDeceased = [{
                 province: "Badajoz",
@@ -132,7 +132,7 @@ apiRest.register = (app, deceaseds) => {
                 penalty: "414",
                 life: "507",
                 year: 2015
-                
+
             },
 
             {
@@ -200,8 +200,8 @@ apiRest.register = (app, deceaseds) => {
                 res.sendStatus(409);
 
             }
-            else if (req.body.hasOwnProperty("province") == false ||  req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("life") == false
-            || req.body.hasOwnProperty("number") == false || req.body.hasOwnProperty("penalty") == false ||  req.body.province != province) {
+            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("life") == false ||
+                req.body.hasOwnProperty("number") == false || req.body.hasOwnProperty("penalty") == false || req.body.province != province) {
 
                 res.sendStatus(400);
 
@@ -218,7 +218,7 @@ apiRest.register = (app, deceaseds) => {
 
 
     //POST /deceaseds/Alava
-    app.post(BASE_PATH+"/:province", (req, res) => {
+    app.post(BASE_PATH + "/:province", (req, res) => {
 
         res.sendStatus(405);
     });
@@ -227,7 +227,7 @@ apiRest.register = (app, deceaseds) => {
 
     //GET /deceaseds/albacete/2015
 
-    app.get(BASE_PATH+"/:province/:year", (req, res) => {
+    app.get(BASE_PATH + "/:province/:year", (req, res) => {
         var province = req.params.province;
         var year = Number(req.params.year);
 
@@ -238,7 +238,7 @@ apiRest.register = (app, deceaseds) => {
             if (filtered.length >= 1) {
                 delete filtered[0]._id;
                 res.json(filtered[0]);
-             
+
             }
             else {
                 res.sendStatus(404);
@@ -247,7 +247,7 @@ apiRest.register = (app, deceaseds) => {
     });
 
     //GET /deceaseds/albacete
-    app.get(BASE_PATH+"/:province", (req, res) => {
+    app.get(BASE_PATH + "/:province", (req, res) => {
         var province = req.params.province;
 
         deceaseds.find({ province: province }).toArray((err, filtered) => {
@@ -266,39 +266,39 @@ apiRest.register = (app, deceaseds) => {
         });
     });
 
-   /* //PUT /deceaseds/petr
+    /* //PUT /deceaseds/petr
 
-    app.put(BASE_PATH+"/:province", (req, res) => {
+     app.put(BASE_PATH+"/:province", (req, res) => {
 
-        var province = req.params.province;
-        var newDeceased = req.body;
-        var found = false;
+         var province = req.params.province;
+         var newDeceased = req.body;
+         var found = false;
 
-        deceaseds.find({ "province": province }).toArray((err, deceasedsArray) => {
-            if (err)
-                console.log(err);
+         deceaseds.find({ "province": province }).toArray((err, deceasedsArray) => {
+             if (err)
+                 console.log(err);
 
-            if (deceasedsArray == 0) {
+             if (deceasedsArray == 0) {
 
-                res.sendStatus(404);
+                 res.sendStatus(404);
 
-            }
-            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false ||
-                req.body.province != province) {
+             }
+             else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false ||
+                 req.body.province != province) {
 
-                res.sendStatus(400);
+                 res.sendStatus(400);
 
-            }
-            else {
+             }
+             else {
 
-                deceaseds.updateOne({ "province": province }, { $set: newDeceased });
-                console.log(newDeceased);
-                res.sendStatus(200);
+                 deceaseds.updateOne({ "province": province }, { $set: newDeceased });
+                 console.log(newDeceased);
+                 res.sendStatus(200);
 
 
-            }
-        });
-    });*/
+             }
+         });
+     });*/
 
 
     //PUT /deceaseds/Seville/2017
@@ -331,26 +331,28 @@ apiRest.register = (app, deceaseds) => {
             }
         });
     });*/
-    
+
     app.put("/api/v1/deceaseds/:province/:year", (req, res) => {
-    var year = Number(req.params.year);
-    var province = req.params.province;
-    var updatedDeceased = req.body;
-    deceaseds.find({"province": province,"year": year}).toArray((err, deceasedArray) => {
-        if (err)
-            console.log(err);
-        if (deceasedArray == 0) {
-            res.sendStatus(404);
-        }else if(req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("life") == false || req.body.hasOwnProperty("penalty") == false 
-        || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false 
-        || req.body.province != province || req.body.year != year) {
-            res.sendStatus(400);
-        }else{
-            deceaseds.updateOne({ "province": province,"year": year }, { $set: updatedDeceased });
-            res.sendStatus(200);
-        }
+        var year = Number(req.params.year);
+        var province = req.params.province;
+        var updatedDeceased = req.body;
+        deceaseds.find({ "province": province, "year": year }).toArray((err, deceasedArray) => {
+            if (err)
+                console.log(err);
+            if (deceasedArray == 0) {
+                res.sendStatus(404);
+            }
+            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("life") == false || req.body.hasOwnProperty("penalty") == false ||
+                req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false ||
+                req.body.province != province || req.body.year != year) {
+                res.sendStatus(400);
+            }
+            else {
+                deceaseds.updateOne({ "province": province, "year": year }, { $set: updatedDeceased });
+                res.sendStatus(200);
+            }
+        });
     });
-});
 
 
     //PUT /deceaseds
@@ -363,7 +365,7 @@ apiRest.register = (app, deceaseds) => {
 
     //DELETE /deceaseds/Seville
 
-    app.delete(BASE_PATH+"/:province", (req, res) => {
+    app.delete(BASE_PATH + "/:province", (req, res) => {
 
         var province = req.params.province;
         deceaseds.find({ "province": province }).toArray((err, deceasedsArray) => {
@@ -383,7 +385,7 @@ apiRest.register = (app, deceaseds) => {
 
 
     //DELETE /deceaseds/Seville/2016
-    app.delete(BASE_PATH+"/:province/:year", (req, res) => {
+    app.delete(BASE_PATH + "/:province/:year", (req, res) => {
         var year = Number(req.params.year);
         var province = req.params.province;
         deceaseds.find({ "province": province, "year": year }).toArray((err, deceasedArray) => {
@@ -399,7 +401,7 @@ apiRest.register = (app, deceaseds) => {
             }
         });
     });
-    
+
 
     //DELETE /deceaseds/
 
