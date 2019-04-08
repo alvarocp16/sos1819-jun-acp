@@ -123,31 +123,41 @@ apiRest.register = (app, injuredHospitalized) => {
         var injurHospitalized = [{
                 province: "Sevilla",
                 year: "2016",
-                accident: "356"
+                accident_with_victim: "597",
+                number_of_deceased: "231",
+                injured_hospitalized:"354"
             },
 
             {
                 province: "Madrid",
                 year: "2016",
-                accident: "567"
+                accident_with_victim: "367",
+                number_of_deceased: "245",
+                injured_hospitalized:"654"
             },
-
+            
             {
-                province: "Madrid",
+                province: "Barcelona",
                 year: "2016",
-                accident: "935"
+                accident_with_victim: "767",
+                number_of_deceased: "295",
+                injured_hospitalized:"554"
             },
 
             {
                 province: "Huelva",
                 year: "2013",
-                accident: "863"
+                accident_with_victim: "567",
+                number_of_deceased: "45",
+                injured_hospitalized:"274"
             },
 
             {
                 province: "Asturias",
                 year: "2014",
-                accident: "567"
+                accident_with_victim: "259",
+                number_of_deceased: "75",
+                injured_hospitalized:"154"
             }
 
         ];
