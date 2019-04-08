@@ -14,16 +14,20 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     };
     
-    $scope.sendPost = function(province, year, victims) {
+    $scope.sendPost = function(province, year, victims, injurednothospitalizedinaccidents, accidentswithvictims) {
         if (province != 'undefined' &&
             year != 'undefined' &&
-            victims != 'undefined') {
+            victims != 'undefined'&&
+            injurednothospitalizedinaccidents != 'undefined' &&
+            accidentswithvictims != 'undefined') {
 
 
             var data = {
                 province: province,
                 year: parseInt(year),
-                victims: victims
+                victims: victims,
+                injurednothospitalizedinaccidents: injurednothospitalizedinaccidents,
+                accidentswithvictims: accidentswithvictims
             };
             console.log($scope.url);
             console.log(data);
@@ -39,14 +43,18 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.dataResponse = "Fields required";
         }
     }
-    $scope.sendPut = function(province, year, victims){
+    $scope.sendPut = function(province, year, victims, injurednothospitalizedinaccidents, accidentswithvictims){
         if(province != 'undefined' &&
             year != 'undefined' &&
-            victims != 'undefined'){
+            victims != 'undefined'&&
+            injurednothospitalizedinaccidents != 'undefined' &&
+            accidentswithvictims != 'undefined'){
             var data = {
                 province: province,
                 year: parseInt(year),
-                victims: victims
+                victims: victims,
+                injurednothospitalizedinaccidents: injurednothospitalizedinaccidents,
+                accidentswithvictims: accidentswithvictims
             };
             console.log($scope.url);
             console.log(data);

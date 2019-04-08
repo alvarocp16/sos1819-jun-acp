@@ -81,38 +81,45 @@ apiRest.register = (app, elements) => {
         var elementsInitials = [{
             province: "sevilla",
             year: 2014,
-            victims: "3.023",
-            injuredNotHospitalized: "4.106"
+            victims: "4.227",
+            injurednothospitalizedinaccidents: "4.106",
+            accidentswithvictims: "3.023"
         }, {
             province: "madrid",
             year: 2015,
-            victims: "12.632",
-            injuredNotHospitalized: "14.876"
+            victims: "16.062",
+            injurednothospitalizedinaccidents: "14.876",
+            accidentswithvictims: "12.632"
         }, {
             province: "albacete",
             year: 2016,
-            victims: "519",
-            injuredNotHospitalized: "611"
+            victims: "659",
+            injurednothospitalizedinaccidents: "611",
+            accidentswithvictims: "519"
         }, {
             province: "sevilla",
             year: 2015,
-            victims: "4.200",
-            injuredNotHospitalized: "5.861"
+            victims: "5.959",
+            injurednothospitalizedinaccidents: "5.861",
+            accidentswithvictims: "4.200"
         }, {
             province: "jaen",
             year: 2013,
-            victims: "416",
-            injuredNotHospitalized: "520"
+            victims: "567",
+            injurednothospitalizedinaccidents: "520",
+            accidentswithvictims: "416"
         }, {
             province: "badajoz",
             year: 2016,
-            victims: "541",
-            injuredNotHospitalized: "661"
+            victims: "725",
+            injurednothospitalizedinaccidents: "661",
+            accidentswithvictims: "541"
         }, {
             province: "caceres",
             year: 2016,
-            victims: "148",
-            injuredNotHospitalized: "176"
+            victims: "195",
+            injurednothospitalizedinaccidents: "176",
+            accidentswithvictims: "148"
         }];
         elements.find({}).toArray((err, elementsArray) => {
             if (err) {
@@ -139,7 +146,7 @@ apiRest.register = (app, elements) => {
             if (elementsArray != 0) {
                 res.sendStatus(409);
             }
-            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("victims") == false || req.body.province != province) {
+            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("victims") == false || req.body.hasOwnProperty("injurednothospitalizedinaccidents") == false || req.body.hasOwnProperty("accidentswithvictims") == false || req.body.province != province) {
                 res.sendStatus(400);
             }
             else {
@@ -204,7 +211,7 @@ apiRest.register = (app, elements) => {
                 res.sendStatus(404);
             }
             else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false
-            || req.body.hasOwnProperty("victims") == false || req.body.province != province || req.body.year != year) {
+            || req.body.hasOwnProperty("victims") == false  || req.body.hasOwnProperty("injurednothospitalizedinaccidents") == false || req.body.hasOwnProperty("accidentswithvictims") == false || req.body.province != province || req.body.year != year) {
                 res.sendStatus(400);
             }
             else {
