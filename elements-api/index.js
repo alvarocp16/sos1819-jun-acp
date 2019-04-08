@@ -81,31 +81,38 @@ apiRest.register = (app, elements) => {
         var elementsInitials = [{
             province: "sevilla",
             year: 2014,
-            victims: "5.014"
+            victims: "3.023",
+            injuredNotHospitalized: "4.106"
         }, {
             province: "madrid",
             year: 2015,
-            victims: "3.305"
+            victims: "12.632",
+            injuredNotHospitalized: "14.876"
         }, {
             province: "albacete",
             year: 2016,
-            victims: "8.654"
+            victims: "519",
+            injuredNotHospitalized: "611"
         }, {
             province: "sevilla",
             year: 2015,
-            victims: "1.016"
+            victims: "4.200",
+            injuredNotHospitalized: "5.861"
         }, {
             province: "jaen",
             year: 2013,
-            victims: "41.367"
+            victims: "416",
+            injuredNotHospitalized: "520"
         }, {
             province: "badajoz",
-            year: 2017,
-            victims: "41.641"
+            year: 2016,
+            victims: "541",
+            injuredNotHospitalized: "661"
         }, {
             province: "caceres",
-            year: 2018,
-            victims: "6.419"
+            year: 2016,
+            victims: "148",
+            injuredNotHospitalized: "176"
         }];
         elements.find({}).toArray((err, elementsArray) => {
             if (err) {
