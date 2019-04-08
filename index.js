@@ -11,7 +11,7 @@ var app = express();
 app.use("/", express.static(path.join(__dirname, "public")));
 
 app.use("/app-aps", express.static(path.join(__dirname, "public/front-end-deceaseds.html")));
-app.use("/app-agf", express.static(path.join(__dirname, "public/front-end-injured_hospitalized.html")));
+app.use("/app-agf", express.static(path.join(__dirname, "public/front-end-injured-hospitalized.html")));
 app.use("/app-acp", express.static(path.join(__dirname, "public/front-end-elements.html")));
 
 app.use(bodyParser.json());
