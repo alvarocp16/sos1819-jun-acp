@@ -88,8 +88,6 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
         
     }
-<<<<<<< HEAD
+
 }]);
-=======
-}]);
->>>>>>> 7e7402c63b126ce325a3e25d0db6f42cecb8d56c
+
