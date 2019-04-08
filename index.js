@@ -11,6 +11,7 @@ var app = express();
 app.use("/", express.static(path.join(__dirname, "public")));
 app.use("/app-aps", express.static(path.join(__dirname, "public/front-end-aps")));
 app.use("/app-agf", express.static(path.join(__dirname, "public/front-end-agf")));
+app.use("/app-acp", express.static(path.join(__dirname, "public/front-end-acp")));
 app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080;
