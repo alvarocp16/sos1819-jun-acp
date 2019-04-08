@@ -129,30 +129,41 @@ apiRest.register = (app, deceaseds) => {
         var newDeceased = [{
                 province: "Badajoz",
                 number: "60",
+                penalty: "414",
+                life: "507",
                 year: 2015
+                
             },
 
             {
                 province: "Malaga",
                 number: "20",
+                penalty: "438",
+                life: "492",
                 year: 2015
             },
 
             {
                 province: "Seville",
                 number: "10",
+                penalty: "418",
+                life: "502",
                 year: 2015
             },
 
             {
                 province: "Madrid",
                 number: "40",
+                penalty: "411",
+                life: "509",
                 year: 2015
             },
 
             {
                 province: "Huelva",
                 number: "10",
+                penalty: "422",
+                life: "512",
                 year: 2015
             }
         ];
@@ -189,8 +200,8 @@ apiRest.register = (app, deceaseds) => {
                 res.sendStatus(409);
 
             }
-            else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false ||
-                req.body.province != province) {
+            else if (req.body.hasOwnProperty("province") == false ||  req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("life") == false
+            || req.body.hasOwnProperty("number") == false || req.body.hasOwnProperty("penalty") == false ||  req.body.province != province) {
 
                 res.sendStatus(400);
 
@@ -330,7 +341,8 @@ apiRest.register = (app, deceaseds) => {
             console.log(err);
         if (deceasedArray == 0) {
             res.sendStatus(404);
-        }else if(req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false 
+        }else if(req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("life") == false || req.body.hasOwnProperty("penalty") == false 
+        || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false 
         || req.body.province != province || req.body.year != year) {
             res.sendStatus(400);
         }else{
