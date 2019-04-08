@@ -10,7 +10,7 @@ var app = express();
 
 app.use("/", express.static(path.join(__dirname, "public")));
 
-app.use("/app-aps", express.static(path.join(__dirname, "public/front-end-aps.html")));
+app.use("/app-aps", express.static(path.join(__dirname, "public/front-end-deceaseds.html")));
 app.use("/app-agf", express.static(path.join(__dirname, "public/front-end-agf.html")));
 app.use("/app-acp", express.static(path.join(__dirname, "public/front-end-acp.html")));
 

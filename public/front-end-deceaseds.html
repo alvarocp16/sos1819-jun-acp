@@ -1,0 +1,47 @@
+<html ng-app="MiniPostmanApp">
+    <head>
+        <title>Mini Postman</title>
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" >
+        <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/bower_components/angular/angular.min.js"></script>
+        
+        <script src="minipostman-app-aps.js"></script>
+        <script src="main-ctrl-deceaseds.js"></script>
+
+           
+    </head>
+    
+    <body ng-controller="MainCtrl">
+    <h1>My minipostman Deceaseds</h1>
+    <div>
+        <label>URL:<input class="form-control text-center" ng-model="url"/></label>
+        <button class="btn btn-primary" ng-click="send()">Send</button>
+    </div>
+
+    <div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" ng-click="sendGet()">GET</button>
+            <button type="button" class="btn btn-secondary" ng-click="sendPost(province,year,number,life,penalty)">POST</button>
+            <button type="button" class="btn btn-primary" ng-click="sendPut(province,year,number,life,penalty)">PUT</button>
+            <button type="button" class="btn btn-secondary" ng-click="sendDel()">DEL</button>
+        </div>
+    </div>
+    
+    <div>
+        <div class="col-xs-5" style="width: 50%;float:left;">
+            <label>province:<input class="form-control text-center" ng-model="province"/></label>
+            <label>year:<input class="form-control text-center" ng-model="year"/></label>
+            <label>number:<input class="form-control text-center" ng-model="number"/></label>
+            <label>life:<input class="form-control text-center" ng-model="life"/></label>
+            <label>penalty:<input class="form-control text-center" ng-model="penalty"/></label>
+
+        </div>
+        <div class="col-xs-5" style="width: 50%;float:left;">
+            <label class="input-lg" for="dataResponse">Data response</label>
+            <textarea class="form-control" rows="10" ng-model="dataResponse"></textarea>
+        </div>
+
+    </div>
+</body>
+
+</html>
