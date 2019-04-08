@@ -88,7 +88,7 @@ app.controller("MainCtrl", ["$scope","$http", function ($scope,$http){
             };
             console.log($scope.url);
             console.log(data);
-            $http.put(path+$scope.url, JSON.stringify(data)).then(function (response) {
+            $http.put($scope.url, JSON.stringify(data)).then(function (response) {
                 console.log("OK put method");
                 $scope.dataResponse = JSON.stringify(response.data,null,2);
             }, function (response) {
@@ -101,7 +101,7 @@ app.controller("MainCtrl", ["$scope","$http", function ($scope,$http){
     }
 
     $scope.sendDel = function(){
-        $http.delete(path+$scope.url).then(function(response){
+        $http.delete($scope.url).then(function(response){
             console.log($scope.url);
             var res = JSON.stringify(response.data,null,2);
             if (response.data.length == 1){
