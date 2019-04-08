@@ -209,13 +209,13 @@ apiRest.register = (app, injuredHospitalized) => {
             }
             else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("accident_with_victim") == false || req.body.hasOwnProperty("number_of_deceased") == false || req.body.hasOwnProperty("injured_hospitalized") == false ||
                 req.body.province != province) {
-
+                console.log("caaaaabron");
                 res.sendStatus(400);
 
             }
             else {
 
-                injuredHospitalized.insertOne(newInjuredHospitalized);
+                injuredHospitalized.insert(newInjuredHospitalized);
 
                 res.sendStatus(201);
             }
