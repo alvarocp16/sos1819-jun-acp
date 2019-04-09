@@ -14,7 +14,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.data = JSON.stringify(response.data,null,2);
         });
     }*/
-
+    
     $scope.sendGet = function() {
         $http.get($scope.url).then(function(response) {
             var res = JSON.stringify(response.data, null, 2);
