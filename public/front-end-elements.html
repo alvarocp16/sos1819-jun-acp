@@ -5,11 +5,8 @@
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/bower_components/angular/angular.min.js"></script>
-
     <script src="minipostman-app-acp.js"></script>
     <script src="main-ctrl-elements.js"></script>
-
-
 </head>
 
 <body ng-controller="MainCtrl">
@@ -18,17 +15,11 @@
         <label>URL:<input class="form-control text-center" ng-model="url"/></label>
         <button class="btn btn-primary" ng-click="send()">Send</button>
     </div>
-
     <div>
         <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-primary" ng-click="sendGet()">GET</button>
-<<<<<<< HEAD
             <button type="button" class="btn btn-secondary" ng-click="sendPost(province,year,victims,injurednothospitalizedinaccidents,accidentswithvictims)">POST</button>
             <button type="button" class="btn btn-primary" ng-click="sendPut(province,year,victims,injurednothospitalizedinaccidents,accidentswithvictims)">PUT</button>
-=======
-            <button type="button" class="btn btn-secondary" ng-click="sendPost(province,year,victims)">POST</button>
-            <button type="button" class="btn btn-primary" ng-click="sendPut(province,year,victims)">PUT</button>
->>>>>>> 532096127734043a44643111b13c497badee13c0
             <button type="button" class="btn btn-secondary" ng-click="sendDelete()">DELETE</button>
         </div>
         <!--<label><input class="form-control text-center" ng-model="url" size="50"/></label>-->
@@ -38,18 +29,16 @@
             <label>Province:<input class="form-control text-center" ng-model="province"/></label>
             <label>Year:<input class="form-control text-center" ng-model="year"/></label>
             <label>Victims:<input class="form-control text-center" ng-model="victims"/></label>
-<<<<<<< HEAD
             <label>Injured Not Hospitalized In Accidents:<input class="form-control text-center" ng-model="injurednothospitalizedinaccidents"/></label>
             <label>Accidents With Victims:<input class="form-control text-center" ng-model="accidentswithvictims"/></label>
-=======
-            <!--<label>life:<input class="form-control text-center" ng-model="life"/></label>-->
-            <!--<label>penalty:<input class="form-control text-center" ng-model="penalty"/></label>-->
->>>>>>> 532096127734043a44643111b13c497badee13c0
-
+        </div>
+        <div class="col-xs-5" style="width: 50%;float:left;">
+            <label class="input-lg" for="stateCode">State Code</label>
+            <textarea class="form-control" rows="1" ng-model="stateCode"></textarea>
         </div>
         <div class="col-xs-5" style="width: 50%;float:left;">
             <label class="input-lg" for="dataResponse">Data response</label>
-            <textarea class="form-control" rows="20" ng-model="dataResponse"></textarea>
+            <textarea class="form-control" rows="13" ng-model="dataResponse"></textarea>
         </div>
 
     </div>
