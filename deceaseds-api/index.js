@@ -266,39 +266,12 @@ apiRest.register = (app, deceaseds) => {
         });
     });
 
-    /* //PUT /deceaseds/petr
+     //PUT /deceaseds/petr
 
      app.put(BASE_PATH+"/:province", (req, res) => {
-
-         var province = req.params.province;
-         var newDeceased = req.body;
-         var found = false;
-
-         deceaseds.find({ "province": province }).toArray((err, deceasedsArray) => {
-             if (err)
-                 console.log(err);
-
-             if (deceasedsArray == 0) {
-
-                 res.sendStatus(404);
-
-             }
-             else if (req.body.hasOwnProperty("province") == false || req.body.hasOwnProperty("year") == false || req.body.hasOwnProperty("number") == false ||
-                 req.body.province != province) {
-
-                 res.sendStatus(400);
-
-             }
-             else {
-
-                 deceaseds.updateOne({ "province": province }, { $set: newDeceased });
-                 console.log(newDeceased);
-                 res.sendStatus(200);
-
-
-             }
-         });
-     });*/
+        res.sendStatus(405);
+    
+     });
 
 
     //PUT /deceaseds/Seville/2017
