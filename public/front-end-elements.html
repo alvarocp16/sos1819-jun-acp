@@ -16,16 +16,11 @@
     <h1>My minipostman Elements</h1>
     <div>
         <label>URL:<input class="form-control text-center" ng-model="url"/></label>
-        <button class="btn btn-primary" ng-click="send()">Send</button>
-    </div>
-    <div>
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary" ng-click="sendGet()">GET</button>
-            <button type="button" class="btn btn-secondary" ng-click="sendPost(province,year,victims,injurednothospitalizedinaccidents,accidentswithvictims)">POST</button>
-            <button type="button" class="btn btn-primary" ng-click="sendPut(province,year,victims,injurednothospitalizedinaccidents,accidentswithvictims)">PUT</button>
-            <button type="button" class="btn btn-secondary" ng-click="sendDelete()">DELETE</button>
-        </div>
-        <!--<label><input class="form-control text-center" ng-model="url" size="50"/></label>-->
+        <!--<button class="btn btn-primary" ng-click="send()">Send</button>-->
+        <button type="button" class="btn btn-success" ng-click="sendGet()">GET</button>
+        <button type="button" class="btn btn-dark" ng-click="sendPost(province,year,victims,injurednothospitalizedinaccidents,accidentswithvictims)">POST</button>
+        <button type="button" class="btn btn-warning" ng-click="sendPut(province,year,victims,injurednothospitalizedinaccidents,accidentswithvictims)">PUT</button>
+        <button type="button" class="btn btn-danger" ng-click="sendDelete()">DELETE</button>
     </div>
     <div>
         <div class="col-xs-5" style="width: 50%;float:left;">
