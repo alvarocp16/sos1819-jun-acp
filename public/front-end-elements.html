@@ -17,8 +17,9 @@
     <div>
         <label>URL:<input class="form-control text-center" ng-model="url"/></label>
         <!--<button class="btn btn-primary" ng-click="send()">Send</button>-->
-        <button type="button" class="btn btn-success" ng-click="sendGet()">GET</button>
-        <button type="button" class="btn btn-dark" ng-click="sendPost(province,year,victims,injurednothospitalizedinaccidents,accidentswithvictims)">POST</button>
+        <button type="button" class="btn btn-light" ng-click="sendGet()">GET</button>
+        <button type="button" class="btn btn-dark" ng-click="sendPostParam(province,year,victims,injurednothospitalizedinaccidents,accidentswithvictims)">POST (por parámetros)</button>
+        <button type="button" class="btn btn-dark" ng-click="sendPost()">POST</button>
         <button type="button" class="btn btn-warning" ng-click="sendPut(province,year,victims,injurednothospitalizedinaccidents,accidentswithvictims)">PUT</button>
         <button type="button" class="btn btn-danger" ng-click="sendDelete()">DELETE</button>
     </div>
