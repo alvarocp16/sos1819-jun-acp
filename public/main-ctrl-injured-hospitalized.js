@@ -1,9 +1,92 @@
-/global angular/
+/*global angular*/
 
 var app = angular.module("MiniPostmanApp")
-app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
+app.controller("MainCtrl..", ["$scope", "$http", function($scope, $http) {
     console.log("MainCtrl initialized!");
+    
     $scope.url = "/api/v1/injured-hospitalized";
+
+
+
+    refresh();
+    $scope.data = "Disfrute de nuestra página";
+
+    function refresh() {
+        console.log("Requesting Injured Hospitalized to <" + $scope.url + ">....");
+        $http.get($scope.url).then(function(response) {
+            console.log("Data received: " + JSON.stringify(response.data, null, 2));
+
+            $scope.injuredHospitalized = response.data;
+        });
+    }
+    
+    $scope.addInjuredHospitalized = function() {
+        var newInjuredHospitalized = $scope.newInjuredHospitalized;
+        console.log("Adding a new injured hospitalized: " + JSON.stringify(newInjuredHospitalized, null, 2));
+        $http.post($scope.url, newInjuredHospitalized).then(function(response) {
+            $scope.data = "Defuncion creada correctamente";
+            console.log("POST Response: " + response.status + " " + response.data);
+            refresh();
+        });
+    },
+        function(error) {
+            $scope.status = error.status;
+            if($scope.stateCode == 409){
+                $scope.data = "La defunción que intenta crear ya existe";
+            }
+           
+            refresh();
+    };
+    
+    
+    $scope.deleteInjuredHospitalizedd = function(province, year) {
+            console.log("Delete InjuredHospitalized with province <" + province + "> and year <" + year + ">");
+            $http.delete($scope.url + "/" + province + "/" + year).then(function(response) {
+                $scope.data = "Defuncion borrada correctamente";
+                console.log("DELETE Response: " + response.status + " " + response.data);
+                refresh();
+            });
+        },
+        function(error) {
+            $scope.status = error.status;
+            $scope.data = "";
+
+    };
+        
+        
+    $scope.deleteInjuredHospitalized = function() {
+        console.log("Delete Injured Hospitalized");
+        $http.delete($scope.url).then(function(response) {
+            $scope.data = "Todas las defunciones han sido borradas correctamente";
+            console.log("DELETE Response: " + response.status + " " + response.data);
+            refresh();
+        });
+    },
+        function(error) {
+            $scope.status = error.status;
+            $scope.data = "";
+
+    };
+
+
+    $scope.getLoadInitialData = function() {
+        $http.get($scope.url + "/loadInitialData").then(function(response) {
+            console.log("Data received: " + JSON.stringify(response.data, null, 2));
+            $scope.injuredHospitalized = response.data;
+            refresh();
+        });
+    },
+        function(error) {
+            $scope.status = error.status;
+            $scope.data = "";
+
+    };
+    
+    
+      //----------------- lo anterior --------------------------------------------------------------------
+
+
+
 
     $scope.sendGet = function() {
         $http.get($scope.url).then(function(response) {
