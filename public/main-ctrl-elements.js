@@ -15,6 +15,16 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.stateCode = response.status;
         });
     };
+    $scope.sendGetLoadInitialData = function() {
+        $http.get($scope.url+"/loadInitialData").then(function(response) {
+            var res = JSON.stringify(response.data, null, 2);
+            $scope.dataResponse = res;
+            $scope.stateCode = response.status;
+        }, function(response) {
+            $scope.dataResponse = response.status + ", " + response.statusText;
+            $scope.stateCode = response.status;
+        });
+    };
     $scope.sendPostParam = function(province, year, victims, injurednothospitalizedinaccidents, accidentswithvictims) {
         if (province != 'undefined' &&
             year != 'undefined' &&
