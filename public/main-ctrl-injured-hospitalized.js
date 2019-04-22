@@ -24,18 +24,19 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         var newInjuredHospitalized = $scope.newInjuredHospitalized;
         console.log("Adding a new injured hospitalized: " + JSON.stringify(newInjuredHospitalized, null, 2));
         $http.post($scope.url, newInjuredHospitalized).then(function(response) {
-            $scope.data = "Defuncion creada correctamente";
+            $scope.data = "Dato creado correctamente";
             console.log("POST Response: " + response.status + " " + response.data);
             refresh();
-        });
+        
     },
         function(error) {
             $scope.status = error.status;
             if($scope.stateCode == 409){
-                $scope.data = "La defunción que intenta crear ya existe";
+                console.log("eto no vaaaaa compae");
+                $scope.data = "La provincia y año que intenta crear ya existe";
             }
            
-            refresh();
+        });
     };
     
     
@@ -60,12 +61,12 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.data = "Todos las datos han sido borradas correctamente";
             console.log("DELETE Response: " + response.status + " " + response.data);
             refresh();
-        });
+        
     },
         function(error) {
             $scope.status = error.status;
             $scope.data = "";
-
+        });
     };
 
 
@@ -74,12 +75,12 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             console.log("Data received: " + JSON.stringify(response.data, null, 2));
             $scope.injuredHospitalized = response.data;
             refresh();
-        });
+       
     },
         function(error) {
             $scope.status = error.status;
             $scope.data = "";
-
+        });
     };
     
     
