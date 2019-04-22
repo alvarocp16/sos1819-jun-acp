@@ -5,7 +5,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     console.log("MainCtrl initialized!");
     $scope.url = "/api/v1/elements";
 
-    //$scope.data= "Bienvenido";
+    $scope.data= "Bienvenido";
     refresh();
     function refresh() {
         console.log("Requesting elements to <" + $scope.url + ">....");
@@ -18,8 +18,15 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         var newElement = $scope.newElement;
         console.log("Adding a new Element: " + JSON.stringify(newElement, null, 2));
         $http.post($scope.url, newElement).then(function(response) {
+            $scope.data = "Elemento creado!";
             console.log("POST Response: " + response.status + " " + response.data);
             refresh();
+        },
+        function(error) {
+            $scope.status = error.status;
+            if($scope.status == 409){
+                $scope.data = "El elemento que intenta crear ya existe";
+            }
         });
     };
     $scope.putElement = function(province, year, victims, injurednothospitalizedinaccidents, accidentswithvictims) {
@@ -45,8 +52,12 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     $scope.deleteElement = function(province, year) {
         console.log("Delete Element with province <" + province + "> and year <" + year + ">");
         $http.delete($scope.url + "/" + province + "/" + year).then(function(response) {
+            $scope.data = "Elemento borrado!";
             console.log("DELETE Response: " + response.status + " " + response.data);
             refresh();
+        },function(error) {
+            $scope.status = error.status;
+            $scope.data = "";
         });
     };
     $scope.deleteElements = function() {
@@ -54,6 +65,9 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         $http.delete($scope.url).then(function(response) {
             console.log("DELETE Response: " + response.status + " " + response.data);
             refresh();
+        },function(error) {
+            $scope.status = error.status;
+            $scope.data = "";
         });
     };
     $scope.getLoadInitialData = function() {
@@ -61,9 +75,15 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             console.log("Data received: " + JSON.stringify(response.data, null, 2));
             $scope.elements = response.data;
             refresh();
+        },
+        function(error) {
+            $scope.status = error.status;
+            if($scope.status == 409){
+                $scope.data = "No debe haber elementos ningunos";
+            }
         });
     };
-
+    //De aquí para abajo no cuenta
     $scope.sendGet = function() {
         $http.get($scope.url).then(function(response) {
             var res = JSON.stringify(response.data, null, 2);
