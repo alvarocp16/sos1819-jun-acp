@@ -34,15 +34,14 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.data = "Defuncion creada correctamente";
             console.log("POST Response: " + response.status + " " + response.data);
             refresh();
-        });
+        
     },
         function(error) {
             $scope.status = error.status;
-            if($scope.stateCode == 409){
+            if($scope.status == 409){
                 $scope.data = "La defunción que intenta crear ya existe";
             }
-           
-            refresh();
+        });
     };
     
     
@@ -52,12 +51,12 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
                 $scope.data = "Defuncion borrada correctamente";
                 console.log("DELETE Response: " + response.status + " " + response.data);
                 refresh();
-            });
+            
         },
         function(error) {
             $scope.status = error.status;
             $scope.data = "";
-
+        });
     };
         
         
@@ -67,12 +66,12 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             $scope.data = "Todas las defunciones han sido borradas correctamente";
             console.log("DELETE Response: " + response.status + " " + response.data);
             refresh();
-        });
+        
     },
         function(error) {
             $scope.status = error.status;
             $scope.data = "";
-
+        });
     };
 
 
@@ -81,12 +80,14 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             console.log("Data received: " + JSON.stringify(response.data, null, 2));
             $scope.deceaseds = response.data;
             refresh();
-        });
+        
     },
         function(error) {
             $scope.status = error.status;
-            $scope.data = "";
-
+            if($scope.status == 409){
+                $scope.data = "Para cargar los datos iniciales no puede exister ningún elemento";
+            }
+        });
     };
     
       // lo anterior --------------------------------------------------------------------
