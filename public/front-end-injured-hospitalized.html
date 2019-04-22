@@ -17,12 +17,12 @@
     <h1>Heridos hospitalizados
 
         <button class="btn btn-primary" ng-click="getLoadInitialData()">Cargar datos iniciales</button>
-        <button class="btn btn-warning" ng-click="deleteDeceaseds()">Eliminar todos</button>
+        <button class="btn btn-warning" ng-click="deleteAllInjuredHospitalizeds()">Eliminar todos</button>
     </h1>
     <br><br>
     <h2>Desde 
-        <input class="form-control" ng-model="newDeceased.province">Hasta </input>
-        <input class="form-control" ng-model="newDeceased.year" type=Number />
+        <input class="form-control" ng-model="newInjuredHospitalized.province">Hasta </input>
+        <input class="form-control" ng-model="newInjuredHospitalized.year" type=Number />
         <button class="btn btn-primary" ng-click="getBusqueda()">Buscar</button>
     </h2>
     <br>
@@ -43,15 +43,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="deceased in deceaseds">
-                <td>{{ deceased.province }}</td>
-                <td>{{ deceased.year }}</td>
-                <td>{{ deceased.accident_with_victim }}</td>
-                <td>{{ deceased.number_of_deceased }}</td>
-                <td>{{ deceased.injured_hospitalized }}</td>
+            <tr ng-repeat="injured in injuredHospitalized">
+                <td>{{ injured.province }}</td>
+                <td>{{ injured.year }}</td>
+                <td>{{ injured.accident_with_victim }}</td>
+                <td>{{ injured.number_of_deceased }}</td>
+                <td>{{ injured.injured_hospitalized }}</td>
                 <td>
-                    <button class="btn btn-secondary" ng-click="putInjuredHospitalized(injuredHospitalized.province,injuredHospitalized.year)">Editar</button>
-                    <button class="btn btn-danger" ng-click="deleteDeceased(injuredHospitalized.province,injuredHospitalized.year)">Eliminar</button>
+                    <button class="btn btn-secondary" ng-click="putInjuredHospitalized(injured.province,injured.year)">Editar</button>
+                    <button class="btn btn-danger" ng-click="deleteInjuredHospitalized(injured.province,injured.year)">Eliminar</button>
                 </td>
             </tr>
             <tr>

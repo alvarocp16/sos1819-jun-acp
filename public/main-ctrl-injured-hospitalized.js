@@ -1,7 +1,7 @@
 /*global angular*/
 
 var app = angular.module("MiniPostmanApp")
-app.controller("MainCtrl..", ["$scope", "$http", function($scope, $http) {
+app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     console.log("MainCtrl initialized!");
     
     $scope.url = "/api/v1/injured-hospitalized";
@@ -39,25 +39,25 @@ app.controller("MainCtrl..", ["$scope", "$http", function($scope, $http) {
     };
     
     
-    $scope.deleteInjuredHospitalizedd = function(province, year) {
+    $scope.deleteInjuredHospitalized = function(province, year) {
             console.log("Delete InjuredHospitalized with province <" + province + "> and year <" + year + ">");
             $http.delete($scope.url + "/" + province + "/" + year).then(function(response) {
-                $scope.data = "Defuncion borrada correctamente";
+                $scope.data = "Campo borrado correctamente";
                 console.log("DELETE Response: " + response.status + " " + response.data);
                 refresh();
-            });
         },
         function(error) {
             $scope.status = error.status;
             $scope.data = "";
+        });    
 
     };
         
         
-    $scope.deleteInjuredHospitalized = function() {
+    $scope.deleteAllInjuredHospitalizeds = function() {
         console.log("Delete Injured Hospitalized");
         $http.delete($scope.url).then(function(response) {
-            $scope.data = "Todas las defunciones han sido borradas correctamente";
+            $scope.data = "Todos las datos han sido borradas correctamente";
             console.log("DELETE Response: " + response.status + " " + response.data);
             refresh();
         });
