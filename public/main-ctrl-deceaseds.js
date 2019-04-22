@@ -77,6 +77,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
 
     $scope.getLoadInitialData = function() {
         $http.get($scope.url + "/loadInitialData").then(function(response) {
+             $scope.data = "Los datos iniciales se han cargado correctamente";
             console.log("Data received: " + JSON.stringify(response.data, null, 2));
             $scope.deceaseds = response.data;
             refresh();
