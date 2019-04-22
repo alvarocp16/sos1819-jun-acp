@@ -2,46 +2,91 @@
 
 <head>
     <title>Mini Postman</title>
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/bower_components/angular/angular.min.js"></script>
-
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
     <script src="minipostman-app-acp.js"></script>
     <script src="main-ctrl-elements.js"></script>
-
 
 </head>
 
 <body ng-controller="MainCtrl">
-    <h1>My minipostman Elements</h1>
-    <div>
-        <label>URL:<input class="form-control text-center" ng-model="url"/></label>
-        <!--<button class="btn btn-primary" ng-click="send()">Send</button>-->
-        <button type="button" class="btn btn-light" ng-click="sendGet()">GET</button>
-        <button type="button" class="btn btn-light" ng-click="sendGetLoadInitialData()">loadInitialData</button>
-        <button type="button" class="btn btn-dark" ng-click="sendPostParam(province,year,victims,injurednothospitalizedinaccidents,accidentswithvictims)">POST (por parámetros)</button>
-        <button type="button" class="btn btn-dark" ng-click="sendPost()">POST</button>
-        <button type="button" class="btn btn-warning" ng-click="sendPut(province,year,victims,injurednothospitalizedinaccidents,accidentswithvictims)">PUT</button>
-        <button type="button" class="btn btn-danger" ng-click="sendDelete()">DELETE</button>
-    </div>
-    <div>
-        <div class="col-xs-5" style="width: 50%;float:left;">
-            <label>Province:<input class="form-control text-center" ng-model="province"/></label>
-            <label>Year:<input class="form-control text-center" ng-model="year"/></label>
-            <label>Victims:<input class="form-control text-center" ng-model="victims"/></label>
-            <label>Injured Not Hospitalized In Accidents:<input class="form-control text-center" ng-model="injurednothospitalizedinaccidents"/></label>
-            <label>Accidents With Victims:<input class="form-control text-center" ng-model="accidentswithvictims"/></label>
-        </div>
-        <div class="col-xs-5" style="width: 50%;float:left;">
-            <label class="input-lg" for="stateCode">State Code</label>
-            <textarea class="form-control" rows="1" ng-model="stateCode"></textarea>
-        </div>
-        <div class="col-xs-5" style="width: 50%;float:left;">
-            <label class="input-lg" for="dataResponse">Data response</label>
-            <textarea class="form-control" rows="13" ng-model="dataResponse"></textarea>
-        </div>
-
-    </div>
+    <h1>Elementos 
+        <button class="btn btn-primary" ng-click="getLoadInitialData()">Cargar datos iniciales</button>
+        <button class="btn btn-warning" ng-click="deleteElements()">Eliminar todos</button>
+    </h1>
+    <br>
+    <h2>Búsqueda desde
+        <input class="form-control" ng-model="searchProvince.province" >Hasta <br></input>
+        <input class="form-control" ng-model="searchYear.year" type=Number />
+        <br>
+        <button class="btn btn-primary" ng-click="getBusqueda()">Buscar</button>
+    </h2>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Provincia</th>
+                <th>Año</th>
+                <th>Victimas</th>
+                <th>Heridos no hospitalizados en accidentes</th>
+                <th>Accidentes con victimas</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="element in elements">
+                <td>{{ element.province }}</td>
+                <td>{{ element.year }}</td>
+                <td>{{ element.victims }}</td>
+                <td>{{ element.injurednothospitalizedinaccidents }}</td>
+                <td>{{ element.accidentswithvictims }}</td>
+                <td>
+                    <button class="btn btn-danger" ng-click="deleteElement(element.province,element.year)">Eliminar</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="form-control" ng-model="newElement.province" value="Nueva provincia"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="newElement.year" type=Number value="Nuevo año"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="newElement.victims" value="Nuevas victimas"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="newElement.injurednothospitalizedinaccidents" value="Nuevos heridos no hospitalizados en accidentes"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="newElement.accidentswithvictims" value="Nuevos accidentes con victimas"/>
+                </td>
+                <td>
+                    <button class="btn btn-primary" ng-click="addElement()">Añadir</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="form-control" ng-model="putElement.province" value="Modifica provincia"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putElement.year" type=Number value="Modifica año"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putElement.victims" value="Modifica victimas"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putElement.injurednothospitalizedinaccidents" value="Modifica heridos no hospitalizados en accidentes"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putElement.accidentswithvictims" value="Modifica accidentes con victimas"/>
+                </td>
+                <td>
+                    <button class="btn btn-secondary" ng-click="putElement(putElement.province,putElement.year,putElement.victims,putElement.injurednothospitalizedinaccidents,putElement.accidentswithvictims)">Modificar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 
 </html>
