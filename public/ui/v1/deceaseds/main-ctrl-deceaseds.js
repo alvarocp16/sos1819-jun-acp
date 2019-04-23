@@ -7,14 +7,17 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
 
     $scope.url = "/api/v1/deceaseds";
     var API = "/api/v1/deceaseds";
-    
+
     refresh(undefined, undefined);
     $scope.limit = 10;
     $scope.offset = 0;
+
+    var pagina = 0;
+    var numero;
     //new
     //var path="https://sos1819-14.herokuapp.com";
 
-    
+
 
     /*$scope.send = function (){
         $http.get($scope.url).then(function (response){
@@ -25,33 +28,33 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     //refresh();
     $scope.data = "Disfrute de nuestra página";
 
-   /* function refresh() {
-        paginationString = "&limit=" + $scope.limit + "&offset=" + $scope.offset;
-        console.log("Requesting deceaseds to <" + $scope.url + ">....");
-        $http.get($scope.url, paginationString).then(function(response) {
-            console.log("Data received: " + JSON.stringify(response.data, null, 2));
-            $scope.deceaseds = response.data;
+    /* function refresh() {
+         paginationString = "&limit=" + $scope.limit + "&offset=" + $scope.offset;
+         console.log("Requesting deceaseds to <" + $scope.url + ">....");
+         $http.get($scope.url, paginationString).then(function(response) {
+             console.log("Data received: " + JSON.stringify(response.data, null, 2));
+             $scope.deceaseds = response.data;
 
-            $scope.previousPage = function() {
-                if ($scope.currentPage > 1) {
-                    $scope.offset -= $scope.limit;
-                    refresh();
-                    $scope.currentPage -= 1;
-                }
-            };
+             $scope.previousPage = function() {
+                 if ($scope.currentPage > 1) {
+                     $scope.offset -= $scope.limit;
+                     refresh();
+                     $scope.currentPage -= 1;
+                 }
+             };
 
-            $scope.nextPage = function() {
-                if ($scope.deceaseds.length >= $scope.limit) {
-                    $scope.offset += $scope.limit;
-                    refresh();
-                    $scope.currentPage += 1;
-                }
-            };
+             $scope.nextPage = function() {
+                 if ($scope.deceaseds.length >= $scope.limit) {
+                     $scope.offset += $scope.limit;
+                     refresh();
+                     $scope.currentPage += 1;
+                 }
+             };
 
-        });
-    }
-    */
-    
+         });
+     }
+     */
+
     function refresh(limit, offset) {
         //$scope.showInfoComp = false;
         console.log("Requesting deceaseds to <" + API + "?from=" + $scope.fromYear + "&to=" + $scope.toYear + ">");
@@ -61,42 +64,54 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             "&limit=" + parseInt($scope.limit) +
             "&offset=" + parseInt($scope.offset);
         console.log(url);
-        $http.get(url).then(function (response) {
+        $http.get(url).then(function(response) {
             console.log("Data received: " + JSON.stringify(response.data, null, 2));
             $scope.deceaseds = response.data;
-           // if (JSON.stringify(response.data, null, 2).length===2){
-             //   $scope.showInfoComp = true;
+            // if (JSON.stringify(response.data, null, 2).length===2){
+            //   $scope.showInfoComp = true;
             //}
-        },function(response){
+        }, function(response) {
             console.log("Data received: " + JSON.stringify(response.data, null, 2));
         });
     }
-    
-    $scope.search = function () {
+
+    $scope.search = function() {
         refresh(undefined, undefined);
     }
 
-    $scope.pagination = function (page) {
-        console.log("Paginating sports competitions");
-        if (isNaN(page)) {
-            if (page.localeCompare("x")==0) {
-                refresh($scope.limit, $scope.offset);
-                $scope.offset += 1;
-            } else if (page.localeCompare("z")==0) {
-                if ($scope.offset > 0) {
-                    $scope.offset -= 1;
-                }
-                refresh($scope.limit, $scope.offset);
-            } else {
-                $scope.offset = 0;
-                refresh(0, $scope.offset);
-            }
-        } else {
-            $scope.offset = page;
-            refresh($scope.limit, $scope.offset);
-        }
-    }
 
+    $scope.Pagination = function(num) {
+        numero = num;
+        if (num == 1) {
+            pagina = pagina - 10;
+            if (pagina < 0) {
+                pagina = 0;
+                $http.get(API + "?limit=" + 3 + "&offset=" + pagina).then(function(response) {
+                    $scope.deceaseds = response.data;
+                    console.log("pagination1");
+                    numero = num;
+                    console.log(numero);
+                });
+            }
+            else {
+                $http.get(API + "?limit=" + 3 + "&offset=" + pagina).then(function(response) {
+                    $scope.deceaseds = response.data;
+                    console.log("pagination2");
+                    numero = num;
+                    console.log(numero);
+                });
+            }
+        }
+        else {
+            pagina = pagina + 3;
+            $http.get(API + "?limit=" + 3 + "&offset=" + pagina).then(function(response) {
+                $scope.deceaseds = response.data;
+                console.log("pagination3");
+                numero = num;
+                console.log(numero);
+            });
+        }
+    };
 
 
     $scope.addDeceased = function() {
