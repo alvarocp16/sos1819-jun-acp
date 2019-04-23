@@ -106,23 +106,9 @@
             </tr>
             <br><br>
         </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="13">
-                    <ul class="pagination text-center form-actions">
-                        <input autocomplete="off" type="number" value="10" class="form-control" ng-model="limit" />
-                        <button type="button" class="btn btn-outline-info" ng-click="pagination('clear')">Limpiar</button>
-                        <button type="button" class="btn btn-outline-primary" ng-click="pagination('z')">&larr;</button>
-                        <button type="button" class="btn btn-outline-secondary" ng-click="pagination(1)">1</button>
-                        <button type="button" class="btn btn-outline-secondary" ng-click="pagination(1)">2</button>
-                        <button type="button" class="btn btn-outline-secondary" ng-click="pagination(2)">3</button>
-                        <button type="button" class="btn btn-outline-secondary" ng-click="pagination(3)">4</button>
-                        <button type="button" class="btn btn-outline-primary" ng-click="pagination('x')">&rarr;</button>
-                    </ul>
-                </td>
-            </tr>
-        </tfoot>
     </table>
+    <span><button class="button" ng-click="Pagination(1)"><<</button></span>
+    <span><button class="button" ng-click="Pagination(2)">>></button></span>
 </body>
 
 </html>
