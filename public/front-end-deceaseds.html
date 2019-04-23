@@ -23,7 +23,7 @@
         <button class="btn btn-warning" ng-click="deleteDeceaseds()">Eliminar todos</button>
     </h1>
     <br><br>
-    <h2>Desde 
+    <h2>Desde
         <input class="form-control" ng-model="newDeceased.province">Hasta </input>
         <input class="form-control" ng-model="newDeceased.year" type=Number />
         <button class="btn btn-primary" ng-click="getBusqueda()">Buscar</button>
@@ -33,8 +33,8 @@
 
         <center><strong>¡Atención!</strong> {{data}} </center>
     </div>
-   <br>
-   
+    <br>
+
     <table class="table">
         <thead>
             <tr>
@@ -54,7 +54,7 @@
                 <td>{{ deceased.penalty }}</td>
                 <td>{{ deceased.number }}</td>
                 <td>
-                    <button class="btn btn-secondary" ng-click="putDeceased(deceased.province,deceased.year)">Editar</button>
+
                     <button class="btn btn-danger" ng-click="deleteDeceased(deceased.province,deceased.year)">Eliminar</button>
                 </td>
             </tr>
@@ -77,6 +77,41 @@
                 <td>
                     <button class="btn btn-primary" ng-click="addDeceased()">Añadir</button>
                 </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="form-control" ng-model="putDeceased.province" value="Modifica provincia" />
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putDeceased.year" type=Number value="Modifica año" />
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putDeceased.life" value="Modifica vidas" />
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putDeceased.penalty" value="Modifica multas" />
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putDeceased.number" value="Modifica número de muertos" />
+                </td>
+                <td>
+                    <button class="btn btn-secondary" ng-click="putDeceased(putDeceased.province,putDeceased.year,putDeceased.life,putDeceased.penalty,putDeceased.number)">Modificar</button>
+                </td>
+            </tr>
+            <br><br>
+            <tr>
+                <ul class="pagination">
+
+                    <td><button class="btn btn-dark" ng-click="previousPage()"><i>Previous Page</i></button></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="btn btn-dark" ng-click="nextPage()"><i>Next Page</i></button></td>
+                    <td></td>
+                    <td></td>
+
+                </ul>
             </tr>
         </tbody>
     </table>
