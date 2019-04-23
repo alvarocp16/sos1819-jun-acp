@@ -17,11 +17,15 @@
     </h1>
     <br>
     <h2>Búsqueda desde
-        <input class="form-control" ng-model="searchProvince.province" >Hasta <br></input>
-        <input class="form-control" ng-model="searchYear.year" type=Number />
+        <input class="form-control mr-sm-2" placeholder="Desde el año" aria-label="from" ng-model="from" type=Number>Hasta <br></input>
+        <input class="form-control mr-sm-2" placeholder="Hasta el año" aria-label="to" ng-model="to" type=Number />
         <br>
-        <button class="btn btn-primary" ng-click="getBusqueda()">Buscar</button>
+        <button class="btn btn-primary my-2 my-sm-0" type="submit" ng-click="search()">Buscar</button>
     </h2>
+    <br>
+    <div class="alert alert-warning alert-dismissable">
+        <center><strong>Mensaje:</strong> {{data}} </center>
+    </div>
     <br>
     <table class="table">
         <thead>
@@ -87,6 +91,8 @@
             </tr>
         </tbody>
     </table>
+    <span><button class="button" ng-click="Pagination(1)"><<</button></span>
+    <span><button class="button" ng-click="Pagination(2)">>></button></span>
 </body>
 
 </html>
