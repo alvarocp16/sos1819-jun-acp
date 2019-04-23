@@ -6,16 +6,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     $scope.url = "/api/v1/elements";
 
     $scope.data = "Bienvenido";
-    /*refresh();
-    function refresh() {
-        console.log("Requesting elements to <" + $scope.url + ">....");
-        $http.get($scope.url).then(function(response) {
-            console.log("Data received: " + JSON.stringify(response.data, null, 2));
-            $scope.elements = response.data;
-        });
-    }*/
 
-    //Inicio prueba
     refresh(undefined, undefined);
 
     function refresh(limit, offset) {
@@ -37,75 +28,43 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             console.log("Data received: " + JSON.stringify(response.data, null, 2));
         });
     }
-
     $scope.search = function() {
         refresh(undefined, undefined);
     };
     var API = "/api/v1/elements";
-    var pag = 0;
+    var pagina = 0;
     var numero;
     $scope.Pagination = function(num) {
         numero = num;
-
         if (num == 1) {
-            pag = pag - 10;
-            if (pag < 0) {
-                pag = 0;
-                $http.get(API + "?limit=" + 3 + "&offset=" + pag).then(function(response) {
+            pagina = pagina - 10;
+            if (pagina < 0) {
+                pagina = 0;
+                $http.get(API + "?limit=" + 3 + "&offset=" + pagina).then(function(response) {
                     $scope.elements = response.data;
                     console.log("pagination1");
                     numero = num;
                     console.log(numero);
-
                 });
-
             }
             else {
-                $http.get(API + "?limit=" + 3 + "&offset=" + pag).then(function(response) {
+                $http.get(API + "?limit=" + 3 + "&offset=" + pagina).then(function(response) {
                     $scope.elements = response.data;
                     console.log("pagination2");
                     numero = num;
                     console.log(numero);
                 });
             }
-        }
-        else {
-
-            pag = pag + 3;
-            $http.get(API + "?limit=" + 3 + "&offset=" + pag).then(function(response) {
+        }else{
+            pagina = pagina + 3;
+            $http.get(API + "?limit=" + 3 + "&offset=" + pagina).then(function(response) {
                 $scope.elements = response.data;
                 console.log("pagination3");
                 numero = num;
                 console.log(numero);
             });
-
-
         }
     };
-    /*$scope.pagination = function(page) {
-        console.log("Paginating sports competitions");
-        if (isNaN(page)) {
-            if (page.localeCompare("x") == 0) {
-                refresh($scope.limit, $scope.offset);
-                $scope.offset += 1;
-            }
-            else if (page.localeCompare("z") == 0) {
-                if ($scope.offset > 0) {
-                    $scope.offset -= 1;
-                }
-                refresh($scope.limit, $scope.offset);
-            }
-            else {
-                $scope.offset = 0;
-                refresh(0, $scope.offset);
-            }
-        }
-        else {
-            $scope.offset = page;
-            refresh($scope.limit, $scope.offset);
-        }
-    }*/
-    //Final prueba
     $scope.addElement = function() {
         var newElement = $scope.newElement;
         console.log("Adding a new Element: " + JSON.stringify(newElement, null, 2));
