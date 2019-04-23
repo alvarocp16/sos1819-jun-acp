@@ -21,8 +21,9 @@
     </h1>
     <br><br>
     <h2>Desde 
-        <input class="form-control" ng-model="newInjuredHospitalized.province">Hasta </input>
-        <input class="form-control" ng-model="newInjuredHospitalized.year" type=Number />
+        <input class="form-control" ng-model="searchForm.province">Hasta </input>
+        <input class="form-control" ng-model="searchForm.year" type=Number />
+        <br>
         <button class="btn btn-primary" ng-click="getBusqueda()">Buscar</button>
     </h2>
     <br>
@@ -50,7 +51,6 @@
                 <td>{{ injured.number_of_deceased }}</td>
                 <td>{{ injured.injured_hospitalized }}</td>
                 <td>
-                    <button class="btn btn-secondary" ng-click="putInjuredHospitalized(injured.province,injured.year)">Editar</button>
                     <button class="btn btn-danger" ng-click="deleteInjuredHospitalized(injured.province,injured.year)">Eliminar</button>
                 </td>
             </tr>
@@ -74,6 +74,43 @@
                     <button class="btn btn-primary" ng-click="addInjuredHospitalized()">Añadir</button>
                 </td>
             </tr>
+             <tr>
+                <td>
+                    <input class="form-control" ng-model="putInjuredHospitalized.province" value="Modifica provincia"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putInjuredHospitalized.year" type=Number value="Modifica año"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putInjuredHospitalized.accident_with_victim" value="Modifica el número de accidentes con víctimas"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putInjuredHospitalized.number_of_deceased" value="Modifica heridos no hospitalizados en accidentes"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putInjuredHospitalized.injured_hospitalized" value="Modifica accidentes con victimas"/>
+                </td>
+                <td>
+                    <button class="btn btn-secondary" ng-click="putInjuredHospitalized(putInjuredHospitalized.province,putInjuredHospitalized.year,putInjuredHospitalized.accident_with_victim,putInjuredHospitalized.number_of_deceased,putInjuredHospitalized.injured_hospitalized)">Modificar</button>
+                </td>
+            </tr>
+            
+            <br><br>
+            <tr>
+                <ul class="pagination">
+
+                    <td><button class="btn btn-dark" ng-click="previousPage()"><i>Previous Page</i></button></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="btn btn-dark" ng-click="nextPage()"><i>Next Page</i></button></td>
+                    <td></td>
+                    <td></td>
+
+                </ul>
+            </tr>
+            
         </tbody>
     </table>
 </body>

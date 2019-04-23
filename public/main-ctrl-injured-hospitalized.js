@@ -10,14 +10,62 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
 
     refresh();
     $scope.data = "Disfrute de nuestra página";
-
+   
+   
+   //nuevo
+    var search = "?";
+    var limit = 5;
+    var offset = 0;
+    var paginationString = "";
+    $scope.currentPage = 1;
+    
+    
+    
+    //nuevo    
     function refresh() {
+    //nuevo
+     
+    //nuevo   
+        
+        
+       
         console.log("Requesting Injured Hospitalized to <" + $scope.url + ">....");
-        $http.get($scope.url).then(function(response) {
+        $http.get($scope.url, search, paginationString).then(function(response) {
             console.log("Data received: " + JSON.stringify(response.data, null, 2));
-
             $scope.injuredHospitalized = response.data;
-        });
+            
+            $scope.previousPage = function() {
+                     if ($scope.currentPage > 1) {
+                     offset -= limit;
+                     refresh();
+                     $scope.currentPage -= 1;
+                    }
+                 };
+            
+            $scope.busqueda = function() {
+                    if ($scope.searchForm.pronvince) {
+                    search += ("&province=" + $scope.injuredHospitalized.province);
+                    }
+                    if ($scope.searchForm.year) {
+                    search += ("&year=" + $scope.injuredHospitalized.year);
+                    }
+                    console.log(search);
+                    refresh();
+                    search="?";
+            };  
+            
+            $scope.nextPage = function() {
+                     if ($scope.injuredHospitalized.length == limit) {
+                    offset += limit;
+                    refresh();
+                    $scope.currentPage += 1;
+                    }
+                    };
+                    }, 
+                    function (error){
+                        $scope.status = error.status;
+                        $scope.data = "";
+                        });
     }
     
     $scope.addInjuredHospitalized = function() {
@@ -31,7 +79,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     },
         function(error) {
             $scope.status = error.status;
-            if($scope.stateCode == 409){
+            if($scope.status == 409){
                 console.log("eto no vaaaaa compae");
                 $scope.data = "La provincia y año que intenta crear ya existe";
             }
@@ -39,6 +87,28 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
         });
     };
     
+    $scope.putInjuredHospitalized = function(province, year, accident_with_victim, number_of_deceased, injured_hospitalized) {
+        if (province != 'undefined' &&
+            year != 'undefined' &&
+            accident_with_victim != 'undefined' &&
+            number_of_deceased != 'undefined' &&
+            injured_hospitalized != 'undefined') {
+            var data = {
+                province: province,
+                year: parseInt(year),
+                accident_with_victim: accident_with_victim,
+                number_of_deceased: number_of_deceased,
+                injured_hospitalized: injured_hospitalized
+            };
+        };
+        console.log("PUT a Element: " + JSON.stringify(data));
+        $http.put($scope.url + "/" + province + "/" + year, JSON.stringify(data)).then(function(response) {
+            $scope.data = "Dato modificado correctamente";
+            console.log("PUT Response: " + response.status + " " + response.data);
+            refresh();
+        });
+        
+    };
     
     $scope.deleteInjuredHospitalized = function(province, year) {
             console.log("Delete InjuredHospitalized with province <" + province + "> and year <" + year + ">");
