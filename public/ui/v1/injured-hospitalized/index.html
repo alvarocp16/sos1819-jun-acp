@@ -20,19 +20,11 @@
         <button class="btn btn-warning" ng-click="deleteAllInjuredHospitalizeds()">Eliminar todos</button>
     </h1>
     <br><br>
-    <h2>Desde 
-        <input class="form-control" ng-model="searchForm.province">Hasta </input>
-        <input class="form-control" ng-model="searchForm.year" type=Number />
-        <br>
-        <button class="btn btn-primary" ng-click="getBusqueda()">Buscar</button>
-    </h2>
-    <br>
     <div class="alert alert-warning alert-dismissable">
 
         <center><strong>¡Atención!</strong> {{data}} </center>
     </div>
-   <br>
-   
+
     <table class="table">
         <thead>
             <tr>
@@ -71,7 +63,7 @@
                     <input class="form-control" ng-model="newInjuredHospitalized.injured_hospitalized" value="Nuevos hospitalizados" />
                 </td>
                 <td>
-                    <button class="btn btn-primary" ng-click="addInjuredHospitalized()">Añadir</button>
+                    <button class="btn btn-outline-primary my-2 my-sm-0" ng-click="addInjuredHospitalized()">Añadir</button>
                 </td>
             </tr>
              <tr>
@@ -91,28 +83,29 @@
                     <input class="form-control" ng-model="putInjuredHospitalized.injured_hospitalized" value="Modifica accidentes con victimas"/>
                 </td>
                 <td>
-                    <button class="btn btn-secondary" ng-click="putInjuredHospitalized(putInjuredHospitalized.province,putInjuredHospitalized.year,putInjuredHospitalized.accident_with_victim,putInjuredHospitalized.number_of_deceased,putInjuredHospitalized.injured_hospitalized)">Modificar</button>
+                    <button class="btn btn-outline-primary my-2 my-sm-0" ng-click="putInjuredHospitalized(putInjuredHospitalized.province,putInjuredHospitalized.year,putInjuredHospitalized.accident_with_victim,putInjuredHospitalized.number_of_deceased,putInjuredHospitalized.injured_hospitalized)">Modificar</button>
                 </td>
             </tr>
             
             <br><br>
             <tr>
-                <ul class="pagination">
-
-                    <td><button class="btn btn-dark" ng-click="previousPage()"><i>Previous Page</i></button></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><button class="btn btn-dark" ng-click="nextPage()"><i>Next Page</i></button></td>
-                    <td></td>
-                    <td></td>
-
-                </ul>
+                <td>
+                    <input class="form-control mr-sm-2" type="number" placeholder="From Year" aria-label="from" ng-model="from">
+                </td>
+                <td>
+                    <input class="form-control mr-sm-2" type="number" placeholder="To Year" aria-label="to" ng-model="to">
+                </td>
+                <td>
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" ng-click="search()">Search</button>
+                </td>
             </tr>
-            
+            <br><br>
+        
+        
         </tbody>
     </table>
+    <span><button class="button" ng-click="Pagination(1)"><<</button></span>
+    <span><button class="button" ng-click="Pagination(2)">>></button></span>
 </body>
 
 </html>

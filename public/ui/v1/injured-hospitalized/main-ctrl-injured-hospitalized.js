@@ -6,67 +6,69 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     
     $scope.url = "/api/v1/injured-hospitalized";
 
-
-
-    refresh();
     $scope.data = "Disfrute de nuestra página";
-   
-   
-   //nuevo
-    var search = "?";
-    var limit = 5;
-    var offset = 0;
-    var paginationString = "";
-    $scope.currentPage = 1;
+
+    refresh(undefined, undefined);
     
-    
+  
     
     //nuevo    
-    function refresh() {
-    //nuevo
-     
-    //nuevo   
-        
-        
-       
-        console.log("Requesting Injured Hospitalized to <" + $scope.url + ">....");
-        $http.get($scope.url, search, paginationString).then(function(response) {
+    function refresh(limit, offset) {
+        $scope.showInfoComp = false;
+        console.log("Requesting competitions to <" + $scope.url + "?from=" + $scope.from + "&to=" + $scope.to + ">");
+        let url = $scope.url +
+            "?from=" + parseInt($scope.from) +
+            "&to=" + parseInt($scope.to) +
+            "&offset=" + parseInt($scope.offset) +
+            "&limit=" + parseInt(limit);
+        console.log(url);
+        $http.get(url).then(function(response) {
             console.log("Data received: " + JSON.stringify(response.data, null, 2));
             $scope.injuredHospitalized = response.data;
-            
-            $scope.previousPage = function() {
-                     if ($scope.currentPage > 1) {
-                     offset -= limit;
-                     refresh();
-                     $scope.currentPage -= 1;
-                    }
-                 };
-            
-            $scope.busqueda = function() {
-                    if ($scope.searchForm.pronvince) {
-                    search += ("&province=" + $scope.injuredHospitalized.province);
-                    }
-                    if ($scope.searchForm.year) {
-                    search += ("&year=" + $scope.injuredHospitalized.year);
-                    }
-                    console.log(search);
-                    refresh();
-                    search="?";
-            };  
-            
-            $scope.nextPage = function() {
-                     if ($scope.injuredHospitalized.length == limit) {
-                    offset += limit;
-                    refresh();
-                    $scope.currentPage += 1;
-                    }
-                    };
-                    }, 
-                    function (error){
-                        $scope.status = error.status;
-                        $scope.data = "";
-                        });
+            if (JSON.stringify(response.data, null, 2).length === 2) {
+                $scope.showInfoComp = true;
+            }
+        }, function(response) {
+            console.log("Data received: " + JSON.stringify(response.data, null, 2));
+        });
     }
+    $scope.search = function() {
+        refresh(undefined, undefined);
+    };
+    var API = "/api/v1/injured-hospitalized";
+    var pagina = 0;
+    var numero;
+    $scope.Pagination = function(num) {
+        numero = num;
+        if (num == 1) {
+            pagina = pagina - 10;
+            if (pagina < 0) {
+                pagina = 0;
+                $http.get(API + "?limit=" + 3 + "&offset=" + pagina).then(function(response) {
+                    $scope.injuredHospitalized = response.data;
+                    console.log("pagination1");
+                    numero = num;
+                    console.log(numero);
+                });
+            }
+            else {
+                $http.get(API + "?limit=" + 3 + "&offset=" + pagina).then(function(response) {
+                    $scope.injuredHospitalized = response.data;
+                    console.log("pagination2");
+                    numero = num;
+                    console.log(numero);
+                });
+            }
+        }else{
+            pagina = pagina + 3;
+            $http.get(API + "?limit=" + 3 + "&offset=" + pagina).then(function(response) {
+                $scope.injuredHospitalized = response.data;
+                console.log("pagination3");
+                numero = num;
+                console.log(numero);
+            });
+        }
+    };
     
     $scope.addInjuredHospitalized = function() {
         var newInjuredHospitalized = $scope.newInjuredHospitalized;
@@ -101,7 +103,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
                 injured_hospitalized: injured_hospitalized
             };
         };
-        console.log("PUT a Element: " + JSON.stringify(data));
+        console.log("PUT a Injured hopitalized: " + JSON.stringify(data));
         $http.put($scope.url + "/" + province + "/" + year, JSON.stringify(data)).then(function(response) {
             $scope.data = "Dato modificado correctamente";
             console.log("PUT Response: " + response.status + " " + response.data);
