@@ -9,7 +9,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
 
     refresh(undefined, undefined);
 
-    function refresh(limit, offset) {
+    function refresh(limit,offset) {
         $scope.showInfoComp = false;
         console.log("Requesting competitions to <" + $scope.url + "?from=" + $scope.from + "&to=" + $scope.to + ">");
         let url = $scope.url +
