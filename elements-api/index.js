@@ -120,6 +120,42 @@ apiRest.register = (app, elements) => {
             victims: "195",
             injurednothospitalizedinaccidents: "176",
             accidentswithvictims: "148"
+        }, {
+            province: "madrid",
+            year: 2011,
+            victims: "16.062",
+            injurednothospitalizedinaccidents: "14.876",
+            accidentswithvictims: "12.632"
+        }, {
+            province: "albacete",
+            year: 2009,
+            victims: "659",
+            injurednothospitalizedinaccidents: "611",
+            accidentswithvictims: "519"
+        }, {
+            province: "sevilla",
+            year: 2010,
+            victims: "5.959",
+            injurednothospitalizedinaccidents: "5.861",
+            accidentswithvictims: "4.200"
+        }, {
+            province: "jaen",
+            year: 2014,
+            victims: "567",
+            injurednothospitalizedinaccidents: "520",
+            accidentswithvictims: "416"
+        }, {
+            province: "badajoz",
+            year: 2011,
+            victims: "725",
+            injurednothospitalizedinaccidents: "661",
+            accidentswithvictims: "541"
+        }, {
+            province: "caceres",
+            year: 2010,
+            victims: "195",
+            injurednothospitalizedinaccidents: "176",
+            accidentswithvictims: "148"
         }];
         elements.find({}).toArray((err, elementsArray) => {
             if (err) {
