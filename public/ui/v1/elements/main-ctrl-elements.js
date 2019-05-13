@@ -9,7 +9,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
 
     refresh(undefined, undefined);
 
-    function refresh(limit, offset) {
+    function refresh(limit,offset) {
         $scope.showInfoComp = false;
         console.log("Requesting competitions to <" + $scope.url + "?from=" + $scope.from + "&to=" + $scope.to + ">");
         let url = $scope.url +
@@ -40,7 +40,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             pagina = pagina - 10;
             if (pagina < 0) {
                 pagina = 0;
-                $http.get(API + "?limit=" + 3 + "&offset=" + pagina).then(function(response) {
+                $http.get(API + "?limit=" + 10 + "&offset=" + pagina).then(function(response) {
                     $scope.elements = response.data;
                     console.log("pagination1");
                     numero = num;
@@ -48,7 +48,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
                 });
             }
             else {
-                $http.get(API + "?limit=" + 3 + "&offset=" + pagina).then(function(response) {
+                $http.get(API + "?limit=" + 10 + "&offset=" + pagina).then(function(response) {
                     $scope.elements = response.data;
                     console.log("pagination2");
                     numero = num;
@@ -56,8 +56,8 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
                 });
             }
         }else{
-            pagina = pagina + 3;
-            $http.get(API + "?limit=" + 3 + "&offset=" + pagina).then(function(response) {
+            pagina = pagina + 10;
+            $http.get(API + "?limit=" + 10 + "&offset=" + pagina).then(function(response) {
                 $scope.elements = response.data;
                 console.log("pagination3");
                 numero = num;
