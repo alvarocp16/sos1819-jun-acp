@@ -1,0 +1,101 @@
+<br><br>
+<h1>Editar Defunciones
+</h1>
+<br>
+
+<br>
+<div class="alert alert-warning alert-dismissable">
+
+    <center><strong>¡Atención!</strong> {{data}} </center>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Provincia</th>
+            <th>Año</th>
+            <th>Vidas</th>
+            <th>Multa</th>
+            <th>Número de muertos</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="deceased in deceaseds">
+            <td>{{ deceased.province }}</td>
+            <td>{{ deceased.year }}</td>
+            <td>
+                <input
+                    class="form-control"
+                    ng-model="deceased.life" 
+                />
+            <td>
+                <button
+                    class="btn btn-primary"
+                    ng-click="updateDeceased(deceased.province, deceased.year)"
+                    >Editar</button>
+            </td>
+            
+            <td>{{ deceased.penalty }}</td>
+            <td>{{ deceased.number }}</td>
+            <td>
+
+                <button class="btn btn-primary" ng-click="updateDeceased(deceased.province,deceased.year)">Editar</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="form-control" ng-model="newDeceased.province" value="Nueva provincia" />
+            </td>
+            <td>
+                <input class="form-control" ng-model="newDeceased.year" type=Number value="Nuevo año" />
+            </td>
+            <td>
+                <input class="form-control" ng-model="newDeceased.life" value="Nuevas vidas" />
+            </td>
+            <td>
+                <input class="form-control" ng-model="newDeceased.penalty" value="Nuevos multas" />
+            </td>
+            <td>
+                <input class="form-control" ng-model="newDeceased.number" value="Nuevos número de muertos" />
+            </td>
+            <td>
+                <button class="btn btn-outline-primary my-2 my-sm-0" ng-click="addDeceased()">Añadir</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="form-control" ng-model="putDeceased.province" value="Modifica provincia" />
+            </td>
+            <td>
+                <input class="form-control" ng-model="putDeceased.year" type=Number value="Modifica año" />
+            </td>
+            <td>
+                <input class="form-control" ng-model="putDeceased.life" value="Modifica vidas" />
+            </td>
+            <td>
+                <input class="form-control" ng-model="putDeceased.penalty" value="Modifica multas" />
+            </td>
+            <td>
+                <input class="form-control" ng-model="putDeceased.number" value="Modifica número de muertos" />
+            </td>
+            <td>
+                <button class="btn btn-outline-primary my-2 my-sm-0" ng-click="putDeceased(putDeceased.province,putDeceased.year,putDeceased.life,putDeceased.penalty,putDeceased.number)">Modificar</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="form-control mr-sm-2" type="number" placeholder="Desde" aria-label="from" ng-model="from">
+            </td>
+            <td>
+                <input class="form-control mr-sm-2" type="number" placeholder="Hasta" aria-label="to" ng-model="to">
+            </td>
+            <td>
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" ng-click="search()">Buscar</button>
+            </td>
+        </tr>
+        <br><br>
+    </tbody>
+</table>
+<span><button class="button" ng-click="Pagination(1)"><<</button></span>
+<span><button class="button" ng-click="Pagination(2)">>></button></span>
