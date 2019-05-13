@@ -1,0 +1,45 @@
+<br><br>
+<h1>Editar Defunciones
+</h1>
+<br>
+
+<br>
+<div class="alert alert-warning alert-dismissable">
+
+    <center><strong>¡Atención!</strong> {{data}} </center>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Provincia</th>
+            <th>Año</th>
+            <th>Vidas</th>
+            <th>Multa</th>
+            <th>Número de muertos</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ updatedDeceased.province }}</td>
+            <td>{{ updatedDeceased.year }}</td>
+            <td>
+                <input type="number" class="form-control" ng-model= updatedDeceased.life value="Vidas"/>
+            </td>
+            <td>
+                <input type="number" class="form-control" ng-model= updatedDeceased.penalty value="Multas"/>
+            </td>
+            <td>
+                <input type="number" class="form-control" ng-model= updatedDeceased.number value="Número"/>
+            </td>
+            <td>
+
+                <button class="btn btn-primary" ng-click="updateDeceased()">Editar</button>
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
+ <hr/>
+ <hr/>
