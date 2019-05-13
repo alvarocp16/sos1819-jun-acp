@@ -9,7 +9,6 @@ apiRest.register = (app, elements) => {
     app.get(BASE_PATH+"/docs", (req, res) => {
         res.redirect("https://documenter.getpostman.com/view/7064258/S17us6KT");
     });
-    
     //GET a la ruta base /api/v1/elements/ con búsqueda y paginación
     app.get(BASE_PATH, (req, res) => {
         //Busqueda por año
@@ -74,88 +73,88 @@ apiRest.register = (app, elements) => {
                 }
             });
         }
+        
     });
-    
 //GET al loadInitialData (mete los iniciales en la base de datos) /api/v1/elements/loadInitialData
     app.get(BASE_PATH+"/loadInitialData", (req, res) => {
         var elementsInitials = [{
             province: "sevilla",
             year: 2014,
-            victims: "4.227",
-            injurednothospitalizedinaccidents: "4.106",
-            accidentswithvictims: "3.023"
+            victims: 4227,
+            injurednothospitalizedinaccidents: 4106,
+            accidentswithvictims: 3023
         }, {
             province: "madrid",
             year: 2015,
-            victims: "16.062",
-            injurednothospitalizedinaccidents: "14.876",
-            accidentswithvictims: "12.632"
+            victims: 16062,
+            injurednothospitalizedinaccidents: 14876,
+            accidentswithvictims: 12632
         }, {
             province: "albacete",
             year: 2016,
-            victims: "659",
-            injurednothospitalizedinaccidents: "611",
-            accidentswithvictims: "519"
+            victims: 659,
+            injurednothospitalizedinaccidents: 611,
+            accidentswithvictims: 519
         }, {
             province: "sevilla",
             year: 2015,
-            victims: "5.959",
-            injurednothospitalizedinaccidents: "5.861",
-            accidentswithvictims: "4.200"
+            victims: 5959,
+            injurednothospitalizedinaccidents: 5861,
+            accidentswithvictims: 4200
         }, {
             province: "jaen",
             year: 2013,
-            victims: "567",
-            injurednothospitalizedinaccidents: "520",
-            accidentswithvictims: "416"
+            victims: 567,
+            injurednothospitalizedinaccidents: 520,
+            accidentswithvictims: 416
         }, {
             province: "badajoz",
             year: 2016,
-            victims: "725",
-            injurednothospitalizedinaccidents: "661",
-            accidentswithvictims: "541"
+            victims: 725,
+            injurednothospitalizedinaccidents: 661,
+            accidentswithvictims: 541
         }, {
             province: "caceres",
             year: 2016,
-            victims: "195",
-            injurednothospitalizedinaccidents: "176",
-            accidentswithvictims: "148"
+            victims: 195,
+            injurednothospitalizedinaccidents: 176,
+            accidentswithvictims: 148
         }, {
             province: "madrid",
             year: 2011,
-            victims: "16.062",
-            injurednothospitalizedinaccidents: "14.876",
-            accidentswithvictims: "12.632"
+            victims: 16062,
+            injurednothospitalizedinaccidents: 14876,
+            accidentswithvictims: 12632
         }, {
             province: "albacete",
             year: 2009,
-            victims: "659",
-            injurednothospitalizedinaccidents: "611",
-            accidentswithvictims: "519"
+            victims: 659,
+            injurednothospitalizedinaccidents: 611,
+            accidentswithvictims: 519
         }, {
             province: "sevilla",
             year: 2010,
-            victims: "5.959",
-            injurednothospitalizedinaccidents: "5.861",
-            accidentswithvictims: "4.200"
+            victims: 5959,
+            injurednothospitalizedinaccidents: 5861,
+            accidentswithvictims: 4200
         }, {
             province: "jaen",
             year: 2014,
-            victims: "567",
-            injurednothospitalizedinaccidents: "520",
-            accidentswithvictims: "416"
+            victims: 567,
+            injurednothospitalizedinaccidents: 520,
+            accidentswithvictims: 416
         }, {
             province: "badajoz",
             year: 2011,
-            victims: "725",
-            injurednothospitalizedinaccidents: "661",
-            accidentswithvictims: "541"
+            victims: 725,
+            injurednothospitalizedinaccidents: 661,
+            accidentswithvictims: 541
         }, {
             province: "caceres",
             year: 2010,
-            victims: "195",
-            injurednothospitalizedinaccidents: "176",
-            accidentswithvictims: "148"
+            victims: 195,
+            injurednothospitalizedinaccidents: 176,
+            accidentswithvictims: 148
         }];
         elements.find({}).toArray((err, elementsArray) => {
             if (err) {
