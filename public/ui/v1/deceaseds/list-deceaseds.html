@@ -25,13 +25,12 @@
         </thead>
         <tbody>
             <tr ng-repeat="deceased in deceaseds">
-                <td>{{ deceased.province }}</td>
+                <td><a href="#!/edit/{{deceased.province}}/{{deceased.year}}">{{ deceased.province }}</a></td>
                 <td>{{ deceased.year }}</td>
                 <td>{{ deceased.life }}</td>
                 <td>{{ deceased.penalty }}</td>
                 <td>{{ deceased.number }}</td>
                 <td>
-
                     <button class="btn btn-danger" ng-click="deleteDeceased(deceased.province,deceased.year)">Eliminar</button>
                 </td>
             </tr>

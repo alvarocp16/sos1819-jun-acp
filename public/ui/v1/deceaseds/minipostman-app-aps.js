@@ -6,7 +6,7 @@ angular.module("MiniPostmanApp", ["ngRoute"])
                 controller: "ListCtrl",
                 templateUrl: "list-deceaseds.html"
             })
-            .when("/edit", {
+            .when("/edit/:province/:year", {
                 controller: "EditCtrl",
                 templateUrl: "edit-deceaseds.html"
             })
