@@ -1,8 +1,8 @@
 /*global angular*/
 
 var app = angular.module("MiniPostmanApp")
-app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
-    console.log("MainCtrl initialized!");
+app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
+    console.log("ListCtrl initialized!");
     
     $scope.url = "/api/v1/injured-hospitalized";
 

@@ -1,0 +1,94 @@
+    <br><br>
+    <h1>Heridos hospitalizados
+
+        <button class="btn btn-primary" ng-click="getLoadInitialData()">Cargar datos iniciales</button>
+        <button class="btn btn-warning" ng-click="deleteAllInjuredHospitalizeds()">Eliminar todos</button>
+    </h1>
+    <br><br>
+    <div class="alert alert-warning alert-dismissable">
+
+        <center><strong>¡Atención!</strong> {{data}} </center>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Provincia</th>
+                <th>Año</th>
+                <th>Accidentes con víctimas</th>
+                <th>Número de muertos</th>
+                <th>Heridos hospitalizados</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="injured in injuredHospitalized">
+                <td><a href="#!/edit/{{injured.province}}/{{injured.year}}">{{ injured.province }}</a></td>
+                <td>{{ injured.province }}</td>
+                <td>{{ injured.year }}</td>
+                <td>{{ injured.accident_with_victim }}</td>
+                <td>{{ injured.number_of_deceased }}</td>
+                <td>{{ injured.injured_hospitalized }}</td>
+                <td>
+                    <button class="btn btn-danger" ng-click="deleteInjuredHospitalized(injured.province,injured.year)">Eliminar</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="form-control" ng-model="newInjuredHospitalized.province" value="Nueva provincia" />
+                </td>
+                <td>
+                    <input class="form-control" ng-model="newInjuredHospitalized.year" type=Number value="Nuevo año" />
+                </td>
+                <td>
+                    <input class="form-control" ng-model="newInjuredHospitalized.accident_with_victim" value="Nuevos accidentes" />
+                </td>
+                <td>
+                    <input class="form-control" ng-model="newInjuredHospitalized.number_of_deceased" value="Nuevas víctimas mortales" />
+                </td>
+                <td>
+                    <input class="form-control" ng-model="newInjuredHospitalized.injured_hospitalized" value="Nuevos hospitalizados" />
+                </td>
+                <td>
+                    <button class="btn btn-outline-primary my-2 my-sm-0" ng-click="addInjuredHospitalized()">Añadir</button>
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    <input class="form-control" ng-model="putInjuredHospitalized.province" value="Modifica provincia"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putInjuredHospitalized.year" type=Number value="Modifica año"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putInjuredHospitalized.accident_with_victim" value="Modifica el número de accidentes con víctimas"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putInjuredHospitalized.number_of_deceased" value="Modifica heridos no hospitalizados en accidentes"/>
+                </td>
+                <td>
+                    <input class="form-control" ng-model="putInjuredHospitalized.injured_hospitalized" value="Modifica accidentes con victimas"/>
+                </td>
+                <td>
+                    <button class="btn btn-outline-primary my-2 my-sm-0" ng-click="putInjuredHospitalized(putInjuredHospitalized.province,putInjuredHospitalized.year,putInjuredHospitalized.accident_with_victim,putInjuredHospitalized.number_of_deceased,putInjuredHospitalized.injured_hospitalized)">Modificar</button>
+                </td>
+            </tr>
+            
+            <br><br>
+            <tr>
+                <td>
+                    <input class="form-control mr-sm-2" type="number" placeholder="Desde" aria-label="from" ng-model="from">
+                </td>
+                <td>
+                    <input class="form-control mr-sm-2" type="number" placeholder="Hasta" aria-label="to" ng-model="to">
+                </td>
+                <td>
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" ng-click="search()">Buscar</button>
+                </td>
+            </tr>
+            <br><br>
+        
+        
+        </tbody>
+    </table>
+    <span><button class="button" ng-click="Pagination(1)"><<</button></span>
+    <span><button class="button" ng-click="Pagination(2)">>></button></span>
