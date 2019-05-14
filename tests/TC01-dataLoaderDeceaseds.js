@@ -1,19 +1,11 @@
-describe('expenses is Loaded', function() {
-    it('should show some expenses', function() {
-        browser
-            .get('https://sos1819-14.herokuapp.com/ui/v1/deceaseds/#!/')
-            .then(function() {
-                browser.driver.sleep(2000);
-                browser.driver.sleep(2000);
-                browser.driver.sleep(2000);
+describe('Data is loaded', function () {
+	it('should show a bunch of data', function (){
+		browser.get("https://sos1819-14.herokuapp.com/ui/v1/deceaseds/#!/");
+		var deceaseds= element.all(by.repeater("deceased in deceaseds"));
+	//	console.log("--");
+	//	console.log(deceaseds);
+	//	console.log("--");
 
-
-                element
-                    .all(by.repeater("deceased in deceaseds"))
-                    .then(function(deceaseds) {
-                        expect(deceaseds.length).toBeGreaterThan(0);
-                        console.log("the length of data is: " + deceaseds.length);
-                    })
-            })
-    })
+		expect(deceaseds.count()).toBeGreaterThan(0);
+	});
 });
