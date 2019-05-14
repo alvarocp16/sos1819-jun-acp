@@ -4,7 +4,6 @@ var app = angular.module("MiniPostmanApp");
 app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
     console.log("MainCtrl initialized!");
     $scope.url = "/api/v1/elements";
-
     $scope.data = "Bienvenido";
 
     refresh(undefined, undefined);
@@ -28,6 +27,7 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             console.log("Data received: " + JSON.stringify(response.data, null, 2));
         });
     }
+    
     $scope.search = function() {
         refresh(undefined, undefined);
     };
@@ -91,9 +91,9 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             var data = {
                 province: province,
                 year: parseInt(year),
-                victims: victims,
-                injurednothospitalizedinaccidents: injurednothospitalizedinaccidents,
-                accidentswithvictims: accidentswithvictims
+                victims: parseInt(victims),
+                injurednothospitalizedinaccidents: parseInt(injurednothospitalizedinaccidents),
+                accidentswithvictims: parseInt(accidentswithvictims)
             };
         }
         console.log("PUT a Element: " + JSON.stringify(data));
@@ -177,9 +177,9 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             var data = {
                 province: province,
                 year: parseInt(year),
-                victims: victims,
-                injurednothospitalizedinaccidents: injurednothospitalizedinaccidents,
-                accidentswithvictims: accidentswithvictims
+                victims: parseInt(victims),
+                injurednothospitalizedinaccidents: parseInt(injurednothospitalizedinaccidents),
+                accidentswithvictims: parseInt(accidentswithvictims)
             };
             $http.post($scope.url, JSON.stringify(data)).then(function(response) {
                 $scope.dataResponse = JSON.stringify(response.data, null, 2);
@@ -202,9 +202,9 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             element = {
                 province: $scope.province,
                 year: parseInt($scope.year),
-                victims: $scope.victims,
-                injurednothospitalizedinaccidents: $scope.injurednothospitalizedinaccidents,
-                accidentswithvictims: $scope.accidentswithvictims
+                victims: parseInt($scope.victims),
+                injurednothospitalizedinaccidents: parseInt($scope.injurednothospitalizedinaccidents),
+                accidentswithvictims: parseInt($scope.accidentswithvictims)
             };
         }
         $http.post($scope.url, element).then(function(response) {
@@ -222,9 +222,9 @@ app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
             var data = {
                 province: province,
                 year: parseInt(year),
-                victims: victims,
-                injurednothospitalizedinaccidents: injurednothospitalizedinaccidents,
-                accidentswithvictims: accidentswithvictims
+                victims: parseInt(victims),
+                injurednothospitalizedinaccidents: parseInt(injurednothospitalizedinaccidents),
+                accidentswithvictims: parseInt(accidentswithvictims)
             };
             $http.put($scope.url, JSON.stringify(data)).then(function(response) {
                 $scope.dataResponse = JSON.stringify(response.data, null, 2);

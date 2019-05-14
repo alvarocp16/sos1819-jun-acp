@@ -57,13 +57,13 @@
                     <input class="form-control" ng-model="newElement.year" type=Number value="Nuevo año"/>
                 </td>
                 <td>
-                    <input class="form-control" ng-model="newElement.victims" value="Nuevas victimas"/>
+                    <input class="form-control" ng-model="newElement.victims" type=Number value="Nuevas victimas"/>
                 </td>
                 <td>
-                    <input class="form-control" ng-model="newElement.injurednothospitalizedinaccidents" value="Nuevos heridos no hospitalizados en accidentes"/>
+                    <input class="form-control" ng-model="newElement.injurednothospitalizedinaccidents" type=Number value="Nuevos heridos no hospitalizados en accidentes"/>
                 </td>
                 <td>
-                    <input class="form-control" ng-model="newElement.accidentswithvictims" value="Nuevos accidentes con victimas"/>
+                    <input class="form-control" ng-model="newElement.accidentswithvictims" type=Number value="Nuevos accidentes con victimas"/>
                 </td>
                 <td>
                     <button class="btn btn-primary" ng-click="addElement()">Añadir</button>
@@ -77,13 +77,13 @@
                     <input class="form-control" ng-model="putElement.year" type=Number value="Modifica año"/>
                 </td>
                 <td>
-                    <input class="form-control" ng-model="putElement.victims" value="Modifica victimas"/>
+                    <input class="form-control" ng-model="putElement.victims" type=Number value="Modifica victimas"/>
                 </td>
                 <td>
-                    <input class="form-control" ng-model="putElement.injurednothospitalizedinaccidents" value="Modifica heridos no hospitalizados en accidentes"/>
+                    <input class="form-control" ng-model="putElement.injurednothospitalizedinaccidents" type=Number value="Modifica heridos no hospitalizados en accidentes"/>
                 </td>
                 <td>
-                    <input class="form-control" ng-model="putElement.accidentswithvictims" value="Modifica accidentes con victimas"/>
+                    <input class="form-control" ng-model="putElement.accidentswithvictims" type=Number value="Modifica accidentes con victimas"/>
                 </td>
                 <td>
                     <button class="btn btn-secondary" ng-click="putElement(putElement.province,putElement.year,putElement.victims,putElement.injurednothospitalizedinaccidents,putElement.accidentswithvictims)">Modificar</button>
