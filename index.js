@@ -1,6 +1,9 @@
 var express = require("express");
+var request = require("request");
+var cors = require("cors");
 var bodyParser = require("body-parser");
-var elementsApi = require("./elements-api");
+//var elementsApi = require("./elements-api");
+
 var injuredHospitalizedApi = require("./injured-hospitalized-api");
 var deceasedsApi = require("./deceaseds-api");
 
@@ -11,13 +14,16 @@ var app = express();
 app.use("/", express.static(__dirname + "/public"));
 
 
-app.use("/app-aps", express.static(path.join(__dirname, "public/front-end-deceaseds.html")));
+/*app.use("/app-aps", express.static(path.join(__dirname, "public/front-end-deceaseds.html")));
 app.use("/app-agf", express.static(path.join(__dirname, "public/front-end-injured-hospitalized.html")));
-app.use("/app-acp", express.static(path.join(__dirname, "public/front-end-elements.html")));
+app.use("/app-acp", express.static(path.join(__dirname, "public/front-end-elements.html")));*/
 
-app.use('/ui/v1/deceaseds', express.static(path.join(__dirname, "public/ui/v1/deceaseds/list-deceaseds.html")));
+app.use('/ui/v1/deceaseds', express.static(path.join(__dirname, "public/views")));
+app.use('/ui/v1/injured-hospitalized', express.static(path.join(__dirname, "public/views-inj")));
+
 
 app.use(bodyParser.json());
+app.use(cors());
 
 var port = process.env.PORT || 8080;
 const MongoClient = require("mongodb").MongoClient;
@@ -36,7 +42,7 @@ clientaps.connect(err => {
 });
 
 
-
+/*
 //=========================================================================== Chamorro ======================================
 const uriacp = "mongodb+srv://test:test@sos-wje4l.mongodb.net/sos1819?retryWrites=true";
 const clientacp = new MongoClient(uriacp, { useNewUrlParser: true });
@@ -47,7 +53,7 @@ clientacp.connect(err => {
     elements = clientacp.db("sos1819").collection("elements");
     elementsApi.register(app, elements);
     console.log("Connected!");
-});
+});*/
 
 
 // ======================================================== PETI =====================================================================
@@ -62,6 +68,7 @@ client.connect(err => {
     injuredHospitalizedApi.register(app, injuredHospitalized);
     console.log("Connected!");
 });
+
 
 //====================================NO TOCAR===================================================
 app.listen(port, () => {
