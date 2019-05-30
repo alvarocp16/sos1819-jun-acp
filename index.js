@@ -41,6 +41,34 @@ clientaps.connect(err => {
     console.log("Connected!");
 });
 
+//consumicion de API de Jesus Ezcurra con proxy
+
+var paths='/proxyJEG';
+var apiServerHost = 'https://sos1819-06.herokuapp.com/api/v1/uefa-club-rankings';
+
+//importante quitar el app = express(), que machaca la app   
+
+
+app.use("/proxyJEG", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost);
+  req.pipe(request(apiServerHost)).pipe(res);
+});
+
+//consumicion de API de Maria Dolores Lopez
+
+
+var paths='/proxyMDLS';
+var apiServerHost1 = 'https://sos1819-08.herokuapp.com/API/v1/tourists-by-countries';
+
+//importante quitar el app = express(), que machaca la app   
+
+
+app.use("/proxyMDLS", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost1);
+  req.pipe(request(apiServerHost1)).pipe(res);
+});
 
 /*
 //=========================================================================== Chamorro ======================================
