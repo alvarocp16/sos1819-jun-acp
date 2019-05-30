@@ -34,6 +34,35 @@ apiRest.register = (app, deceaseds) => {
         var limit = parseInt(req.query.limit);
         var offset = parseInt(req.query.offset);
 
+        var queries = req.query;
+
+        if (req.query.province) {
+
+            queries.province = req.query.province;
+        }
+
+        if (req.query.year) {
+
+            queries.year = Number(req.query.year);
+        }
+
+        if (req.query.life) {
+
+            queries.life = Number(req.query.life);
+        }
+
+        if (req.query.penalty) {
+
+            queries.penalty = Number(req.query.penalty);
+        }
+
+        if (req.query.number) {
+
+            queries.number = Number(req.query.number);
+        }
+
+
+
         //Paginacion y busqueda
         if (Number.isInteger(limit) && Number.isInteger(offset) && Number.isInteger(begin) && Number.isInteger(end)) {
             deceaseds.find({ "year": { $gte: begin, $lte: end } }).skip(offset).limit(limit).toArray((err, deceasedsArray) => {
@@ -96,27 +125,62 @@ apiRest.register = (app, deceaseds) => {
 
                 }
             });
+
         }
         else {
 
-            deceaseds.find({}).toArray((err, deceasedsArray) => {
+            // si no esta vacio entra
+            if (JSON.stringify(queries) != "{}") {
 
-                if (err) {
+                deceaseds.find(queries).toArray((err, deceasedsArray) => {
 
-                    res.sendStatus(500);
+                    if (err) {
 
-                }
-                else {
+                        res.sendStatus(500);
 
-                    res.status(200).send(deceasedsArray.map((c) => {
-                        delete c._id;
-                        return c;
+                    }
+                    else {
 
-                    }));
+                        if (!deceasedsArray.length) {
 
-                }
-            });
+                            res.sendStatus(404);
 
+                        }
+                        else {
+
+                            res.status(200).send(deceasedsArray.map((c) => {
+                                delete c._id;
+                                return c;
+
+                            }));
+                        }
+
+
+                    }
+                });
+
+            }
+            else {
+
+                deceaseds.find({}).toArray((err, deceasedsArray) => {
+
+                    if (err) {
+
+                        res.sendStatus(500);
+
+                    }
+                    else {
+
+                        res.status(200).send(deceasedsArray.map((c) => {
+                            delete c._id;
+                            return c;
+
+                        }));
+
+                    }
+                });
+
+            }
         }
 
     });
@@ -266,12 +330,12 @@ apiRest.register = (app, deceaseds) => {
         });
     });
 
-     //PUT /deceaseds/petr
+    //PUT /deceaseds/petr
 
-     app.put(BASE_PATH+"/:province", (req, res) => {
+    app.put(BASE_PATH + "/:province", (req, res) => {
         res.sendStatus(405);
-    
-     });
+
+    });
 
 
     //PUT /deceaseds/Seville/2017

@@ -6,11 +6,13 @@
     </h1>
     <br>
 
+
     <br>
     <div class="alert alert-warning alert-dismissable">
 
         <center><strong>¡Atención!</strong> {{data}} </center>
     </div>
+
 
     <table class="table">
         <thead>
@@ -25,7 +27,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="deceased in deceaseds">
-                <td><a href="#!/edit/{{deceased.province}}/{{deceased.year}}">{{ deceased.province }}</a></td>
+                <td><a href="#!/ui/v1/deceaseds/edit/{{deceased.province}}/{{deceased.year}}">{{ deceased.province }}</a></td>
                 <td>{{ deceased.year }}</td>
                 <td>{{ deceased.life }}</td>
                 <td>{{ deceased.penalty }}</td>
@@ -39,7 +41,7 @@
                     <input class="form-control" ng-model="newDeceased.province" value="Nueva provincia" />
                 </td>
                 <td>
-                    <input class="form-control" ng-model="newDeceased.year" type=Number value="Nuevo año" />
+                    <input class="form-control" ng-model="newDeceased.year" type=Number value="2000" />
                 </td>
                 <td>
                     <input class="form-control" ng-model="newDeceased.life" value="Nuevas vidas" />
@@ -59,7 +61,7 @@
                     <input class="form-control" ng-model="putDeceased.province" value="Modifica provincia" />
                 </td>
                 <td>
-                    <input class="form-control" ng-model="putDeceased.year" type=Number value="Modifica año" />
+                    <input class="form-control" ng-model="putDeceased.year" type=Number value="1999" />
                 </td>
                 <td>
                     <input class="form-control" ng-model="putDeceased.life" value="Modifica vidas" />

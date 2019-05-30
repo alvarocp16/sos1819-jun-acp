@@ -1,0 +1,1002 @@
+{
+	"info": {
+		"_postman_id": "d93271d8-2216-442a-96c8-04632badc777",
+		"name": "SOS1819-14-deceaseds (heroku)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DELETE /deceaseds/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1bda33ed-2542-433b-a6ad-8b3996922950",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"_id\": \"5c9a6e001c9d440660597f1d\",\n        \"province\": \"Soria\",\n        \"number\": \"18\",\n        \"year\": \"2019\"\n    }"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOADINITIALDATA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "deae8dad-9b82-4b2d-9437-d33efec1acf4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/loadInitialData",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/v1/deceaseds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "35038799-774f-4a12-b78b-d1031df03c1d",
+						"exec": [
+							"pm.test(\"API returns some data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length > 0).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"_id\": \"5c9a6e001c9d448760597f1f\",\n        \"province\": \"Madrid\",\n        \"year\": \"2013\",\n        \"accident\": \"20\"\n    }"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /deceaseds/Seville",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "287767e0-1299-4901-9bc3-a9b837a1a558",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"_id\": \"5c9a6e001c9d448760597f1f\",\n        \"province\": \"Madrid\",\n        \"year\": \"2013\",\n        \"accident\": \"20\"\n    }"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/Seville",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						"Seville"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET deceaseds/Seville/2015",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ce189f8-b515-47f2-b5c2-d5e2c70a01d7",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"_id\": \"5c9a6e001c9d448760597f1f\",\n        \"province\": \"Madrid\",\n        \"year\": \"2013\",\n        \"accident\": \"20\"\n    }"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/Seville/2015",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						"Seville",
+						"2015"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  CODE 404 /deceaseds/Paris",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4bdd6061-cb8e-44bf-9000-e16abb3cde0b",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"_id\": \"5c9a6e001c9d448760597f1f\",\n        \"province\": \"Madrid\",\n        \"year\": \"2013\",\n        \"accident\": \"20\"\n    }"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/Paris",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						"Paris"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET PAGINACION /deceaseds?limit=3&offset=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds?limit=3&offset=1",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3"
+						},
+						{
+							"key": "offset",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /deceaseds/Soria",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \n        \"province\": \"Soria\",\n        \"number\": \"10\",\n        \"year\": 2017\n    }"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/Soria",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						"Soria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /deceaseds/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "457a6491-3262-4174-926d-6b26a6b643b3",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"province\": \"Soria\",\n    \"number\": \"60\",\n    \"penalty\": \"414\",\n    \"life\": \"507\",\n    \"year\": 2017\n}"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/v1/deceaseds Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "35038799-774f-4a12-b78b-d1031df03c1d",
+						"exec": [
+							"pm.test(\"API returns some data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length > 0).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"_id\": \"5c9a6e001c9d448760597f1f\",\n        \"province\": \"Madrid\",\n        \"year\": \"2013\",\n        \"accident\": \"20\"\n    }"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST DUPLICADO /deceaseds/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "05446fee-4278-4252-bc31-f7b45ba23926",
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"province\": \"Soria\",\n    \"number\": \"60\",\n    \"penalty\": \"414\",\n    \"life\": \"507\",\n    \"year\": 2017\n}"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						""
+					]
+				},
+				"description": "Al hacer 2 veces el mismo POST te da : Conflict (409)"
+			},
+			"response": []
+		},
+		{
+			"name": "POST CODE 400 /api/v1/deceaseds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3dd75889-6fa3-44b1-966b-504c122bd7e0",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \n        \"province\": \"Soria\",\n        \"number\": \"10\",\n        \"hola\": 2017\n    }"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET BUSQUEDA /api/v1/deceaseds?from=2014&to=2016",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "457a6491-3262-4174-926d-6b26a6b643b3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \n        \"province\": \"Soria\",\n        \"number\": \"18\",\n        \"year\": \"2017\"\n    }"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds?from=2016&to=2017",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2016"
+						},
+						{
+							"key": "to",
+							"value": "2017"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BUSQUEDA Y PAGIN GET deceaseds?limit=3&offset=1&from=2014&to=2016",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds?limit=3&offset=1&from=2014&to=2016",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3"
+						},
+						{
+							"key": "offset",
+							"value": "1"
+						},
+						{
+							"key": "from",
+							"value": "2014"
+						},
+						{
+							"key": "to",
+							"value": "2016"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT CODE 405 /api/v1/deceaseds/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce65bbfc-493b-4ab4-9cec-48ad80951a88",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"province\": \"Soria\",\n    \"number\": \"60\",\n    \"penalty\": \"424\",\n    \"life\": \"509\",\n    \"year\": 2017\n}"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /deceaseds/Soria",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"province\": \"Soria\",\n    \"number\": \"60\",\n    \"penalty\": \"424\",\n    \"life\": \"509\",\n    \"year\": 2017\n}"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/Soria/2017",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						"Soria",
+						"2017"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT CODE 400 /deceaseds/Soria/2017",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb82e2da-f057-44fe-b330-c875261941c2",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"province\": \"Soria\",\n    \"number\": \"60\",\n    \"penalty\": \"424\",\n    \"life\": \"509\",\n    \"year\": 2018\n}"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/Soria/2017",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						"Soria",
+						"2017"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT CODE 400 CAMPOS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb82e2da-f057-44fe-b330-c875261941c2",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \n        \"province\": \"Soria\",\n        \"number\": \"18\",\n        \"year\": 2018\n    }"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/Soria/2017",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						"Soria",
+						"2017"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT 404 NOT FOUND /deceaseds/Alava/2019",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d27223e2-802c-48e5-8ba5-1a4ea40c687d",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n       \n        \"province\": \"Alava\",\n        \"number\": \"18\",\n        \"year\": 2018\n    }"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/Alava/2019",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						"Alava",
+						"2019"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /deceaseds/Seville",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a681b876-8816-4529-84a6-dbe50e745490",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"_id\": \"5c9a6e001c9d440660597f1d\",\n        \"province\": \"Soria\",\n        \"number\": \"18\",\n        \"year\": \"2019\"\n    }"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/Seville",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						"Seville"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE CODE 404 /deceaseds/Milan",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "46bd0de4-bfd4-4f84-991d-95673f859499",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"_id\": \"5c9a6e001c9d440660597f1d\",\n        \"province\": \"Soria\",\n        \"number\": \"18\",\n        \"year\": \"2019\"\n    }"
+				},
+				"url": {
+					"raw": "https://sos1819-14.herokuapp.com/api/v1/deceaseds/Milan",
+					"protocol": "https",
+					"host": [
+						"sos1819-14",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"deceaseds",
+						"Milan"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -8,6 +8,9 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
     $scope.url = "/api/v1/deceaseds";
     var API = "/api/v1/deceaseds";
 
+
+    
+
     refresh(undefined, undefined);
     $scope.limit = 10;
     $scope.offset = 0;
@@ -54,6 +57,14 @@ app.controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
          });
      }
      */
+     
+     function refresh() {
+        $http.get(API)
+            .then(function(response) {
+                console.log("Data received " + JSON.stringify(response.data, null, 2));
+                $scope.deceaseds = response.data;
+            });
+    }
 
     function refresh(limit, offset) {
         //$scope.showInfoComp = false;

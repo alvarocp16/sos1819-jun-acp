@@ -3,12 +3,15 @@ angular.module("MiniPostmanApp", ["ngRoute"])
     .config(function($routeProvider) {
         $routeProvider
             .when("/", {
-                controller: "ListCtrl",
-                templateUrl: "list-deceaseds.html"
+                templateUrl: "./index.html",
             })
-            .when("/edit/:province/:year", {
+            .when("/ui/v1/deceaseds/", {
+                controller: "ListCtrl",
+                templateUrl: "ui/v1/deceaseds/list-deceaseds.html"
+            })
+           .when("/ui/v1/deceaseds/edit/:province/:year", {
                 controller: "EditCtrl",
-                templateUrl: "edit-deceaseds.html"
+                templateUrl: "ui/v1/deceaseds/edit-deceaseds.html"
             })
     });
 
