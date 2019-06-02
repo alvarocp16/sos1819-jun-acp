@@ -2,7 +2,7 @@ var express = require("express");
 var request = require("request");
 var cors = require("cors");
 var bodyParser = require("body-parser");
-//var elementsApi = require("./elements-api");
+var elementsApi = require("./elements-api");
 
 var injuredHospitalizedApi = require("./injured-hospitalized-api");
 var deceasedsApi = require("./deceaseds-api");
@@ -43,34 +43,82 @@ clientaps.connect(err => {
 
 //consumicion de API de Jesus Ezcurra con proxy
 
-var paths='/proxyJEG';
-var apiServerHost = 'https://sos1819-06.herokuapp.com/api/v1/uefa-club-rankings';
+var paths='/proxy1';
+var apiServerHost1 = 'https://sos1819-06.herokuapp.com/api/v1/uefa-club-rankings';
 
-//importante quitar el app = express(), que machaca la app   
-
-
-app.use("/proxyJEG", function(req, res) {
-  //var url = apiServerHost + req.baseUrl + req.url;
-  console.log('piped: '+ apiServerHost);
-  req.pipe(request(apiServerHost)).pipe(res);
-});
-
-//consumicion de API de Maria Dolores Lopez
-
-
-var paths='/proxyMDLS';
-var apiServerHost1 = 'https://sos1819-08.herokuapp.com/API/v1/tourists-by-countries';
-
-//importante quitar el app = express(), que machaca la app   
-
-
-app.use("/proxyMDLS", function(req, res) {
+app.use("/proxy1", function(req, res) {
   //var url = apiServerHost + req.baseUrl + req.url;
   console.log('piped: '+ apiServerHost1);
   req.pipe(request(apiServerHost1)).pipe(res);
 });
 
-/*
+//consumicion de API de Maria Dolores Lopez
+
+
+var paths='/proxy2';
+var apiServerHost2 = 'https://sos1819-08.herokuapp.com/API/v1/tourists-by-countries';
+
+
+app.use("/proxy2", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost2);
+  req.pipe(request(apiServerHost2)).pipe(res);
+});
+
+//consumicion de API de Pablo Garcia
+
+var paths='/proxy3';
+var apiServerHost3 = 'https://sos1819-02.herokuapp.com/api/v1/companies-stats/';
+
+
+app.use("/proxy3", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost3);
+  req.pipe(request(apiServerHost3)).pipe(res);
+});
+
+//consumicion de API de Juan Pedro
+
+var paths='/proxy4';
+var apiServerHost4 = 'https://sos1819-04.herokuapp.com/api/v1/beer-consumed-stats';
+
+
+app.use("/proxy4", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost4);
+  req.pipe(request(apiServerHost4)).pipe(res);
+});
+
+//consumicion de API de Gauthier
+
+var paths='/proxy5';
+var apiServerHost5 = 'https://sos1819-09.herokuapp.com/api/v2/climate-stats/';
+
+
+app.use("/proxy5", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost5);
+  req.pipe(request(apiServerHost5)).pipe(res);
+});
+
+
+//consumicion de API de Antonio Jesus
+
+var paths='/proxy6';
+var apiServerHost6 = 'https://sos1819-11.herokuapp.com/api/v1/general-public-expenses/';
+
+
+app.use("/proxy6", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost6);
+  req.pipe(request(apiServerHost6)).pipe(res);
+});
+
+
+
+
+
+
 //=========================================================================== Chamorro ======================================
 const uriacp = "mongodb+srv://test:test@sos-wje4l.mongodb.net/sos1819?retryWrites=true";
 const clientacp = new MongoClient(uriacp, { useNewUrlParser: true });
@@ -81,7 +129,7 @@ clientacp.connect(err => {
     elements = clientacp.db("sos1819").collection("elements");
     elementsApi.register(app, elements);
     console.log("Connected!");
-});*/
+});
 
 
 // ======================================================== PETI =====================================================================

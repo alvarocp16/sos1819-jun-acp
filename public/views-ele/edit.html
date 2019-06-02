@@ -1,0 +1,40 @@
+<br><br>
+<h1>ACP Editar Elementos
+</h1>
+<br>
+<br>
+<div class="alert alert-warning alert-dismissable">
+    <center><strong>Mensaje: estas en la vista de edición de un elemento</strong> {{data}} </center>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Provincia</th>
+            <th>Año</th>
+            <th>Victimas</th>
+            <th>Heridos no hospitalizados en accidentes</th>
+            <th>Accidentes con victimas</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{element.province}}</td>
+            <td>{{element.year}}</td>
+            <td>
+                <input type="number" class="form-control" ng-model=element.victims />
+            </td>
+            <td>
+                <input type="number" class="form-control" ng-model=element.injurednothospitalizedinaccidents />
+            </td>
+            <td>
+                <input type="number" class="form-control" ng-model=element.accidentswithvictims />
+            </td>
+            <td>
+                <button class="btn btn-primary" ng-click="updateElement(element.province,element.year)">Editar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<hr/>
+<hr/>
