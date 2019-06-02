@@ -1,7 +1,9 @@
 var express = require("express");
-var bodyParser = require("body-parser");
 var request = require("request");
+var cors = require("cors");
+var bodyParser = require("body-parser");
 var elementsApi = require("./elements-api");
+
 var injuredHospitalizedApi = require("./injured-hospitalized-api");
 var deceasedsApi = require("./deceaseds-api");
 var cors = require("cors");
@@ -22,6 +24,7 @@ app.use('/ui/v1/injured-hospitalized', express.static(path.join(__dirname, "publ
 
 
 app.use(bodyParser.json());
+app.use(cors());
 
 //Nuevo
 //============ Integración grupo 4 SUICIDE RATES ============
@@ -34,7 +37,7 @@ app.use(pathSuicide, function(req, res) {
 //============ Integración grupo 2 Movies stats ============
 var pathMovies="/proxyMovies";
 var remoteAPIMovies="https://sos1819-02.herokuapp.com/api/v1/movies-stats";
-app.use(pathSuicide, function(req, res) {
+app.use(pathMovies, function(req, res) {
   console.log('piped: '+remoteAPIMovies);
   req.pipe(request(remoteAPIMovies)).pipe(res);
 });
@@ -98,6 +101,82 @@ clientaps.connect(err => {
     // perform actions on the collection object
     console.log("Connected!");
 });
+
+//consumicion de API de Jesus Ezcurra con proxy
+
+var paths='/proxy1';
+var apiServerHost1 = 'https://sos1819-06.herokuapp.com/api/v1/uefa-club-rankings';
+
+app.use("/proxy1", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost1);
+  req.pipe(request(apiServerHost1)).pipe(res);
+});
+
+//consumicion de API de Maria Dolores Lopez
+
+
+var paths='/proxy2';
+var apiServerHost2 = 'https://sos1819-08.herokuapp.com/API/v1/tourists-by-countries';
+
+
+app.use("/proxy2", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost2);
+  req.pipe(request(apiServerHost2)).pipe(res);
+});
+
+//consumicion de API de Pablo Garcia
+
+var paths='/proxy3';
+var apiServerHost3 = 'https://sos1819-02.herokuapp.com/api/v1/companies-stats/';
+
+
+app.use("/proxy3", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost3);
+  req.pipe(request(apiServerHost3)).pipe(res);
+});
+
+//consumicion de API de Juan Pedro
+
+var paths='/proxy4';
+var apiServerHost4 = 'https://sos1819-04.herokuapp.com/api/v1/beer-consumed-stats';
+
+
+app.use("/proxy4", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost4);
+  req.pipe(request(apiServerHost4)).pipe(res);
+});
+
+//consumicion de API de Gauthier
+
+var paths='/proxy5';
+var apiServerHost5 = 'https://sos1819-09.herokuapp.com/api/v2/climate-stats/';
+
+
+app.use("/proxy5", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost5);
+  req.pipe(request(apiServerHost5)).pipe(res);
+});
+
+
+//consumicion de API de Antonio Jesus
+
+var paths='/proxy6';
+var apiServerHost6 = 'https://sos1819-11.herokuapp.com/api/v1/general-public-expenses/';
+
+
+app.use("/proxy6", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost6);
+  req.pipe(request(apiServerHost6)).pipe(res);
+});
+
+
+
 
 
 

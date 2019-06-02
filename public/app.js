@@ -5,7 +5,10 @@ angular
     .config(function($routeProvider) {
         $routeProvider.
         when("/", {
-            templateUrl: "info.html",
+            templateUrl: "info.html"
+        }).
+        when("/integrations", {
+            templateUrl: "info-integrations.html"
         }).
         when("/ui/v1/deceaseds", {
             controller: "ListCtrl",
@@ -14,7 +17,15 @@ angular
         when("/ui/v1/deceaseds/edit/:province/:year", {
             controller: "EditCtrl",
             templateUrl: "/views/edit.html"
-            
+        }).
+        when("/charts/v1/deceaseds/", {
+            controller: "ChartsCtrl",
+            templateUrl: "/charts/charts.html"
+        }).
+        when("/integrations/v1/deceaseds/", {
+            controller: "IntegrationsCtrl",
+            templateUrl: "/integrations/integrations.html"
+
    //___________________ Antonio García ________________         
           
             

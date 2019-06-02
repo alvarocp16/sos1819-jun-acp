@@ -3,6 +3,23 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "name": "f03",
+  "version": "0.0.0",
+  "description": "A chat example to showcase how to use `socket.io` with a static `express` server with `async` for control flow.",
+  "main": "server.js",
+  "author": "Mostafa Eweda <mo.eweda@gmail.com>",
+  "engines": {
+    "node": "^6.10.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "mongodb": "^3.2.2",
+    "path": "^0.12.7",
+    "request": "^2.88.0",
+    "socket.io": "~0.9.14"
+  },
   "scripts": {
     "start": "node index.js",
     "pretest": "tests/runPhantom.sh",
@@ -15,6 +32,8 @@
     "test-protractor-injured": "protractor test/tests-injured.js",
     "test-protractor-element": "protractor test/tests-elements.js",
     "posttest": "killall phantomjs"
+    "test": "newman run https://www.getpostman.com/collections/31ca02335b7c99b2415b; newman run https://www.getpostman.com/collections/82f31b17bc5c15b93454; newman run https://www.getpostman.com/collections/5d2633d5e245f234de9f",
+    "test-protractor": "protractor test/tests.js"
   },
   "repository": {
     "type": "git",
