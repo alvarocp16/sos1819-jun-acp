@@ -1,8 +1,7 @@
+<br><br>
+<h1>Editar heridos
+    <br><br>
 
-    <br><br>
-    <h1>Editar heridos
-    <br><br>
-    
     <div class="alert alert-warning alert-dismissable">
 
         <center><strong>¡Atención!</strong> {{data}} </center>
@@ -23,22 +22,21 @@
                 <td>{{ updatedInjuredHospitalized.province }}</td>
                 <td>{{ updatedInjuredHospitalized.year }}</td>
                 <td>
-                    <input type="number" class="form-control" ng-model= updatedInjuredHospitalized.accident_with_victim value="Accidentes con victimas"/>
+                    <input type="number" class="form-control" ng-model=updatedInjuredHospitalized.accident_with_victim value="Accidentes con victimas" />
                 </td>
                 <td>
-                    <input type="number" class="form-control" ng-model= updatedInjuredHospitalized.number_of_deceased value="Numero de muertos"/>
+                    <input type="number" class="form-control" ng-model=updatedInjuredHospitalized.number_of_deceased value="Numero de muertos" />
                 </td>
                 <td>
-                    <input type="number" class="form-control" ng-model= updatedInjuredHospitalized.injured_hospitalized value="Heridos hospitalizados"/>
+                    <input type="number" class="form-control" ng-model=updatedInjuredHospitalized.injured_hospitalized value="Heridos hospitalizados" />
                 </td>
                 <td>
-    
+
                     <button class="btn btn-primary" ng-click="updateInjuredHospitalized()">Editar</button>
                 </td>
             </tr>
             <br><br>
-        
-        
+
+
         </tbody>
     </table>
-

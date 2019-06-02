@@ -1,12 +1,11 @@
 /global angular/
 
-var app = angular.module("MiniPostmanApp")
-app.controller("EditCtrl",["$scope","$http", "$routeParams", "$location", function ($scope,$http,$routeParams,$location){
+var app = angular.module("app")
+app.controller("EditCtrl-inj",["$scope","$http", "$routeParams", "$location", function ($scope,$http,$routeParams,$location){
     
     console.log("Edit Controller initialized!");
 
 
-    $scope.url = "/api/v1/injured-hospitalized";
     var API = "/api/v1/injured-hospitalized";
     //var API = "https://sos1819-14.herokuapp.com/api/v1/injuredHospitalized";
     var province = $routeParams.province;
@@ -26,10 +25,10 @@ app.controller("EditCtrl",["$scope","$http", "$routeParams", "$location", functi
             console.log("Updating a new injured");
             
             
-            $http.put(API+"/"+province+"/"+year, $scope.updatedInjuredHospitalized).then(function (response){
+            $http.put(API + "/" + province +"/"+ year, $scope.updatedInjuredHospitalized).then(function (response){
                 $scope.status= "Status: Registro modificado con éxito";
                 console.log("POST Response "+ response.status + "" + response.data);            
-               $location.path("/");
+               $location.path("/ui/v1/injured-hospitalized");
             
             }, function() {
                 if ($scope.updatedInjuredHospitalized.accident_with_victim== null ||
