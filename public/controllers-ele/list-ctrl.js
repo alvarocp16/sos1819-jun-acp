@@ -2,8 +2,7 @@
 var app = angular.module("app");
 app.controller("ListCtrl-ele", ["$scope", "$http", function($scope, $http) {
     console.log("List Controller initialized!");
-    var API = "https://sos1819-11.herokuapp.com/api/v2/public-expenditure-educations";
-    var proxyAPI = "/proxyJMC";
+    var API = "/api/v1/elements";
     //https://sos1819-11.herokuapp.com/api/v2/public-expenditure-educations
     /*var limit = 10;
     var offset = 0;
