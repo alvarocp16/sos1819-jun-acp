@@ -33,7 +33,7 @@ app.controller("EditCtrl", ["$scope", "$http", "$routeParams", "$location", func
             if ($scope.updatedDeceased.life == null ||
                 $scope.updatedDeceased.penalty == null ||
                 $scope.updatedDeceased.number == null) {
-                $scope.status = "Error: debe completar todos los campos"
+                $scope.status = "Error: debe completar todos los campos";
             }
         });
     };
