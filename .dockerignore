@@ -1,0 +1,4 @@
+# Node-specific files
+node_modules
+npm-debug.log
+
