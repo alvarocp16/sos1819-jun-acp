@@ -11,84 +11,90 @@ app.controller("IntegrationsCtrl", ["$scope", "$http", function($scope, $http) {
     var api4 = "/proxy4";
     var api5 = "/proxy5";
     var api6 = "/proxy6";
-    var apiExterna1 = "https://api.openweathermap.org/data/2.5/weather?q=Seville&appid=a58c838b9e41e87a40337f6e0b5ebc10";
+    var apiExterna1 = "proxyExterno";
+    var apiExterna2 = "proxyExterno2";
+    var apiExterna3 = "/proxyExterno3";
 
     var datoAux = [];
     var datoAux2 = [];
     var datoAux3 = [];
 
-    //-------------------API grupo 6 - Jesus Ezcurra---------------------------------
+    //1-------------------API grupo 6 - Jesus Ezcurra---------------------------------
     $http.get(api1).then(function(responseApi1) {
-        var i;
-        for (i = 0; i < responseApi1.data.length; i++) {
-            datoAux.push(responseApi1.data[i].country);
-            datoAux2.push(responseApi1.data[i].points);
-            datoAux3.push(responseApi1.data[i].season);
-        }
-
-        Highcharts.chart('container', {
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: "Uefa Club Rankings"
-            },
-            xAxis: {
-                categories: [
-                    [datoAux[0], datoAux3[0]],
-                    [datoAux[1], datoAux3[1]],
-                    [datoAux[2], datoAux3[2]],
-                    [datoAux[3], datoAux3[3]],
-                    [datoAux[4], datoAux3[4]]
-                ],
-                title: {
-                    text: null
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Points',
-                    align: 'high'
+        $http.get(myApi).then(function(response) {
+            var i;
+            for (i = 0; i < responseApi1.data.length; i++) {
+                datoAux2.push(responseApi1.data[i].points);
+                datoAux3.push(responseApi1.data[i].season);
+            }
+            for (i = 0; i < response.data.length; i++) {
+                datoAux.push(response.data[i].province);
+            }
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'bar'
                 },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            tooltip: {
-                valueSuffix: ' points'
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
+                title: {
+                    text: "Integration: Uefa Club Rankings"
+                },
+                xAxis: {
+                    categories: [
+                        [datoAux[0], datoAux3[0]],
+                        [datoAux[1], datoAux3[1]],
+                        [datoAux[2], datoAux3[2]],
+                        [datoAux[3], datoAux3[3]],
+                        [datoAux[4], datoAux3[4]]
+                    ],
+                    title: {
+                        text: null
                     }
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 80,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-                shadow: true
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Total Points',
-                data: [datoAux2[0], datoAux2[1], datoAux2[2], datoAux2[3], datoAux2[4]]
-            }]
-        });
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Points',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ' points'
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'top',
+                    x: -40,
+                    y: 80,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                    shadow: true
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Total Points',
+                    data: [datoAux2[0], datoAux2[1], datoAux2[2], datoAux2[3], datoAux2[4]]
+                }]
+            });
 
+        });
     });
 
 
-    //-------------------API grupo 8 - M Dolores Lopez---------------------------------
+
+    //2-------------------API grupo 8 - M Dolores Lopez---------------------------------
 
     var dato = [];
     var dato1 = [];
@@ -124,74 +130,78 @@ app.controller("IntegrationsCtrl", ["$scope", "$http", function($scope, $http) {
         }
     });
 
-    //-------------------API grupo 2 - Pablo Garcia---------------------------------
+    //3-------------------API grupo 2 - Pablo Garcia---------------------------------
 
 
     $http.get(api3).then(function(response2) {
-        anychart.onDocumentReady(function() {
-            // create pie chart with passed data
-            var data = anychart.data.set([
-                [response2.data[0].company, response2.data[0].employee],
-                [response2.data[1].company, response2.data[1].employee],
-                [response2.data[2].company, response2.data[2].employee],
-                [response2.data[3].company, response2.data[3].employee],
-                [response2.data[4].company, response2.data[4].employee]
-            ]);
+        $http.get(myApi).then(function(response) {
+            anychart.onDocumentReady(function() {
+                // create pie chart with passed data
+                var data = anychart.data.set([
+                    [response2.data[0].company, response.data[0].number],
+                    [response2.data[1].company, response.data[1].number],
+                    [response2.data[2].company, response.data[2].number],
+                    [response2.data[3].company, response.data[3].number],
+                    [response2.data[4].company, response.data[4].number]
+                ]);
 
-            var wealth = data.mapAs({ 'x': 0, 'value': 1 });
+                var wealth = data.mapAs({ 'x': 0, 'value': 1 });
 
-            var chart = anychart.pie(wealth);
-            chart.labels()
-                .hAlign('center')
-                .position('outside')
-                .format('{%Value} points');
+                var chart = anychart.pie(wealth);
+                chart.labels()
+                    .hAlign('center')
+                    .position('outside')
+                    .format('{%Value} points');
 
-            // set chart title text settings
-            chart.title('Companies Stats');
+                // set chart title text settings
+                chart.title('Integration: Companies Stats');
 
-            // set legend title text settings
-            chart.legend()
-                // set legend position and items layout
-                .position('center-bottom')
-                .itemsLayout('horizontal')
-                .align('center');
+                // set legend title text settings
+                chart.legend()
+                    // set legend position and items layout
+                    .position('center-bottom')
+                    .itemsLayout('horizontal')
+                    .align('center');
 
-            // set container id for the chart
-            chart.container('container_anychart');
-            // initiate chart drawing
-            chart.draw();
+                // set container id for the chart
+                chart.container('container_anychart');
+                // initiate chart drawing
+                chart.draw();
+            });
         });
     });
 
 
-    //-------------------API grupo 4 - Juan Pedro---------------------------------
+    //4-------------------API grupo 4 - Juan Pedro---------------------------------
 
     $http.get(api4).then(function(response1) {
-        anychart.onDocumentReady(function() {
-            // create pie chart with passed data
-            var chart = anychart.pie([
-                [response1.data[0].country, response1.data[0].countryConsumition],
-                [response1.data[1].country, response1.data[1].countryConsumition],
-                [response1.data[2].country, response1.data[2].countryConsumition],
-                [response1.data[3].country, response1.data[3].countryConsumition]
-            ]);
+        $http.get(myApi).then(function(response) {
+            anychart.onDocumentReady(function() {
+                // create pie chart with passed data
+                var chart = anychart.pie([
+                    [response.data[0].province, response1.data[0].countryConsumition],
+                    [response.data[1].province, response1.data[1].countryConsumition],
+                    [response.data[2].province, response1.data[2].countryConsumition],
+                    [response.data[3].province, response1.data[3].countryConsumition]
+                ]);
 
-            // set chart title text settings
-            chart.title('Beer consumed Stats')
-                //set chart radius
-                .radius('43%')
-                // create empty area in pie chart
-                .innerRadius('30%');
+                // set chart title text settings
+                chart.title('Integration: Beer consumed Stats')
+                    //set chart radius
+                    .radius('43%')
+                    // create empty area in pie chart
+                    .innerRadius('30%');
 
-            // set container id for the chart
-            chart.container('container_anychart2');
-            // initiate chart drawing
-            chart.draw();
+                // set container id for the chart
+                chart.container('container_anychart2');
+                // initiate chart drawing
+                chart.draw();
+            });
         });
     });
 
-     //-------------------INTEGRACION con API grupo 5  ---------------------------------
-    
+    //5-------------------INTEGRACION con API grupo 5  ---------------------------------
+
     //morris.js
     $http.get(myApi).then(function(response) {
         $http.get(api5).then(function(response2) {
@@ -210,9 +220,55 @@ app.controller("IntegrationsCtrl", ["$scope", "$http", function($scope, $http) {
     });
 
 
-    //-------------------INTEGRACION con API grupo 11 - Antonio Jesus ---------------------------------
-    
+    //6-------------------INTEGRACION con API grupo 11 - Antonio Jesus ---------------------------------
+
     $http.get(api6).then(function(response) {
+        $http.get(myApi).then(function(response2) {
+
+
+            am4core.ready(function() {
+
+                // Themes begin
+                am4core.useTheme(am4themes_kelly);
+                am4core.useTheme(am4themes_animated);
+                // Themes end
+
+                // Create chart instance
+                var chart = am4core.create("container_a", am4charts.PieChart);
+
+                // Add data
+                chart.data = [
+                    { "cat": response.data[0].educationExpense, "val": response2.data[0].number },
+                    { "cat": response.data[1].educationExpense, "val": response2.data[1].number },
+                    { "cat": response.data[2].educationExpense, "val": response2.data[2].number },
+                    { "cat": response.data[3].educationExpense, "val": response2.data[3].number },
+                    { "cat": response.data[4].educationExpense, "val": response2.data[4].number }
+                ];
+
+                // Add and configure Series
+                chart.innerRadius = am4core.percent(50);
+
+                // Add and configure Series
+                var pieSeries = chart.series.push(new am4charts.PieSeries());
+                pieSeries.dataFields.value = "val";
+                pieSeries.dataFields.category = "cat";
+                pieSeries.slices.template.stroke = am4core.color("#fff");
+                pieSeries.slices.template.strokeWidth = 2;
+                pieSeries.slices.template.strokeOpacity = 1;
+
+                // This creates initial animation
+                pieSeries.hiddenState.properties.opacity = 1;
+                pieSeries.hiddenState.properties.endAngle = -90;
+                pieSeries.hiddenState.properties.startAngle = -90;
+
+            }); // end am4core.ready()
+        });
+    });
+
+
+    //7-INTEGRACION CON API EXTERNA 
+
+    $http.get(apiExterna1).then(function(response) {
         $http.get(myApi).then(function(response2) {
 
 
@@ -223,15 +279,15 @@ app.controller("IntegrationsCtrl", ["$scope", "$http", function($scope, $http) {
                 // Themes end
 
                 // Create chart instance
-                var chart = am4core.create("container_a", am4charts.PieChart);
+                var chart = am4core.create("externa1", am4charts.PieChart);
 
                 // Add data
                 chart.data = [
-                    { "eduexpen": response.data[0].educationExpense, "deads": response2.data[0].number },
-                    { "eduexpen": response.data[1].educationExpense, "deads": response2.data[1].number },
-                    { "eduexpen": response.data[2].educationExpense, "deads": response2.data[2].number },
-                    { "eduexpen": response.data[3].educationExpense, "deads": response2.data[3].number },
-                    { "eduexpen": response.data[4].educationExpense, "deads": response2.data[4].number }
+                    { "eduexpen": response.data[0].date, "deads": response2.data[0].number },
+                    { "eduexpen": response.data[1].date, "deads": response2.data[1].number },
+                    { "eduexpen": response.data[2].date, "deads": response2.data[2].number },
+                    { "eduexpen": response.data[3].date, "deads": response2.data[3].number },
+                    { "eduexpen": response.data[4].date, "deads": response2.data[4].number }
                 ];
 
                 // Add and configure Series
@@ -250,87 +306,119 @@ app.controller("IntegrationsCtrl", ["$scope", "$http", function($scope, $http) {
             }); // end am4core.ready()
         });
     });
-    
-    
-    //INTEGRACIO CON API EXTERNA  
-    
-    
- $http.get("apiExterna1").then(function(response) {
-        $http.get("myApi").then(function (response2) {
-            anychart.onDocumentReady(function() {
-                // create data set
-                var data = anychart.data.set([
-                    [response2.data[0].province, response.data.main.temp],
-                    [response2.data[1].province, response.data.main.pressure],
-                    [response2.data[2].province, response.data.main.humidity],
-                    [response2.data[3].province, response.data.main.temp_min]
-                ]);
 
-                // create pie chart with passed data
-                var chart = anychart.pie(data);
+    //8-INTEGRACION CON API EXTERNA 2
 
-                // set chart radius
-                chart.innerRadius('65%')
-                    // set value for the exploded slices
-                    .explode(25);
+    var incomes = [];
+    var labels = [];
 
-                // create standalone label and set settings
-                var label = anychart.standalones.label();
-                label.enabled(true)
-                    .text('Zonas recogidas de mi api con info meteorológica de api externa')
-                    .width('100%')
-                    .height('100%')
-                    .adjustFontSize(true, true)
-                    .minFontSize(10)
-                    .maxFontSize(25)
-                    .fontColor('#60727b')
-                    .position('center')
-                    .anchor('center')
-                    .hAlign('center')
-                    .vAlign('middle');
+    $http.get(apiExterna2).then(function(response) {
+        $http.get(myApi).then(function(response1) {
 
-                // set label to center content of chart
-                chart.center().content(label);
+            for (var i = 0; i < response.data.length; i++) {
+                incomes.push(response.data[i].name);
+            }
+            for (var i = 0; i < response1.data.length; i++) {
+                labels.push(response1.data[i].number);
+            }
 
-                // create range color palette with color ranged
-                var palette = anychart.palettes.rangeColors();
-                palette.items([
-                    { color: '#c26364' },
-                    { color: '#dba869' }
-                ]);
-                // set chart palette
-                chart.palette(palette);
 
-                // set hovered settings
-                chart.hovered()
-                    .fill('#6f3448');
-
-                // set selected settings
-                chart.selected()
-                    .fill('#ff6e40');
-
-                // set hovered outline settings
-                chart.hovered().outline()
-                    .fill(function() {
-                        return anychart.color.lighten('#6f3448', 0.55);
-                    });
-
-                // set selected outline settings
-                chart.selected().outline()
-                    .offset(5)
-                    .fill(function() {
-                        return anychart.color.lighten('#ff6e40', 0.25);
-                    });
-
-                // set container id for the chart
-                chart.container('externa1');
-                // initiate chart drawing
-                chart.draw();
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [response.data[0].name, response.data[1].name, response.data[2].name, response.data[3].name, response.data[4].name, response.data[5].name],
+                    datasets: [{
+                        label: '# number of deceaseds',
+                        data: [labels[0], labels[1], labels[2],
+                            [3], labels[4], labels[5]
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
             });
-
         });
     });
 
+
+    //9-INTEGRACION CON API EXTERNA 2
+    var income = [];
+    var label = [];
+
+    $http.get(apiExterna3).then(function(response) {
+        $http.get(myApi).then(function(response1) {
+
+            for (var i = 0; i < response.data.length; i++) {
+                income.push(response.data[i].number);
+            }
+            for (var i = 0; i < response1.data.length; i++) {
+                label.push(response1.data[i].province);
+            }
+
+            var ctx = document.getElementById('externa3').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                    labels: [response1.data[0].province, response1.data[1].province, response1.data[2].province, response1.data[3].province, response1.data[4].province, response1.data[5].province],
+                    datasets: [{
+                        label: '# Income',
+                        data: [income[0], income[1], income[2], income[3], income[4], income[5]],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    });
 
 
 }]);

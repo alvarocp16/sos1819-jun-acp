@@ -95,6 +95,7 @@ angular
 
                     $http.get(API).then(function(response) {
                         var i;
+                        console.log(response.status);
                         for (i = 0; i < response.data.length; i++) {
                             datos.push({ x: response.data[i].number, y: response.data[i].life, z: response.data[i].year, name: response.data[i].province });
                         }
@@ -132,12 +133,7 @@ angular
 
                         chart.render();
 
-
-
                     });
-
-
-
 
                 },
                 function(response) {
