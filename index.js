@@ -175,8 +175,40 @@ app.use("/proxy6", function(req, res) {
   req.pipe(request(apiServerHost6)).pipe(res);
 });
 
+//integracion api externa
+var paths ='/proxyExterno';
+var apiServerHost7 = 'https://data.police.uk/api/crimes-street-dates';
 
 
+app.use("/proxyExterno", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost7);
+  req.pipe(request(apiServerHost7)).pipe(res);
+});
+
+
+//integracion api externa2
+var paths ='/proxyExterno2';
+var apiServerHost8 = 'https://restcountries.eu/rest/v2/all';
+
+
+app.use("/proxyExterno2", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost8);
+  req.pipe(request(apiServerHost8)).pipe(res);
+});
+
+
+//integracion api externa3
+var paths ='/proxyExterno3';
+var apiServerHost9 = 'https://api.jcdecaux.com/vls/v1/stations/?contract=Seville&apiKey=6fa39265431480ca0b5f3393cd78f29e2d436882';
+
+
+app.use("/proxyExterno3", function(req, res) {
+  //var url = apiServerHost + req.baseUrl + req.url;
+  console.log('piped: '+ apiServerHost9);
+  req.pipe(request(apiServerHost9)).pipe(res);
+});
 
 
 

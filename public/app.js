@@ -10,6 +10,16 @@ angular
         when("/integrations", {
             templateUrl: "info-integrations.html"
         }).
+        when("/infoanalytics", {
+            templateUrl: "info-analytics.html",
+
+        }).
+        when("/analytics", {
+            controller: "ChartsGrupalCtrl",
+            templateUrl: "/charts-grupal/charts.html"
+
+        }).
+        
         when("/ui/v1/deceaseds", {
             controller: "ListCtrl",
             templateUrl: "/views/list.html"
@@ -25,10 +35,7 @@ angular
         when("/integrations/v1/deceaseds/", {
             controller: "IntegrationsCtrl",
             templateUrl: "/integrations/integrations.html"
-
-   //___________________ Antonio García ________________         
-          
-            
+            //___________________ Antonio García ________________
         }).when("/ui/v1/injured-hospitalized", {
             controller: "ListCtrl-inj",
             templateUrl: "/views-inj/list.html"
@@ -36,9 +43,7 @@ angular
         when("/ui/v1/injured-hospitalized/edit/:province/:year", {
             controller: "EditCtrl-inj",
             templateUrl: "/views-inj/edit.html"
-            
-    //___________________ Alvaro ________________         
-    
+            //__________________ Chamorro________________
         }).when("/ui/v1/elements", {
             controller: "ListCtrl-ele",
             templateUrl: "/views-ele/list.html"
@@ -46,7 +51,6 @@ angular
         when("/ui/v1/elements/edit/:province/:year", {
             controller: "EditCtrl-ele",
             templateUrl: "/views-ele/edit.html"
-            
         });
     });
 
