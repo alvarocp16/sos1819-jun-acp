@@ -12,10 +12,16 @@ angular
             templateUrl: "info-integrations.html",
 
         }).
-        when("/analytics", {
+        when("/infoanalytics", {
             templateUrl: "info-analytics.html",
 
         }).
+        when("/analytics", {
+            controller: "ChartsGrupalCtrl",
+            templateUrl: "/charts-grupal/charts.html"
+
+        }).
+        
         when("/ui/v1/deceaseds", {
             controller: "ListCtrl",
             templateUrl: "/views/list.html"
