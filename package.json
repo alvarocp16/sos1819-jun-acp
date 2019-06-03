@@ -27,7 +27,6 @@
     "test-deceaseds": "newman run https://www.getpostman.com/collections/31ca02335b7c99b2415b",
     "test-elements": "newman run https://www.getpostman.com/collections/5d2633d5e245f234de9f",
     "test-injuredHospitalized": "newman run https://www.getpostman.com/collections/82f31b17bc5c15b93454",
-    "test1": "newman run https://www.getpostman.com/collections/31ca02335b7c99b2415b; newman run https://www.getpostman.com/collections/82f31b17bc5c15b93454; newman run https://www.getpostman.com/collections/5d2633d5e245f234de9f",
     "test-protractor-deceased": "protractor test/tests.js",
     "test-protractor-injured": "protractor test/tests-injured.js",
     "test-protractor-element": "protractor test/tests-elements.js",
