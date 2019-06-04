@@ -20,12 +20,13 @@
   "scripts": {
     "start": "node index.js",
     "pretest": "tests/runPhantom.sh",
-    "test": "newman run https://www.getpostman.com/collections/31ca02335b7c99b2415b; newman run https://www.getpostman.com/collections/82f31b17bc5c15b93454; newman run https://www.getpostman.com/collections/5d2633d5e245f234de9f",
-    "test-deceaseds": "protractor tests/tests.js && newman run https://www.getpostman.com/collections/31ca02335b7c99b2415b",
-    "test-elements": "protractor tests/tests.js && newman run https://www.getpostman.com/collections/5d2633d5e245f234de9f",
+    "test": "newman run https://www.getpostman.com/collections/31ca02335b7c99b2415b && protractor tests/tests.js; newman run https://www.getpostman.com/collections/82f31b17bc5c15b93454; newman run https://www.getpostman.com/collections/5d2633d5e245f234de9f",
+    "posttest": "killall phantomjs",
+    "test-deceaseds": "protractor tests/tests.js && newman run https://www.getpostman.com/collections/3830303d7fdf39da29dd",
+    "test-elements": "newman run https://www.getpostman.com/collections/5d2633d5e245f234de9f",
     "test-injuredHospitalized": "newman run https://www.getpostman.com/collections/82f31b17bc5c15b93454",
-    "test-protractor": "protractor tests/tests.js",
-    "posttest": "killall phantomjs"
+    "test-protractor": "protractor tests/tests.js"
+   
   },
   "devDependencies": {},
   "license": "ISC"

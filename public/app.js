@@ -12,6 +12,10 @@ angular
             templateUrl: "info-integrations.html",
 
         }).
+        when("/about", {
+            templateUrl: "videos.html",
+
+        }).
         when("/infoanalytics", {
             templateUrl: "info-analytics.html",
 
