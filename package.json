@@ -17,13 +17,14 @@
     "express": "^4.16.4",
     "mongodb": "^3.2.2",
     "path": "^0.12.7",
+    "phantomjs": "^2.1.7",
     "request": "^2.88.0",
     "socket.io": "~0.9.14"
   },
   "scripts": {
     "start": "node index.js",
     "pretest": "tests/runPhantom.sh",
-    "test": "newman run tests/backend/api-v1-tests.json && protractor tests/tests-elements.js",
+    "test": "newman run tests/backend/api-v1-tests.json && protractor tests/tests-elements.js; newman run https://www.getpostman.com/collections/82f31b17bc5c15b93454; newman run https://www.getpostman.com/collections/3830303d7fdf39da29dd",
     "testDeceaseds": "newman run tests/SOS1819-14-elements.postman_collection.json && protractor tests/tests.js",
     "test-injuredHospitalized": "newman run https://www.getpostman.com/collections/82f31b17bc5c15b93454",
     "test-protractor-deceased": "protractor test/tests.js",

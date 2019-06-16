@@ -192,9 +192,9 @@ apiRest.register = (app, deceaseds) => {
 
         var newDeceased = [{
                 province: "Badajoz",
-                number: "5",
-                penalty: "56",
-                life: "50",
+                number: "60",
+                penalty: "414",
+                life: "507",
                 year: 2015
 
             },
@@ -202,32 +202,32 @@ apiRest.register = (app, deceaseds) => {
             {
                 province: "Malaga",
                 number: "20",
-                penalty: "43",
-                life: "49",
+                penalty: "438",
+                life: "492",
                 year: 2015
             },
 
             {
                 province: "Seville",
                 number: "10",
-                penalty: "41",
-                life: "50",
+                penalty: "418",
+                life: "502",
                 year: 2015
             },
 
             {
                 province: "Madrid",
                 number: "40",
-                penalty: "41",
-                life: "30",
+                penalty: "411",
+                life: "509",
                 year: 2015
             },
 
             {
                 province: "Huelva",
                 number: "10",
-                penalty: "22",
-                life: "12",
+                penalty: "422",
+                life: "512",
                 year: 2015
             }
         ];
