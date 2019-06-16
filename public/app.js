@@ -51,7 +51,15 @@ angular
         when("/ui/v1/elements/edit/:province/:year", {
             controller: "EditCtrl-ele",
             templateUrl: "/views-ele/edit.html"
+        }).
+        when("/charts/v1/elements/", {
+            controller: "ChartsEleCtrl",
+            templateUrl: "/charts-ele/charts.html"
+        }).
+        when("/integrations/v1/elements/", {
+            controller: "IntegrationsEleCtrl",
+            templateUrl: "/integrations-ele/integrations.html"
         });
     });
 
-console.log("Contacts App Initialized.");
+console.log("App Initialized.");

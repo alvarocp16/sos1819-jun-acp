@@ -66,12 +66,12 @@
             <td><input placeholder="Valor" name="valor" class="form-control" ng-model="valor" /></td>
             <td><button class="btn btn-outline-primary" ng-click="busqueda()">Buscar</button></td>
         </tr>
-        <!--<tr>
-            <td><label>Nº de elementos en cada página: <input name="limit" class="form-control" type="number" min="0" max="10" ng-model="limit" ng-init="limit=0" /></label></td>
-            <td><label>Nº de elemento a partir del cual desea paginar: <input name="offset" class="form-control" type="number" min="0" max="10" ng-model="offset" ng-init="offset=0" /></label></td>
-            <td><button class="btn btn-outline-primary" ng-click="paginacion()">Paginar</button></td>
-            <td><button class="btn btn-outline-secondary" ng-click="anteriorPag()">Pág Anterior</button></td>
-            <td><button class="btn btn-outline-secondary" ng-click="siguientePag()">Pág Siguiente</button></td>
-        </tr>-->
+        <tr>
+            <!--<td><label>Nº de elementos en cada página: <input name="limit" class="form-control" type="number" min="0" max="10" ng-model="limit" ng-init="limit=0" /></label></td>-->
+            <!--<td><label>Nº de elemento a partir del cual desea paginar: <input name="offset" class="form-control" type="number" min="0" max="10" ng-model="offset" ng-init="offset=0" /></label></td>-->
+            <!--<td><button class="btn btn-outline-primary" ng-click="paginacion()">Paginar</button></td>-->
+            <td><button class="btn btn-outline-secondary" ng-click="previousPage()" value="Página Anterior">Pág Anterior</button></td>
+            <td><button class="btn btn-outline-secondary" ng-click="nextPage()" value="Siguiente Página">Pág Siguiente</button></td>
+        </tr>
     </tbody>
 </table>

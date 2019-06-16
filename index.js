@@ -3,14 +3,11 @@ var request = require("request");
 var cors = require("cors");
 var bodyParser = require("body-parser");
 var elementsApi = require("./elements-api");
-
 var injuredHospitalizedApi = require("./injured-hospitalized-api");
 var deceasedsApi = require("./deceaseds-api");
-var cors = require("cors");
 var path = require("path");
 
 var app = express();
-app.use(cors());
 app.use("/", express.static(__dirname + "/public"));
 
 
@@ -25,65 +22,6 @@ app.use('/ui/v1/injured-hospitalized', express.static(path.join(__dirname, "publ
 
 app.use(bodyParser.json());
 app.use(cors());
-
-//Nuevo
-//============ Integración grupo 4 SUICIDE RATES ============
-var pathSuicide="/proxySuicide";
-var remoteAPISuicide="https://sos1819-04.herokuapp.com/api/v1/suicide-rates";
-app.use(pathSuicide, function(req, res) {
-  console.log('piped: '+remoteAPISuicide);
-  req.pipe(request(remoteAPISuicide)).pipe(res);
-});
-//============ Integración grupo 2 Movies stats ============
-var pathMovies="/proxyMovies";
-var remoteAPIMovies="https://sos1819-02.herokuapp.com/api/v1/movies-stats";
-app.use(pathMovies, function(req, res) {
-  console.log('piped: '+remoteAPIMovies);
-  req.pipe(request(remoteAPIMovies)).pipe(res);
-});
-//============ Integración grupo 3 country stats ============
-var pathCountry="/proxyCountry";
-var remoteAPICountry="https://sos1819-03.herokuapp.com/api/v1/country-stats";
-app.use(pathCountry, function(req, res) {
-  console.log('piped: '+remoteAPICountry);
-  req.pipe(request(remoteAPICountry)).pipe(res);
-});
-//============ Integración grupo 6 Uefa-country-rankings ============
-var pathUefa="/proxyUefa";
-var remoteAPIUefa="https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings";
-app.use(pathUefa, function(req, res) {
-  console.log('piped: '+remoteAPIUefa);
-  req.pipe(request(remoteAPIUefa)).pipe(res);
-});
-//============ Integración grupo 9 Economy-stats ============
-var pathEconomy="/proxyEconomy";
-var remoteAPIEconomy="https://sos1819-09.herokuapp.com/api/v1/economy-stats";
-app.use(pathEconomy, function(req, res) {
-  console.log('piped: '+remoteAPIEconomy);
-  req.pipe(request(remoteAPIEconomy)).pipe(res);
-});
-//============ Integración grupo 11 Public-expenditure-educations ============
-var pathPublic="/proxyPublic";
-var remoteAPIPublic="https://sos1819-11.herokuapp.com/api/v1/public-expenditure-educations";
-app.use(pathPublic, function(req, res) {
-  console.log('piped: '+remoteAPIPublic);
-  req.pipe(request(remoteAPIPublic)).pipe(res);
-});
-//============ Integración grupo 12 Youth-unemployment-stats ============
-var pathYouth="/proxyYouth";
-var remoteAPIYouth="https://sos1819-12.herokuapp.com/api/v1/youth-unemployment-stats";
-app.use(pathYouth, function(req, res) {
-  console.log('piped: '+remoteAPIYouth);
-  req.pipe(request(remoteAPIYouth)).pipe(res);
-});
-//============ Integración grupo 15 educations-centers ============
-var pathEducation="/proxyEducation";
-var remoteAPIEducation="https://sos1819-15.herokuapp.com/api/v1/educations-centers";
-app.use(pathEducation, function(req, res) {
-  console.log('piped: '+remoteAPIEducation);
-  req.pipe(request(remoteAPIEducation)).pipe(res);
-});
-//
 
 
 var port = process.env.PORT || 8080;
@@ -223,7 +161,92 @@ clientacp.connect(err => {
     elementsApi.register(app, elements);
     console.log("Connected!");
 });
-
+//Nuevo
+//============ Integración grupo 14 Deceaseds ============
+var pathDeceased="/proxyDeceased";
+var remoteAPIDeceased="https://sos1819-14.herokuapp.com/api/v1/deceaseds";
+app.use(pathDeceased, function(req, res) {
+  console.log('piped: '+remoteAPIDeceased);
+  req.pipe(request(remoteAPIDeceased)).pipe(res);
+});
+//============ Integración grupo 4 SUICIDE RATES ============
+var pathSuicide="/proxySuicide";
+var remoteAPISuicide="https://sos1819-04.herokuapp.com/api/v1/suicide-rates";
+app.use(pathSuicide, function(req, res) {
+  console.log('piped: '+remoteAPISuicide);
+  req.pipe(request(remoteAPISuicide)).pipe(res);
+});
+//============ Integración grupo 2 Movies stats ============
+var pathMovies="/proxyMovies";
+var remoteAPIMovies="https://sos1819-02.herokuapp.com/api/v1/movies-stats";
+app.use(pathMovies, function(req, res) {
+  console.log('piped: '+remoteAPIMovies);
+  req.pipe(request(remoteAPIMovies)).pipe(res);
+});
+//============ Integración grupo 3 country stats ============
+var pathCountry="/proxyCountry";
+var remoteAPICountry="https://sos1819-03.herokuapp.com/api/v1/country-stats";
+app.use(pathCountry, function(req, res) {
+  console.log('piped: '+remoteAPICountry);
+  req.pipe(request(remoteAPICountry)).pipe(res);
+});
+//============ Integración grupo 6 Uefa-country-rankings ============
+var pathUefa="/proxyUefa";
+var remoteAPIUefa="https://sos1819-06.herokuapp.com/api/v1/uefa-country-rankings";
+app.use(pathUefa, function(req, res) {
+  console.log('piped: '+remoteAPIUefa);
+  req.pipe(request(remoteAPIUefa)).pipe(res);
+});
+//============ Integración grupo 9 Economy-stats ============
+var pathEconomy="/proxyEconomy";
+var remoteAPIEconomy="https://sos1819-09.herokuapp.com/api/v1/economy-stats";
+app.use(pathEconomy, function(req, res) {
+  console.log('piped: '+remoteAPIEconomy);
+  req.pipe(request(remoteAPIEconomy)).pipe(res);
+});
+//============ Integración grupo 11 Public-expenditure-educations ============
+var pathPublic="/proxyPublic";
+var remoteAPIPublic="https://sos1819-11.herokuapp.com/api/v2/public-expenditure-educations";
+app.use(pathPublic, function(req, res) {
+  console.log('piped: '+remoteAPIPublic);
+  req.pipe(request(remoteAPIPublic)).pipe(res);
+});
+//============ Integración grupo 12 Youth-unemployment-stats ============
+var pathYouth="/proxyYouth";
+var remoteAPIYouth="https://sos1819-12.herokuapp.com/api/v1/youth-unemployment-stats";
+app.use(pathYouth, function(req, res) {
+  console.log('piped: '+remoteAPIYouth);
+  req.pipe(request(remoteAPIYouth)).pipe(res);
+});
+//============ Integración grupo 15 educations-centers ============
+var pathEducation="/proxyEducation";
+var remoteAPIEducation="https://sos1819-15.herokuapp.com/api/v1/educations-centers";
+app.use(pathEducation, function(req, res) {
+  console.log('piped: '+remoteAPIEducation);
+  req.pipe(request(remoteAPIEducation)).pipe(res);
+});
+//============ Integración api externa 1 ============
+var pathsExt1 ='/proxyExt1';
+var remoteAPIExt1 = 'https://dog.ceo/api/breeds/image/random';
+app.use(pathsExt1, function(req, res) {
+  console.log('piped: '+ remoteAPIExt1);
+  req.pipe(request(remoteAPIExt1)).pipe(res);
+});
+//============ Integración api externa 2 ============
+var pathsExt2 ='/proxyExt2';
+var remoteAPIExt2 = 'https://api2.lotadata.com/v2/places';
+app.use(pathsExt2, function(req, res) {
+  console.log('piped: '+ remoteAPIExt2);
+  req.pipe(request(remoteAPIExt2)).pipe(res);
+});
+//============ Integración api externa 3 ============
+var pathsExt3 ='/proxyExt3';
+var remoteAPIExt3 = 'https://apis.datos.gob.ar/georef/api/departamentos?formato=json&provincia=cordoba&max=10';
+app.use(pathsExt3, function(req, res) {
+  console.log('piped: '+ remoteAPIExt3);
+  req.pipe(request(remoteAPIExt3)).pipe(res);
+});
+//
 
 // ======================================================== PETI =====================================================================
 const uri = "mongodb+srv://test:test@sos-sb5wi.mongodb.net/sos1819?retryWrites=true";

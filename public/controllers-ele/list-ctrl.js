@@ -3,18 +3,50 @@ var app = angular.module("app");
 app.controller("ListCtrl-ele", ["$scope", "$http", function($scope, $http) {
     console.log("List Controller initialized!");
     var API = "/api/v1/elements";
-    //https://sos1819-11.herokuapp.com/api/v2/public-expenditure-educations
-    /*var limit = 10;
+    var limit = 10;
     var offset = 0;
-    var paginacionString = "";*/
+    var paginacionString = "";
+    //
+    var search = "?";
+    var paginationString = "";
+    $scope.currentPage = 1;
+    $scope.data1 = "¡Bienvenidos!";
+    $scope.data2 = "Los datos se encuentran actualizados";
+    //
         
     refresh();
 
     function refresh() {
         console.log("Requesting earnings inter stats to <" + API + ">...");
-        $http.get(API).then(function(response) {
+        /*$http.get(API).then(function(response) {
             console.log("Data received: " + JSON.stringify(response.data, null, 2));
             $scope.elements = response.data;
+        });*/
+        //
+        paginationString = "&limit=" + limit + "&offset=" + offset;
+        $http.get(API + search + paginationString).then(function(response) {
+            console.log("Datos recibidos: " + JSON.stringify(response.data, null, 2));
+            $scope.elements = response.data;
+            if ($scope.elements.length == 0) {
+                $scope.data2 = "No se encuentran los datos";
+            }
+            $scope.previousPage = function() {
+                if ($scope.currentPage > 1) {
+                    offset -= limit;
+                    refresh();
+                    $scope.currentPage -= 1;
+                }
+            };
+            $scope.nextPage = function() {
+                if ($scope.elements.length == limit) {
+                    offset += limit;
+                    refresh();
+                    $scope.currentPage += 1;
+                }
+            };
+        }, function(error) {
+            $scope.status = error.status;
+            $scope.data = "";
         });
     }
     $scope.loadInitialData = function() {
@@ -91,46 +123,11 @@ app.controller("ListCtrl-ele", ["$scope", "$http", function($scope, $http) {
         });
     };
     /*$scope.paginacion = function() {
-        console.log($scope.url + "?limit=" + $scope.limit + "&offset=" + $scope.offset);
-        $http.get($scope.url + "?limit=" + $scope.limit + "&offset=" + $scope.offset).then(function(response) {
+        console.log(API + "?limit=" + $scope.limit + "&offset=" + $scope.offset);
+        $http.get(API + "?limit=" + $scope.limit + "&offset=" + $scope.offset).then(function(response) {
             alert("Paginación realizada correctamente.");
             $scope.elements = response.data;
             console.log("Paginación Response: " + response.status + " " + JSON.stringify(response.data, null, 2));
         });
-    };
-    
-    $scope.paginaAnterior = function() {
-        $scope.offset = $scope.offset - $scope.limit;
-        $http.get($scope.url + "?limit=" + $scope.limit + "&offset=" + $scope.offset).then(function(response) {
-            $scope.elements = response.data;
-        });
-    };
-    $scope.paginaSiguiente = function() {
-        $scope.offset = $scope.offset + $scope.limit;
-        $http.get($scope.url + "?limit=" + $scope.limit + "&offset=" + $scope.offset).then(function(response) {
-            $scope.elements = response.data;
-            $scope.error = "";
-        });
-    }
-    function getElements() {
-        paginacionString = "&limit=" + limit + "&offset=" + offset;
-        $http.get($scope.url + "?" + paginacionString).then(function(response) {
-            console.log("Data received: " + JSON.stringify(response.data, null, 2));
-            $scope.elements = response.data;
-        });
-    }
-    getElements();
-    $scope.siguientePag = function() {
-        offset += limit;
-        getElements();
-    };
-    $scope.anteriorPag = function() {
-        if (offset < 0) {
-            offset = 0;
-        } else {
-            offset -= limit;
-        }
-        getElements();
     };*/
-
 }]);
