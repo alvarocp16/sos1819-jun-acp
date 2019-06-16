@@ -1,13 +1,9 @@
 {
-  "name": "sos1819-labs-test",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "name": "f03",
   "version": "0.0.0",
   "description": "A chat example to showcase how to use `socket.io` with a static `express` server with `async` for control flow.",
   "main": "server.js",
-  "author": "Mostafa Eweda <mo.eweda@gmail.com>",
+  "author": "",
   "engines": {
     "node": "^6.10.0"
   },
@@ -15,11 +11,7 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "mongodb": "^3.2.2",
-    "path": "^0.12.7",
-    "phantomjs": "^2.1.7",
-    "request": "^2.88.0",
-    "socket.io": "~0.9.14"
+    "request": "^2.88.0"
   },
   "scripts": {
     "start": "node index.js",
@@ -35,16 +27,13 @@
     "type": "git",
     "url": "git+https://github.com/pafmon/sos1819-labs-test.git"
   },
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/pafmon/sos1819-labs-test/issues"
   },
   "homepage": "https://github.com/pafmon/sos1819-labs-test#readme",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "cors": "^2.8.5",
-    "express": "^4.16.4",
-    "request": "^2.88.0"
-  }
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {}
 }
