@@ -27,13 +27,16 @@
     "type": "git",
     "url": "git+https://github.com/pafmon/sos1819-labs-test.git"
   },
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/pafmon/sos1819-labs-test/issues"
   },
   "homepage": "https://github.com/pafmon/sos1819-labs-test#readme",
-  "directories": {
-    "test": "tests"
-  },
-  "devDependencies": {}
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "request": "^2.88.0"
+  }
 }
