@@ -1,51 +1,43 @@
 angular
     .module("app")
     .controller("ChartsGrupalCtrl", ["$scope", "$http", "$routeParams", "$location", "$rootScope", function($scope, $http, $routeParams, $location, $rootScope) {
-
         var province = [];
         var life = [];
         var number = [];
         var penalty = [];
-
-        var province = [];
+        
+        var province1 = [];
         var victims = [];
         var accidentswithvictims = [];
         var injurednothospitalizedinaccidents = [];
-
-        var province = [];
+        
+        var province2 = [];
         var number_of_deceased = [];
         var accident_with_victim = [];
         var injured_hospitalized = [];
-
         $http.get("api/v1/deceaseds").then(function(response) {
-
             for (var i = 0; i < response.data.length; i++) {
                 province.push(response.data[i].province + " " + response.data[i].year);
                 life.push(response.data[i].life);
                 number.push(response.data[i].number);
                 penalty.push(response.data[i].penalty);
-
             }
         });
         $http.get("api/v1/elements").then(function(response) {
-
             for (var i = 0; i < response.data.length; i++) {
-                province.push(response.data[i].province + " " + response.data[i].year);
+                province1.push(response.data[i].province + " " + response.data[i].year);
                 victims.push(response.data[i].victims);
                 accidentswithvictims.push(response.data[i].accidentswithvictims);
                 injurednothospitalizedinaccidents.push(response.data[i].injurednothospitalizedinaccidents);
             }
         });
-
         $http.get("api/v1/injured-hospitalized").then(function(response) {
             for (var i = 0; i < response.data.length; i++) {
-                province.push(response.data[i].province + " " + response.data[i].year);
+                province2.push(response.data[i].province + " " + response.data[i].year);
                 number_of_deceased.push(response.data[i].number_of_deceased);
                 accident_with_victim.push(response.data[i].accident_with_victim);
                 injured_hospitalized.push(response.data[i].injured_hospitalized);
             }
-            
-
             Highcharts.chart('container', {
                 chart: {
                     type: 'area',
@@ -54,7 +46,6 @@ angular
                 title: {
                     text: "Spain's Accidents Stats"
                 },
-
                 legend: {
                     layout: 'vertical',
                     align: 'left',
@@ -124,5 +115,5 @@ angular
                 ]
             });
         });
-
     }]);
+    
