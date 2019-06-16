@@ -11,6 +11,7 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "mongodb": "^3.2.7",
     "request": "^2.88.0"
   },
   "scripts": {
@@ -27,16 +28,9 @@
     "type": "git",
     "url": "git+https://github.com/pafmon/sos1819-labs-test.git"
   },
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/pafmon/sos1819-labs-test/issues"
   },
-  "homepage": "https://github.com/pafmon/sos1819-labs-test#readme",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "cors": "^2.8.5",
-    "express": "^4.16.4",
-    "request": "^2.88.0"
-  }
+  "homepage": "https://github.com/pafmon/sos1819-labs-test#readme"
 }
