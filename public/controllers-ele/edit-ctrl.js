@@ -4,7 +4,7 @@ app.controller("EditCtrl-ele", ["$scope", "$http", "$routeParams", "$location", 
     console.log("Edit Controller initialized!");
 
     var API = "/api/v1/elements";
-    //var API = "https://sos1819-14.herokuapp.com/api/v1/elements";
+    //var API = "https://sos1819-jun-acp.herokuapp.com/api/v1/elements";
     var province = $routeParams.province;
     var year = $routeParams.year;
 

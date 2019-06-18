@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "64ca47a3-1bce-4d00-8ed3-b6e609fe545e",
-		"name": "SOS1819-14-F04",
+		"name": "sos1819-jun-acp-F04",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -26,10 +26,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -63,10 +63,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements/loadInitialData",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements/loadInitialData",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -104,10 +104,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -144,10 +144,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements/sevilla",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements/sevilla",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -181,10 +181,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements/sevilla/2015",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements/sevilla/2015",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -223,10 +223,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements?from=2016&to=2018",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements?from=2016&to=2018",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -273,10 +273,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements?limit=3&offset=1",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements?limit=3&offset=1",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -319,10 +319,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements/valverde/2015",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements/valverde/2015",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -369,10 +369,10 @@
 					"raw": "{\n        \"province\": \"murcia\",\n        \"year\": 2014,\n        \"victims\": \"4.481\",\n        \"injurednothospitalizedinaccidents\": \"1\",\n        \"accidentswithvictims\": \"1\"\n    }"
 				},
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -405,10 +405,10 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements/murcia",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements/murcia",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -442,10 +442,10 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements/murcia/2015",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements/murcia/2015",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -491,10 +491,10 @@
 					"raw": "{\n        \"province\": \"madrid\",\n        \"year\": 2015,\n        \"victims\": \"3.305\"\n    }"
 				},
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -539,10 +539,10 @@
 					"raw": "{\n        \"province\": \"valverde\",\n        \"hola\": 2002,\n        \"victims\": \"1\",\n        \"injurednothospitalizedinaccidents\": \"0\",\n        \"accidentswithvictims\": \"0\"\n    }"
 				},
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -588,10 +588,10 @@
 					"raw": "{\n    \"province\": \"sevilla\",\n    \"year\": 2014,\n    \"victims\": \"0\",\n    \"injurednothospitalizedinaccidents\": \"0\",\n    \"accidentswithvictims\": \"0\"\n}"
 				},
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements/sevilla/2014",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements/sevilla/2014",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -637,10 +637,10 @@
 					"raw": "{\n    \"province\": \"sevilla\",\n    \"year\": 2014,\n    \"victims\": \"10000\",\n    \"injurednothospitalizedinaccidents\": \"1\",\n    \"accidentswithvictims\": \"1\"\n}"
 				},
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -684,10 +684,10 @@
 					"raw": "{\n        \"province\": \"madrid\",\n        \"year\": 2015,\n        \"victims\": \"145\",\n        \"injurednothospitalizedinaccidents\": \"0\",\n        \"accidentswithvictims\": \"0\"\n    }"
 				},
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements/madrid/2016",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements/madrid/2016",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -734,10 +734,10 @@
 					"raw": "{\n        \"province\": \"madrid\",\n        \"year\": 2015,\n        \"victims\": \"1000000\",\n        \"injurednothospitalizedinaccidents\": \"0\",\n        \"accidentswithvictims\": \"0\"\n    }"
 				},
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements/madrid/2015",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements/madrid/2015",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -783,10 +783,10 @@
 					"raw": "{\r\n        \"province\": \"sevilla\",\r\n        \"year\": 2014,\r\n        \"victims\": \"5.015\",\r\n        \"injurednothospitalizedinaccidents\": \"14.876\",\r\n        \"accidentswithvictims\": \"12.632\"\r\n    }"
 				},
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements/sevilla/2014",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements/sevilla/2014",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -822,10 +822,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements/albacete/2016",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements/albacete/2016",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -860,10 +860,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements/sevilla",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements/sevilla",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],
@@ -897,10 +897,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://sos1819-14.herokuapp.com/api/v1/elements/paris/2015",
+					"raw": "https://sos1819-jun-acp.herokuapp.com/api/v1/elements/paris/2015",
 					"protocol": "https",
 					"host": [
-						"sos1819-14",
+						"sos1819-jun-acp",
 						"herokuapp",
 						"com"
 					],

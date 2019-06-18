@@ -3,125 +3,97 @@ angular
     .module("app")
     .controller("ChartsEleCtrl", ["$scope", "$http", "$routeParams", "$location", "$rootScope", function($scope, $http, $routeParams, $location, $rootScope) {
 
-        console.log("ChartsElementsCtrl loaded.");
-        var API = "/api/v1/elements";
-        var dato = [];
+            console.log("ChartsElementsCtrl loaded.");
+            var API = "/api/v1/elements";
+            var dato = [];
 
-        refresh();
+            refresh();
 
-        function refresh() {
-            $http.get(API).then(function(response) {
-                    console.log(response.data);
-                    Highcharts.chart('container', {
-                        chart: {
-                            type: 'area'
-                        },
-                        title: {
-                            text: 'Numero de victimas'
-                        },
-                        xAxis: {
+            function refresh() {
+                $http.get(API).then(function(response) {
+                        console.log(response.data);
+                        Highcharts.chart('container', {
+                            chart: {
+                                type: 'line'
+                            },
                             title: {
-                                text: 'Provincias'
+                                text: 'Victimas por año y provincia'
                             },
-                            categories: response.data.map(function(d) { return d.province })
-                        },
-                        yAxis: {
-                            title: {
-                                text: 'Valores'
+                            subtitle: {
+                                text: 'Source: /api/v1/elements'
                             },
-                            categories: response.data.map(function(d) { return d.victims })
-                        },
-                        plotOptions: {
-                            line: {
-                                dataLabels: {
-                                    enabled: true
-                                },
-                                enableMouseTracking: false
-                            }
-                        },
-                        series: [{
-                            name: 'Data',
-                            data: response.data.map(function(d) { return d.victims })
-
-                        }]
-                    });
-
-                    // Google Geochart
-                    $http.get(API).then(function(response) {
-                        var i;
-                        for (i = 0; i < response.data.length; i++) {
-                            dato.push(response.data[i].victims);
-                        }
-                        google.charts.load('current', {
-                            'packages': ['geochart'],
-                            'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
-                        });
-                        google.charts.setOnLoadCallback(drawRegionsMap);
-
-                        function drawRegionsMap() {
-                            var data = google.visualization.arrayToDataTable([
-                                ['Country', 'Elements'],
-                                ['Spain', dato[0] + dato[1] + dato[2] + dato[3] + dato[4]]
-                            ]);
-                            var options = {};
-                            var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-                            chart.draw(data, options);
-                        }
-                    });
-
-                    var datos = [];
-                    $http.get(API).then(function(response) {
-                        var i;
-                        console.log(response.status);
-                        for (i = 0; i < response.data.length; i++) {
-                            datos.push({ x: response.data[i].year, y: response.data[i].accidentswithvictims});
-                        }
-                        console.log(datos);
-                        /*var chart = new CanvasJS.Chart("chartContainer", {
-                            animationEnabled: true,
-                            zoomEnabled: true,
-                            theme: "light2",
-                            title: {
-                                text: "Capitalization And Education Expense"
+                            xAxis: {
+                                categories: response.data.map(function(d) { return d.province + " " + d.year })
                             },
-                            axisX: {
-                                title: "",
-                                suffix: "",
-                                minimum: 0,
-                                maximum: 100,
-                                gridThickness: 1
+                            yAxis: {
+                                title: {
+                                    text: 'Victimas Nº'
+                                }
                             },
-                            axisY: {
-                                title: "",
-                                suffix: "",
-                                minimum: 0,
-                                maximum: 100,
-                                gridThickness: 1
-
+                            plotOptions: {
+                                line: {
+                                    dataLabels: {
+                                        enabled: true
+                                    },
+                                    enableMouseTracking: false
+                                }
                             },
-                            data: [{
-                                type: "bubble",
-                                toolTipContent: "<b>{name}</b><br/>Number: {x}  <br/> Lifes: {y} . <br/> Year: {z}",
-                                dataPoints: datos
+                            series: [{
+                                name: 'Victimas',
+                                data: response.data.map(function(d) { return d.victims })
                             }]
                         });
-                        chart.render();*/
-                        var container = document.getElementById('visualization');
-                        /*var items = [
-                            { x: '2014-06-11', y: 10 },
-                            { x: '2014-06-12', y: 25 },
-                            { x: '2014-06-13', y: 30 },
-                            { x: '2014-06-14', y: 10 },
-                            { x: '2014-06-15', y: 15 },
-                            { x: '2014-06-16', y: 30 }
-                        ];*/
-                        var dataset = new vis.DataSet(datos);
-                       
-                        var graph2d = new vis.Graph2d(container, dataset); 
+                        // Google Geochart
+                        $http.get(API).then(function(response) {
+                            var i;
+                            for (i = 0; i < response.data.length; i++) {
+                                dato.push(response.data[i].victims);
+                            }
+                            var suma = 0;
+                            for (i = 0; i < response.data.length; i++) {
+                                suma = suma + dato[i];
+                            }
+                            google.charts.load('current', {
+                                'packages': ['geochart'],
+                                'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+                            });
+                            google.charts.setOnLoadCallback(drawRegionsMap);
+
+                            function drawRegionsMap() {
+                                var data = google.visualization.arrayToDataTable([
+                                    ['Country', 'Elements'],
+                                    ['Spain', suma]
+                                ]);
+                                var options = {};
+                                var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+                                chart.draw(data, options);
+                            }
+                        });
+                        // Graphosaurus Chart
+                        $http.get(API).then(function(response) {
+                            var itemsY = [];
+                            var itemsV = [];
+                            for (var i = 0; i < response.data.length; i++) {
+                                itemsY.push(response.data[i].year);
+                                itemsV.push(response.data[i].victims);
+                            }
+                            var items = [
+                                {x: itemsY[0], y: itemsV[0]},
+                                {x: itemsY[1], y: itemsV[1]},
+                                {x: itemsY[2], y: itemsV[2]},
+                                {x: itemsY[3], y: itemsV[3]},
+                                {x: itemsY[4], y: itemsV[4]},
+                                {x: itemsY[5], y: itemsV[5]}
+                              ];    
+                            console.log(items);
+                            var container = document.getElementById('visualization');
+                            var dataset = new vis.DataSet(items);
+                            var options = {
+                                start: 2013,
+                                end: 2016
+                            };
+                            var graph2d = new vis.Graph2d(container, dataset, options);
+                        });
                     });
-                },
-                function(response) {
-                    $scope.dataResponse = response.status + ", " + response.statusText;
-                });
-        }
-    }]);
+                }
+            }]);
